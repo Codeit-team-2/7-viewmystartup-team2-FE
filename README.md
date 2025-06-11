@@ -13,10 +13,11 @@ VIEW MY STARTUP
 
 # 기술 스택
 
-Frontend: JavaScript, React.js, scss
-Backend: Express.js, PrismaORM
-Database: MongoDB
-공통 Tool: Git & Github, Discord
+Frontend: JavaScript, React.js
+
+Backend:
+
+Database:
 
 # 팀원별 구현 기능 상세
 
