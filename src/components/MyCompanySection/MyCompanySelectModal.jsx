@@ -1,11 +1,36 @@
+import { useState } from "react";
+import IcDelete from "../../assets/ic_delete.svg";
+import ModalCompanyList from "./ModalCompanyList";
+
+function getCompanies({ keyword }) {
+  return;
+}
+
 function MyCompanySelectModal({ onCompany, onModal }) {
-  const onClickBackground = () => {
-    onModal(False);
+  const [searchValue, setSearchValue] = useState("");
+
+  const items = () => {
+    getCompanies({ searchValue });
+  };
+
+  const onClickModalClose = () => {
+    onModal(false);
   };
   return (
-    <div className="modalBackground" onClick={onClickBackground}>
+    <div className="modalBackground" onClick={onClickModalClose}>
       <div className="selectModal" onClick={(e) => e.stopPropagation()}>
-        <p>모달 열림</p>
+        <div>
+          <p>나의 기업 선택하기</p>
+          <img
+            className="modalCloseBtn"
+            src={IcDelete}
+            alt="모달 닫기 버튼"
+            onClick={onClickModalClose}
+          />
+        </div>
+        {/* <SearchBar /> */}
+        <ModalCompanyList name="최근 선택한 기업" />
+        {/* <Pagenation /> */}
       </div>
     </div>
   );
