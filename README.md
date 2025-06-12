@@ -36,11 +36,15 @@ Database:
 - src
   - api
   - assets
-  - components
+  - components (모든 컴포넌트는 전부 여기로)
+    - hooks
   - config
   - pages
-  - style
-  - App.css
+    - 이 안에 개별 페이지 "폴더" 생성, 개별 페이지 폴더 안에 각 페이지 jsx랑 css
+    - HomePage
+      - HomePage.jsx
+      - HomePage.css
+  - App.css (모든 페이지 공통 스타일)
   - App.jsx
   - main.jsx
 eslint.config
