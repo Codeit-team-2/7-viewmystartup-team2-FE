@@ -18,7 +18,7 @@ function App() {
         <Route path="/mycompanycompare" element={<MyCompanyCompare />} />
         <Route path="/mycompanyresult" element={<MyCompanyResult />} />
         <Route path="/investmentoverview" element={<InvenstmentOverview />} />
-        <Route path="/companydetail" element={<CompanyDetail />} />
+        <Route path="/companydetail/:id" element={<CompanyDetail />} />
         <Route path="/selectedoverview" element={<SelectedOverivew />} />
       </Routes>
     </div>
