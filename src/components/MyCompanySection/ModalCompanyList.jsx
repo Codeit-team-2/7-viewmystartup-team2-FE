@@ -1,6 +1,6 @@
 import ModalCompanyListItem from "./ModalCompanyListItem";
 
-function ModalCompanyList({ name }) {
+function ModalCompanyList({ name,companies }) {
   const recentCount = 3;
 
   return (
@@ -8,7 +8,11 @@ function ModalCompanyList({ name }) {
       <p>
         {name} ({recentCount})
       </p>
-      <ModalCompanyListItem />
+      <ul className="companyList">
+        {companies.map((company) => (
+          <ModalCompanyListItem key={company.id} company={company} />
+        ))}
+      </ul>
     </div>
   );
 }

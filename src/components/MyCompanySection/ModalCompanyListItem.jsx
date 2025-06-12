@@ -1,9 +1,9 @@
-function ModalCompanyListItem() {
+function ModalCompanyListItem({ company }) {
   return (
     <div>
-      <img />
-      <p></p>
-      <p></p>
+      <img >{company.icon}</img>
+      <p>{company.name}</p>
+      <p>{company.name2}</p>
       <Button></Button>
     </div>
   );
