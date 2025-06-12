@@ -31,6 +31,25 @@ Database:
 
 # 파일 구조
 
+7-viewmystartup-team2-FE
+- public
+- src
+  - api
+  - assets
+  - components
+  - config
+  - pages
+  - style
+  - App.css
+  - App.jsx
+  - main.jsx
+eslint.config
+index.html
+package.json
+package-lock.json
+README.md
+vite.config
+
 # 구현 홈페이지
 
 (개발한 홈페이지에 대한 링크 게시)
