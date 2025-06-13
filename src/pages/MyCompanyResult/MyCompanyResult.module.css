@@ -1,4 +1,26 @@
-.asdasd {
+.spaceBetween {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.titleStyle {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.marginTop {
+  margin-top: 20px;
 }
