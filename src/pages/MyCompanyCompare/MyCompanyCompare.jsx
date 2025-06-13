@@ -1,5 +1,13 @@
+import MyCompanySection from "../../components/MyCompanySection/MyCompanySection";
+
 function MyCompanyCompare() {
-  return;
+  return (
+    <>
+      <MyCompanySection />
+      {/* <CompareCompanySection />
+      <CompareButtonSection /> */}
+    </>
+  );
 }
 
 export default MyCompanyCompare;
