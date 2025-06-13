@@ -4,6 +4,7 @@ import FetchTable from "../../components/FetchTable/FetchTable";
 import { invInitialData } from "../../config/invInitialData_v2";
 import SelectOption from "../../components/SelectOption/selectOption";
 import CustomButton from "../../components/customTag/customButton/customButton";
+import style from "./MyCompanyResult.module.css";
 
 const columns = [
   { label: "기업명", key: "companyName" },
@@ -17,19 +18,23 @@ const columns = [
 function MyCompanyResult() {
   return (
     <div>
-      <div>
+      <div className={style.asdasd}>
+        <MyCompanySection name={"asdasdasd"}></MyCompanySection>
         <CustomButton>다른기업비교하기</CustomButton>
-        <MyCompanySection></MyCompanySection>
       </div>
       <div>
-        <span>비교 결과 확인하기</span>
-        <SelectOption></SelectOption>
-        <FetchTable data={invInitialData} columns={columns} />
+        <div className={style.asdasd}>
+          <span>비교 결과 확인하기</span>
+          <SelectOption></SelectOption>
+        </div>
+        <FetchTable data={invInitialData.slice(0, 5)} columns={columns} />
       </div>
       <div>
-        <span>기업 순위 확인하기</span>
-        <SelectOption></SelectOption>
-        <FetchTable data={invInitialData} columns={columns} />
+        <div className={style.asdasd}>
+          <span>기업 순위 확인하기</span>
+          <SelectOption></SelectOption>
+        </div>
+        <FetchTable data={invInitialData.slice(0, 5)} columns={columns} />
         <CustomButton>나의 기업에 투자하기</CustomButton>
       </div>
     </div>
