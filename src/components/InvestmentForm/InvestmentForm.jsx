@@ -39,29 +39,6 @@ function InvestmentForm({ company }) {
     "",
     commentErrorText
   );
-  const [passsword, setPassword] = useState("");
-  const [checkPasssword, setCheckPassword] = useState("");
-  const [passswordError, setPasswordError] = useState("");
-
-  const passwordErrorText = (password, checkPassword) => {
-    if (password.trim() === "") {
-      return "필수 입력 항목입니다.";
-    }
-    if (password !== checkPassword) {
-      return "비밀번호가 일치하지 않습니다.";
-    }
-    return "";
-  };
-  const handlePasswordsChange = e => {
-    const value = e.target.value;
-    setPassword(value);
-    setPasswordError(passwordErrorText(value, checkPassword));
-  };
-  const handleCheckPasswordsChange = e => {
-    const value = e.target.value;
-    setCheckPassword(value);
-    setPasswordError(passwordErrorText(password, value));
-  };
 
   const {
     password,
@@ -132,19 +109,19 @@ function InvestmentForm({ company }) {
         />
         <InputBox
           label="비밀번호"
-          value={passsword}
+          value={password}
           onChange={handlePasswordChange}
           type={"password"}
-          id={passsword}
+          id={password}
           placeholder="비밀번호를 입력해주세요"
           error={passwordError}
         />
         <InputBox
           label="비밀번호 확인"
-          value={checkPasssword}
+          value={checkPassword}
           onChange={handleCheckPasswordChange}
           type={"password"}
-          id={checkPasssword}
+          id={checkPassword}
           placeholder="비밀번호를 다시 한 번 입력해 주세요"
           error={passwordError}
         />
