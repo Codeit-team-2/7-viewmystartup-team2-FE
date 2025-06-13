@@ -5,7 +5,7 @@ import BtnPlus from "../../assets/btn_plus.png";
 import MainLogo from "../../assets/main_logo.svg";
 import "./MyCompany.css";
 
-function MyCompanySection() {
+function MyCompanySection({ name }) {
   const [isMyCompany, setIsMyCompany] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -25,7 +25,7 @@ function MyCompanySection() {
 
   return (
     <div className="myCompanySection">
-      <h2>나의 기업을 선택해 주세요!</h2>
+      <h2>{name}</h2>
       <div>
         <div className="background">
           {!isMyCompany && (
