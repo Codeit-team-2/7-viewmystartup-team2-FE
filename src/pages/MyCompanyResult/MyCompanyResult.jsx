@@ -5,6 +5,8 @@ import { invInitialData } from "../../config/invInitialData_v2";
 import SelectOption from "../../components/SelectOption/selectOption";
 import CustomButton from "../../components/customTag/customButton/customButton";
 import style from "./MyCompanyResult.module.css";
+import { useState } from "react";
+import Modal from "../../components/Modal/Modal.jsx";
 
 const columns = [
   { label: "기업명", key: "companyName" },
@@ -16,27 +18,90 @@ const columns = [
 ];
 
 function MyCompanyResult() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalStep, setModalStep] = useState("form");
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleConfirm = () => {
+    setModalStep("confirm");
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setModalStep("form");
+  };
   return (
-    <div>
-      <div className={style.asdasd}>
-        <MyCompanySection name={"asdasdasd"}></MyCompanySection>
-        <CustomButton>다른기업비교하기</CustomButton>
+    <div className={style.container}>
+      <div className={style.spaceBetween}>
+        <MyCompanySection name={"내가 선택한 기업"}></MyCompanySection>
+        <CustomButton className={style.center}>다른기업비교하기</CustomButton>
       </div>
       <div>
-        <div className={style.asdasd}>
-          <span>비교 결과 확인하기</span>
+        <div className={style.spaceBetween}>
+          <span className={style.titleStyle}>비교 결과 확인하기</span>
           <SelectOption></SelectOption>
         </div>
         <FetchTable data={invInitialData.slice(0, 5)} columns={columns} />
       </div>
       <div>
-        <div className={style.asdasd}>
-          <span>기업 순위 확인하기</span>
+        <div className={style.spaceBetween}>
+          <span className={style.titleStyle}>기업 순위 확인하기</span>
           <SelectOption></SelectOption>
         </div>
         <FetchTable data={invInitialData.slice(0, 5)} columns={columns} />
-        <CustomButton>나의 기업에 투자하기</CustomButton>
+        <div className={style.center}>
+          <CustomButton onClick={handleOpenModal}>
+            나의 기업에 투자하기
+          </CustomButton>
+        </div>
       </div>
+      {/* 모달 역시 임시로 대충만들어봄 ㅇㅇ */}
+      {isModalOpen && (
+        <Modal
+          onClose={handleCloseModal}
+          size={modalStep === "confirm" ? "small" : "default"}
+        >
+          {modalStep === "form" ? (
+            <>
+              {/* 일단 임시 인풋 만들어봄 컴포넌트있을예정일꺼같음 ㅇㅇ */}
+              <h2>기업에 투자하기</h2>
+              <p>투자 기업 정보</p>
+              <p>코드잇</p>
+
+              <div>
+                <p>투자자 이름</p>
+                <input></input>
+              </div>
+              <div>
+                <p>투자자 금액액</p>
+                <input></input>
+              </div>
+              <div>
+                <p>투자자 코멘트트</p>
+                <input></input>
+              </div>
+              <div>
+                <p>투자자 비밀번호</p>
+                <input></input>
+              </div>
+              <div>
+                <p>비밀번호 확인</p>
+                <input></input>
+              </div>
+              <div className={style.marginTop}>
+                <CustomButton onClick={handleCloseModal}>취소</CustomButton>
+                <CustomButton onClick={handleConfirm}>확인</CustomButton>
+              </div>
+            </>
+          ) : (
+            <>
+              <p>투자가 완료되었어요!</p>
+              <div className={style.marginTop}>
+                <CustomButton onClick={handleCloseModal}>확인</CustomButton>
+              </div>
+            </>
+          )}
+        </Modal>
+      )}
     </div>
   );
 }
