@@ -1,6 +1,8 @@
 import { useState } from "react";
 import MyCompanySelectModal from "./MyCompanySelectModal";
+import CompanyCard from "../CompanyCard";
 import BtnPlus from "../../assets/btn_plus.png";
+import MainLogo from "../../assets/main_logo.svg";
 import "./MyCompany.css";
 
 function MyCompanySection() {
@@ -13,6 +15,12 @@ function MyCompanySection() {
 
   const handleIsModalOpen = (value) => {
     setIsModalOpen(value);
+  };
+
+  const myCompanyData = {
+    name: "코드잇",
+    name2: "에듀테크",
+    imgUrl: { MainLogo },
   };
 
   return (
@@ -36,7 +44,9 @@ function MyCompanySection() {
               onModal={handleIsModalOpen}
             />
           )}
-          {/* {isMyCompany && <CompanyCard />} */}
+          {isMyCompany && (
+            <CompanyCard name="myCompany" button={true} data={myCompanyData} />
+          )}
         </div>
       </div>
     </div>

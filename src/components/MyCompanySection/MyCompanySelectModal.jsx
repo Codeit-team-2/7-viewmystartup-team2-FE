@@ -29,7 +29,7 @@ function MyCompanySelectModal({ onCompany, onModal }) {
           />
         </div>
         {/* <SearchBar /> */}
-        <ModalCompanyList name="최근 선택한 기업" companies={items} />
+        {/* <ModalCompanyList name="최근 선택한 기업" companies={items} /> */}
         {/* <Pagenation /> */}
       </div>
     </div>
