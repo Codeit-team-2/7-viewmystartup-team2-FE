@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { DetailCompanyTitle } from "../../components/DetailCompany/DetailCompanyTitle.jsx";
 import { DetailCompanyList } from "../../components/DetailCompany/DetailCompanyList.jsx";
 import { DetailCompanyInfor } from "../../components/DetailCompany/DetailCompanyInfor.jsx";
+import InvestmentForm from "../../components/InvestmentForm/InvestmentForm.jsx";
 
 function CompanyDetail() {
   const { id } = useParams();
@@ -14,6 +15,7 @@ function CompanyDetail() {
       <DetailCompanyTitle company={company} />
       <DetailCompanyList company={company} />
       <DetailCompanyInfor company={company} />
+      <InvestmentForm company={company} />
       {/* 앱에서 받은 투자  */}
       {/* 기업투자하기 버튼 */}
       {/* 투자한 사람 목록 */}
