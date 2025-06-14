@@ -1,6 +1,6 @@
 import ModalCompanyListItem from "./ModalCompanyListItem";
 
-function ModalCompanyList({ name,companies }) {
+function ModalCompanyList({ name, companies }) {
   const recentCount = 3;
 
   return (

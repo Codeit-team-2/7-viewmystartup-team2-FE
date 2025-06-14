@@ -1,10 +1,28 @@
+import CompanySelectBtn from "./CompanySelectBtn";
+import useBoolean from "../../hooks/useBoolean";
+import { useMyCompany, useSetMyCompany } from "./MyCompanyContext";
+import { useEffect } from "react";
+
 function ModalCompanyListItem({ company }) {
+  const myCompany = useMyCompany();
+  const [isSelected, switchIsSelected] = useBoolean(myCompany === company);
+  const setMyCompany = useSetMyCompany();
+
+  useEffect(() => {
+    if (isSelected) {
+      setMyCompany(company);
+    }
+  }, [isSelected]);
+
   return (
     <div>
-      <img >{company.icon}</img>
+      <img>{company.icon}</img>
       <p>{company.name}</p>
       <p>{company.name2}</p>
-      <Button></Button>
+      <CompanySelectBtn
+        isSelected={isSelected}
+        onSwitch={() => switchIsSelected()}
+      />
     </div>
   );
 }
