@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MyCompanySelectModal from "./MyCompanySelectModal";
 import CompanyCard from "../CompanyCard";
 import BtnPlus from "../../assets/btn_plus.png";
-import MainLogo from "../../assets/main_logo.svg";
 import "./MyCompany.css";
+import { useMyCompany, useSetMyCompany } from "./MyCompanyContext";
 
 function MyCompanySection({ name }) {
   const [isMyCompany, setIsMyCompany] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const myCompany = useMyCompany();
+  const setMyCompany = useSetMyCompany();
 
   const handleIsMyCompany = (value) => {
     setIsMyCompany(value);
@@ -17,11 +19,13 @@ function MyCompanySection({ name }) {
     setIsModalOpen(value);
   };
 
-  const myCompanyData = {
-    name: "코드잇",
-    name2: "에듀테크",
-    imgUrl: { MainLogo },
-  };
+  useEffect(() => {
+    if (Object.keys(myCompany).length !== 0) {
+      setIsMyCompany(true);
+      setIsModalOpen(false);
+    }
+    console.log(myCompany);
+  }, [myCompany]);
 
   return (
     <div className="myCompanySection">
@@ -45,7 +49,10 @@ function MyCompanySection({ name }) {
             />
           )}
           {isMyCompany && (
-            <CompanyCard name="myCompany" button={true} data={myCompanyData} />
+            <>
+              <p onClick={() => setMyCompany({})}>선택 취소</p>
+              <CompanyCard name="myCompany" button={false} data={myCompany} />
+            </>
           )}
         </div>
       </div>
