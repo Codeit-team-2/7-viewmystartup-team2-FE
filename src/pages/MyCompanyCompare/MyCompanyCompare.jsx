@@ -1,9 +1,12 @@
+import { MyCompanyProvider } from "../../components/MyCompanySection/MyCompanyContext";
 import MyCompanySection from "../../components/MyCompanySection/MyCompanySection";
 
 function MyCompanyCompare() {
   return (
     <>
-      <MyCompanySection />
+      <MyCompanyProvider defaultValue={{}}>
+        <MyCompanySection />
+      </MyCompanyProvider>
       {/* <CompareCompanySection />
       <CompareButtonSection /> */}
     </>
