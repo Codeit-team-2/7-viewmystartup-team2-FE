@@ -26,7 +26,7 @@ export default function SelectedOverviewPage() {
 
   const totalCount = filteredData.length;
   const [page, setPage] = useState(1);
-  // const pageSize = 10; // 한 페이지에 보여줄 항목 수
+  
   const { pageSize, pageSizeOptions, handlePageSizeChange } = usePageSize(5);
   const { pageNumbers, hasPrev, hasNext, totalPages, handlePageChange } =
     usePagination({
