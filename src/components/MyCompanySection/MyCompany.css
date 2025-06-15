@@ -1,0 +1,13 @@
+.myCompanySection * {
+  background-color: white;
+}
+
+.myCompanySection .selectModal {
+  width: 496px;
+  height: 321px;
+  background-color: rgb(160, 228, 255);
+}
+
+.myCompanySection .modalCloseBtn {
+  background-color: black;
+}
