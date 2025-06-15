@@ -33,6 +33,9 @@ function MyCompanySection() {
       setIsMyCompany(false);
     }
     console.log(myCompany);
+    console.log(`isMyCom: ${isMyCompany}`);
+    console.log(`isMyModal: ${isModalOpen}`);
+    console.log(`뭔가 한 번 변화함 `);
   }, [myCompany]);
 
   return (
@@ -52,6 +55,8 @@ function MyCompanySection() {
           )}
           {isModalOpen && (
             <MyCompanySelectModal
+              name="myCompany"
+              listName={["recent", "search"]}
               onCompany={handleIsMyCompany}
               onModal={handleIsModalOpen}
             />
