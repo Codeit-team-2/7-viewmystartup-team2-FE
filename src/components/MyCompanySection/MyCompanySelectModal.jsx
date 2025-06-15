@@ -40,7 +40,8 @@ function MyCompanySelectModal({ onCompany, onModal }) {
           />
         </div>
         {/* <SearchBar /> */}
-        <ModalCompanyList name="최근 선택한 기업" companies={exCompanies} />
+        <ModalCompanyList name={"recent"} companies={exCompanies} />
+        <ModalCompanyList name={"search"} companies={exCompanies} />
         {/* <Pagenation /> */}
       </div>
     </div>

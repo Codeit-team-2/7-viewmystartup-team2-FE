@@ -3,10 +3,16 @@ import MyCompanySelectModal from "./MyCompanySelectModal";
 import CompanyCard from "../CompanyCard";
 import BtnPlus from "../../assets/btn_plus.png";
 import "./MyCompany.css";
-import { useMyCompany, useSetMyCompany } from "./MyCompanyContext";
+import {
+  useIsMyCompany,
+  useMyCompany,
+  useSetIsMyCompany,
+  useSetMyCompany,
+} from "./MyCompanyContext";
 
 function MyCompanySection() {
-  const [isMyCompany, setIsMyCompany] = useState(false);
+  const isMyCompany = useIsMyCompany();
+  const setIsMyCompany = useSetIsMyCompany();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const myCompany = useMyCompany();
   const setMyCompany = useSetMyCompany();
@@ -23,6 +29,8 @@ function MyCompanySection() {
     if (Object.keys(myCompany).length !== 0) {
       setIsMyCompany(true);
       setIsModalOpen(false);
+    } else {
+      setIsMyCompany(false);
     }
     console.log(myCompany);
   }, [myCompany]);
