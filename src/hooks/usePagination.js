@@ -1,3 +1,5 @@
+// src/hooks/usePagination.js
+
 import { useMemo } from "react";
 
 export function usePagination({
