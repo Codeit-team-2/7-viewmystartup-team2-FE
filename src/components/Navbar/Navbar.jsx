@@ -13,7 +13,7 @@ function Navbar() {
         <NavLink to="/comparisonList" className="navbarPage">
           비교 현황
         </NavLink>
-        <NavLink to="/investList" className="navbarPage">
+        <NavLink to="/investmentoverview" className="navbarPage">
           투자 현황
         </NavLink>
       </div>
