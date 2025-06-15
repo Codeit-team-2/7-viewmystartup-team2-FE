@@ -18,6 +18,9 @@ function ModalCompanyList({ name, companies }) {
       listTitle = "검색 결과";
       modalCompanies = [];
       break;
+    case "selected":
+      listTitle = "선택한 기업";
+      modalCompanies = [];
   }
 
   return (
