@@ -1,10 +1,9 @@
 .myCompanySection * {
   background-color: white;
+  padding: 10px;
 }
 
 .myCompanySection .selectModal {
-  width: 496px;
-  height: 321px;
   background-color: rgb(160, 228, 255);
 }
 

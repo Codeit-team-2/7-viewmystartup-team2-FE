@@ -1,13 +1,13 @@
 import { useState } from "react";
 import IcDelete from "../../assets/ic_delete.svg";
-import ModalCompanyList from "./ModalCompanyList";
 import MainLogo from "../../assets/main_logo.svg";
+import ModalCompanyList from "../MyCompanySection/ModalCompanyList";
 
 function getCompanies({ keyword }) {
   return;
 }
 
-function MyCompanySelectModal({ name, listName, onCompany, onModal }) {
+function CompareCompanySelectModal({ name, listName, onCompany, onModal }) {
   const [searchValue, setSearchValue] = useState("");
 
   // const items = () => {
@@ -43,12 +43,20 @@ function MyCompanySelectModal({ name, listName, onCompany, onModal }) {
           />
         </div>
         {/* <SearchBar /> */}
-        <ModalCompanyList name={listName[0]} companies={exCompanies} />
-        <ModalCompanyList name={listName[1]} companies={exCompanies} />
+        <ModalCompanyList
+          name={listName[0]}
+          companies={exCompanies}
+          type={"compareCompany"}
+        />
+        <ModalCompanyList
+          name={listName[1]}
+          companies={exCompanies}
+          type={"compareCompany"}
+        />
         {/* <Pagenation /> */}
       </div>
     </div>
   );
 }
 
-export default MyCompanySelectModal;
+export default CompareCompanySelectModal;
