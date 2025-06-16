@@ -1,20 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useIsMyCompany } from "../MyCompanySection/MyCompanyContext";
 import "./CompareCompany.css";
-import { useIsCompareCompany } from "./CompareCompanyContext";
+import {
+  useCompareCompany,
+  useIsCompareCompany,
+  useSetIsCompareCompany,
+} from "./CompareCompanyContext";
 import CompareCompanySelectModal from "./CompareCompanySelectModal";
+import CompanyCard from "../CompanyCard";
 
 function CompareCompanySection() {
   const isMyCompany = useIsMyCompany();
   const isCompareCompany = useIsCompareCompany();
+  const setIsCompareCompany = useSetIsCompareCompany();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const compareCompany = useCompareCompany();
 
   const handleIsModalOpen = (value) => {
     setIsModalOpen(value);
   };
 
-  console.log(`isComCom: ${isCompareCompany}`);
-  console.log(`isComModal: ${isModalOpen}`);
+  useEffect(() => {
+    if (Object.keys(compareCompany).length !== 0) {
+      setIsCompareCompany(true);
+    } else {
+      setIsCompareCompany(false);
+    }
+    console.log(compareCompany);
+  }, [compareCompany]);
 
   if (!isMyCompany) {
     return;
@@ -40,13 +53,19 @@ function CompareCompanySection() {
               onModal={handleIsModalOpen}
             />
           )}
-          {/*
-          {isMyCompany && (
+
+          {isCompareCompany && (
             <>
-              <p onClick={() => setMyCompany({})}>선택 취소</p>
-              <CompanyCard name="myCompany" button={false} data={myCompany} />
+              {compareCompany.map((company) => (
+                <CompanyCard
+                  key={company.id}
+                  name="compareCompany"
+                  button={true}
+                  data={company}
+                />
+              ))}
             </>
-          )} */}
+          )}
         </div>
       </div>
     </div>
