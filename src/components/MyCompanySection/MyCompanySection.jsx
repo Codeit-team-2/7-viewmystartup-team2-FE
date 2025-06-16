@@ -36,7 +36,7 @@ function MyCompanySection() {
 
   return (
     <div className="myCompanySection">
-      <h2>나의 기업을 선택해 주세요!</h2>
+      <h2>{name}</h2>
       <div>
         <div className="background">
           {!isMyCompany && (
