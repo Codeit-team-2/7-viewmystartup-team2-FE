@@ -1,9 +1,7 @@
-// src/pages/LandingPage/LandingPage.jsx
+// src/pages/InvestmentOverviewPage/InvestmentOverviewPage.jsx
 import FetchTable from "../../components/FetchTable/FetchTable.jsx";
 import NoResult from "../../components/SearchBar/NoResult.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
-import PageSizeSelector from "../../components/PageSizeSelector/PageSizeSelector";
-// import { invInitialData } from "../../config/invInitialData_v2";
 import { invInitialData } from "../../config/invInitialData_mock_80_with_description.js";
 import { useSearchFilter } from "../../hooks/useSearchFilter.js";
 import { useEffect, useState } from "react";
@@ -11,24 +9,24 @@ import { usePagination } from "../../hooks/usePagination.js";
 import { usePageSize } from "../../hooks/usePageSize";
 
 import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
+import PageSizeSelector from "../../components/PageSizeSelector/PageSizeSelector.jsx";
 
 //나중에 config로 뺍시당
-const LandingPageColumns = [
+const InvestmentOverviewPageColumns = [
   { label: "순위", key: "rank" },
   { label: "기업명", key: "companyName" },
   { label: "기업 소개", key: "description" },
   { label: "카테고리", key: "category" },
+  { label: "View My Startup 투자금액", key: "vmsInvestment" },
   { label: "누적 투자 금액", key: "totalInvestment" },
-  { label: "매출액", key: "revenue" },
-  { label: "고용 인원", key: "employees" },
 ];
 
-export default function LandingPage() {
+export default function InvestmentOverviewPage() {
   const { keyword, filteredData, search } = useSearchFilter(invInitialData);
 
   const totalCount = filteredData.length;
   const [page, setPage] = useState(1);
-  // const pageSize = 5; // 한 페이지에 보여줄 항목 수
+
   const { pageSize, pageSizeOptions, handlePageSizeChange } = usePageSize(5);
   const { pageNumbers, hasPrev, hasNext, totalPages, handlePageChange } =
     usePagination({
@@ -51,7 +49,7 @@ export default function LandingPage() {
   return (
     <div className="startup-page">
       <div>
-        <h2>전체 스타트업 목록</h2>
+        <h2>투자 현황</h2>
         <SearchBar onSubmit={search} />
         <PageSizeSelector
           pageSize={pageSize}
@@ -70,7 +68,7 @@ export default function LandingPage() {
           {/* <FetchTable data={filteredData} columns={LandingPageColumns} /> */}
           <FetchTable
             data={currentPageData}
-            columns={LandingPageColumns}
+            columns={InvestmentOverviewPageColumns}
             startIndex={startIndex}
           />
           <PaginationBtn

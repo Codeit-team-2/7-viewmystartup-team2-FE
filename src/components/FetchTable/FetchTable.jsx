@@ -1,6 +1,6 @@
 import styles from "./FetchTable.module.css";
 
-export default function FetchTable({ data, columns }) {
+export default function FetchTable({ data, columns, startIndex = 0 }) {
   return (
     <table className={styles.table}>
       <thead>
@@ -16,7 +16,7 @@ export default function FetchTable({ data, columns }) {
             {columns.map((col) => {
               const value =
                 col.key === "rank"
-                  ? `${index + 1}위`
+                  ? `${startIndex + index + 1}위`
                   : col.key === "description"
                   ? `${item[col.key].slice(0, 60)}...`
                   : item[col.key];

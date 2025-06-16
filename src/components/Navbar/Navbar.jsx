@@ -10,10 +10,10 @@ function Navbar() {
         <NavLink to="/myEntList" className="navbarPage">
           나의 기업 비교
         </NavLink>
-        <NavLink to="/comparisonList" className="navbarPage">
+        <NavLink to="/selectedoverview" className="navbarPage">
           비교 현황
         </NavLink>
-        <NavLink to="/investList" className="navbarPage">
+        <NavLink to="/investmentoverview" className="navbarPage">
           투자 현황
         </NavLink>
       </div>
