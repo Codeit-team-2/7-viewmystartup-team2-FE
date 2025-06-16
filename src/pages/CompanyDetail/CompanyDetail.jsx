@@ -30,7 +30,6 @@ function CompanyDetail() {
       <DetailCompanyTitle company={company} />
       <DetailCompanyList company={company} />
       <DetailCompanyInfor company={company} />
-      <InvestmentForm company={company} />
       <InvestorTable companyId={companyId} page={page} pageSize={pageSize} />
       <PaginationBtn
         page={page}
