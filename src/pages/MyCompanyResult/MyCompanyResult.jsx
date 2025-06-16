@@ -17,6 +17,24 @@ const columns = [
   { label: "고용 인원", key: "employees" },
 ];
 
+const columns2 = [
+  { label: "순위", key: "rank" },
+  { label: "기업명", key: "companyName" },
+  { label: "기업 소개", key: "description" },
+  { label: "카테고리", key: "category" },
+  { label: "누적 투자 금액", key: "totalInvestment" },
+  { label: "매출액", key: "revenue" },
+  { label: "고용 인원", key: "employees" },
+];
+const parseRevenue = (revenueStr) => {
+  if (!revenueStr) return 0;
+  return parseFloat(revenueStr.replace("억", ""));
+};
+
+const topCompanies = [...invInitialData]
+  .sort((a, b) => parseRevenue(b.revenue) - parseRevenue(a.revenue))
+  .slice(0, 5);
+
 function MyCompanyResult() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState("form");
@@ -35,19 +53,22 @@ function MyCompanyResult() {
         <MyCompanySection name={"내가 선택한 기업"}></MyCompanySection>
         <CustomButton className={style.center}>다른기업비교하기</CustomButton>
       </div>
-      <div>
+      <div className={style.tableContainer}>
         <div className={style.spaceBetween}>
           <span className={style.titleStyle}>비교 결과 확인하기</span>
           <SelectOption></SelectOption>
         </div>
         <FetchTable data={invInitialData.slice(0, 5)} columns={columns} />
       </div>
-      <div>
+      <div className={style.tableContainer}>
         <div className={style.spaceBetween}>
           <span className={style.titleStyle}>기업 순위 확인하기</span>
           <SelectOption></SelectOption>
         </div>
-        <FetchTable data={invInitialData.slice(0, 5)} columns={columns} />
+        {/* 여기서 데이터가 기업순위에따라 불러오면되는거잖아? 그럼 함수위에하나만들어야하나?아니면
+        훅으로빼서 제어해야하나? 
+        */}
+        <FetchTable data={topCompanies} columns={columns2} />
         <div className={style.center}>
           <CustomButton onClick={handleOpenModal}>
             나의 기업에 투자하기
