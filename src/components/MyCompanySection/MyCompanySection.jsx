@@ -32,10 +32,6 @@ function MyCompanySection() {
     } else {
       setIsMyCompany(false);
     }
-    console.log(myCompany);
-    console.log(`isMyCom: ${isMyCompany}`);
-    console.log(`isMyModal: ${isModalOpen}`);
-    console.log(`뭔가 한 번 변화함 `);
   }, [myCompany]);
 
   return (

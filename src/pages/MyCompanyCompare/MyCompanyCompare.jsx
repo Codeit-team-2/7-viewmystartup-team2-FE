@@ -1,3 +1,4 @@
+import CompareButtonSection from "../../components/CompareButtonSection/CompareButtonSection";
 import { CompareCompanyProvider } from "../../components/CompareCompanySection/CompareCompanyContext";
 import CompareCompanySection from "../../components/CompareCompanySection/CompareCompanySection";
 import { MyCompanyProvider } from "../../components/MyCompanySection/MyCompanyContext";
@@ -7,10 +8,10 @@ function MyCompanyCompare() {
   return (
     <>
       <MyCompanyProvider defaultValue={{}}>
-        <MyCompanySection />
         <CompareCompanyProvider defaultValue={[]}>
+          <MyCompanySection />
           <CompareCompanySection />
-          {/* <CompareButtonSection /> */}
+          <CompareButtonSection />
         </CompareCompanyProvider>
       </MyCompanyProvider>
     </>

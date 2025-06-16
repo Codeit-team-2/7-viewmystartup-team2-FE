@@ -2,17 +2,37 @@ import CompanySelectBtn from "./CompanySelectBtn";
 import useBoolean from "../../hooks/useBoolean";
 import { useMyCompany, useSetMyCompany } from "./MyCompanyContext";
 import { useEffect } from "react";
+import {
+  useCompareCompany,
+  useSetCompareCompany,
+} from "../CompareCompanySection/CompareCompanyContext";
 
-function ModalCompanyListItem({ company }) {
+function ModalCompanyListItem({ company, type }) {
   const myCompany = useMyCompany();
-  const [isSelected, switchIsSelected] = useBoolean(myCompany === company);
+  const compareCompany = useCompareCompany();
+  const initBoolean =
+    type === "compareCompany"
+      ? compareCompany === company
+      : myCompany === company;
+
+  const [isSelected, switchIsSelected] = useBoolean(initBoolean);
+
   const setMyCompany = useSetMyCompany();
+  const setCompareCompany = useSetCompareCompany();
 
   useEffect(() => {
-    if (isSelected) {
-      setMyCompany(company);
+    if (type === "compareCompany") {
+      if (isSelected) {
+        setCompareCompany((prev) => [...prev, company]);
+      } else {
+        setCompareCompany((prev) => prev.filter((item) => item !== company));
+      }
     } else {
-      setMyCompany({});
+      if (isSelected) {
+        setMyCompany(company);
+      } else {
+        setMyCompany({});
+      }
     }
   }, [isSelected]);
 
