@@ -3,7 +3,9 @@ function CompanySelectBtn({ isSelected, onSwitch }) {
     onSwitch();
   };
 
-  return <button onClick={onBtnClick}>선택하기</button>;
+  const text = isSelected ? "선택완료" : "선택하기";
+
+  return <button onClick={onBtnClick}>{text}</button>;
 }
 
 export default CompanySelectBtn;
