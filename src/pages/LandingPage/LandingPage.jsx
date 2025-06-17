@@ -11,6 +11,7 @@ import { usePagination } from "../../hooks/usePagination.js";
 import { usePageSize } from "../../hooks/usePageSize";
 
 import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
+import { useCompanies } from "../../hooks/useCompanies.js";
 
 //나중에 config로 뺍시당
 const LandingPageColumns = [
@@ -24,7 +25,8 @@ const LandingPageColumns = [
 ];
 
 export default function LandingPage() {
-  const { keyword, filteredData, search } = useSearchFilter(invInitialData);
+  const { data, loading } = useCompanies();
+  const { keyword, filteredData, search } = useSearchFilter(data);
 
   const totalCount = filteredData.length;
   const [page, setPage] = useState(1);
