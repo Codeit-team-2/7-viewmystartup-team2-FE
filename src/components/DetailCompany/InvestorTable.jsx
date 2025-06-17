@@ -48,8 +48,8 @@ function InvestorTable({ companyId, page, pageSize }) {
               <td>{inv.name}</td>
               <td>{inv.rank}</td>
               <td>{inv.amount}</td>
-              <td>{inv.comment}</td>
               <td>
+                {inv.comment}
                 <InvestorSelectBtn investor={inv} onAction={handleAction} />
               </td>
             </tr>
@@ -59,10 +59,7 @@ function InvestorTable({ companyId, page, pageSize }) {
       {modalOpen && (
         <Modal onClose={handleModalClose} size="small">
           <div>
-            <h3>
-              {modalAction === "edit" ? "수정하기" : "삭제하기"} ={" "}
-              {selectedInvestor?.name}
-            </h3>
+            <h3>{modalAction === "edit" ? "수정하기" : "삭제하기"}</h3>
             <input type="password" placeholder="배스워드를 입력해주세요" />
             <button>확인</button>
             <button onClick={handleModalClose}>취소</button>
