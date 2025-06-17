@@ -12,6 +12,7 @@ import {
 } from "../../config/columnsConfig.js";
 import { resultOptionsData, sortFunctions } from "../../config/filterConfig.js";
 import InvestmentForm from "../../components/InvestmentForm/InvestmentForm.jsx";
+import { useEffect } from "react";
 
 // 임시용입니다
 const parseRevenue = (revenueStr) => {
@@ -33,6 +34,16 @@ function MyCompanyResult() {
     companyName: "",
     category: "",
   });
+
+  //
+  const [companyList, setCompanyList] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/companies") // 백엔드 서버 주소
+      .then((res) => res.json())
+      .then((data) => setCompanyList(data))
+      .catch((err) => console.error("데이터 불러오기 실패", err));
+  }, []);
+  //
 
   //
   const handleChange = (e) => {
@@ -178,13 +189,16 @@ function MyCompanyResult() {
           <span className={style.titleStyle}>기업 순위 확인하기</span>
           <SelectOption
             options={resultOptionsData}
-            onChange={handleChange}
+            onChange={handleSortChange}
           ></SelectOption>
         </div>
         {/* 여기서 데이터가 기업순위에따라 불러오면되는거잖아? 그럼 함수위에하나만들어야하나?아니면
         훅으로빼서 제어해야하나? 
         */}
-        <FetchTable data={topCompanies} columns={resultColumnsRank} />
+        <FetchTable
+          data={companyList.length > 5 ? companyList.slice(0, 5) : companyList}
+          columns={resultColumnsRank}
+        />
         <div className={style.center}>
           <CustomButton onClick={handleOpenModal}>
             나의 기업에 투자하기
