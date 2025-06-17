@@ -36,6 +36,27 @@ function MyCompanyResult() {
   });
 
   //
+  const [sortedCompanyList, setSortedCompanyList] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/companies")
+      .then((res) => res.json())
+      .then((data) => {
+        setCompanyList(data);
+        setSortedCompanyList(data); // 초기값
+      })
+      .catch((err) => console.error("데이터 불러오기 실패", err));
+  }, []);
+  const handleCompanySortChange = (e) => {
+    const sortKey = e.target.value;
+    const sortFunc = sortFunctions[sortKey];
+
+    setSortedCompanyList((prevData) => {
+      if (!sortFunc) return prevData;
+      return [...prevData].sort(sortFunc);
+    });
+  };
+  //
+  //
   const [companyList, setCompanyList] = useState([]);
   useEffect(() => {
     fetch("http://localhost:3000/companies") // 백엔드 서버 주소
@@ -46,22 +67,6 @@ function MyCompanyResult() {
   //
 
   //
-  const handleChange = (e) => {
-    const selectedValue = e.target.value;
-
-    // 예: 선택된 값으로 기업 데이터 필터링
-    const filteredData = invInitialData.filter(
-      (company) => company.category === selectedValue
-    );
-
-    // 중복 제거하고 누적
-    setTestData((prev) => {
-      const newData = filteredData.filter(
-        (item) => !prev.some((prevItem) => prevItem.id === item.id)
-      );
-      return [...prev, ...newData];
-    });
-  };
 
   const handleSortChange = (e) => {
     const sortKey = e.target.value;
@@ -189,14 +194,18 @@ function MyCompanyResult() {
           <span className={style.titleStyle}>기업 순위 확인하기</span>
           <SelectOption
             options={resultOptionsData}
-            onChange={handleSortChange}
+            onChange={handleCompanySortChange}
           ></SelectOption>
         </div>
         {/* 여기서 데이터가 기업순위에따라 불러오면되는거잖아? 그럼 함수위에하나만들어야하나?아니면
         훅으로빼서 제어해야하나? 
         */}
         <FetchTable
-          data={companyList.length > 5 ? companyList.slice(0, 5) : companyList}
+          data={
+            sortedCompanyList.length > 5
+              ? sortedCompanyList.slice(0, 5)
+              : sortedCompanyList
+          }
           columns={resultColumnsRank}
         />
         <div className={style.center}>
