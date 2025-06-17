@@ -62,6 +62,7 @@ function InvestmentForm({ company }) {
     passwordError;
 
 
+
   const handleSubmit = e => {
 
     e.preventDefault();
@@ -131,6 +132,7 @@ function InvestmentForm({ company }) {
         />
       </div>
       <div>
+
 
         <button type="button">취소</button>
         <button type="submit">투자하기</button>

@@ -44,6 +44,7 @@ function MyCompanySelectModal({ name, listName, onCompany, onModal }) {
         </div>
         {/* <SearchBar /> */}
 
+
         <ModalCompanyList
           name={listName[0]}
           companies={exCompanies}

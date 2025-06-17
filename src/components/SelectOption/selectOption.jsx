@@ -1,5 +1,6 @@
 import style from "./selectOption.module.css";
 
+
 function SelectOption({ options, onChange }) {
   return (
     <div>
@@ -18,4 +19,3 @@ function SelectOption({ options, onChange }) {
 }
 
 export default SelectOption;
-

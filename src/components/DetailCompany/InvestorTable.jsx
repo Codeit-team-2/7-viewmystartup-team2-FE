@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { investorsListData } from "../../config/investorsListData.js";
+
 import InvestorSelectBtn from "./InvestorSelectBtn.jsx";
 import Modal from "../Modal/Modal.jsx";
+
 function InvestorTable({ companyId, page, pageSize }) {
   const investors = (investorsListData[companyId] || [])
     .slice()
@@ -9,6 +11,7 @@ function InvestorTable({ companyId, page, pageSize }) {
 
   const start = (page - 1) * pageSize;
   const currentInvestors = investors.slice(start, start + pageSize);
+
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState("");
@@ -66,6 +69,7 @@ function InvestorTable({ companyId, page, pageSize }) {
         </Modal>
       )}
     </>
+
   );
 }
 

@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useRef, useState } from "react";
 import icSelectDot from "../../assets/ic_selectDot.svg";
 
@@ -44,4 +45,5 @@ function InvestorSelectBtn({ investor, onAction }) {
 }
 
 export default InvestorSelectBtn;
+
 
