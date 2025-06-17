@@ -6,7 +6,7 @@ export default function FetchTable({ data = [], columns, startIndex = 0 }) {
     <table className={styles.table}>
       <thead>
         <tr>
-          {columns.map((col) => (
+          {columns.map(col => (
             <th key={col.key}>{col.label}</th>
           ))}
         </tr>
@@ -14,7 +14,7 @@ export default function FetchTable({ data = [], columns, startIndex = 0 }) {
       <tbody>
         {data.map((item, index) => (
           <tr key={item.id || index}>
-            {columns.map((col) => {
+            {columns.map(col => {
               const cellValue = item[col.key];
 
               // description이 없을 때 빈 문자열 처리
