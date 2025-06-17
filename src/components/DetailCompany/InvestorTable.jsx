@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { investorsListData } from "../../config/investorsListData.js";
-
 import InvestorSelectBtn from "./InvestorSelectBtn.jsx";
 import Modal from "../Modal/Modal.jsx";
+import InvestorDeleteInput from "./InvestorDeleteInput.jsx";
+import InvestorEditInput from "./InvestorEditInput.jsx";
 
 function InvestorTable({ companyId, page, pageSize }) {
-  const investors = (investorsListData[companyId] || [])
-    .slice()
-    .sort((a, b) => a.rank - b.rank);
+  const [investors, setInvestors] = useState(
+    (investorsListData[companyId] || []).slice().sort((a, b) => a.rank - b.rank)
+  );
 
   const start = (page - 1) * pageSize;
   const currentInvestors = investors.slice(start, start + pageSize);
@@ -16,18 +17,44 @@ function InvestorTable({ companyId, page, pageSize }) {
   const [modalAction, setModalAction] = useState("");
   const [selectedInvestor, setSelectedInvestor] = useState(null);
 
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleAction = (action, investor) => {
     setModalAction(action);
     setSelectedInvestor(investor);
     setModalOpen(true);
+    setPassword("");
+    setErrorMessage("");
   };
 
   const handleModalClose = () => {
     setModalOpen(false);
     setModalAction("");
     setSelectedInvestor(null);
+    setPassword("");
+    setErrorMessage("");
   };
 
+  const handleDelete = () => {
+    if (password !== selectedInvestor.password) {
+      setErrorMessage("비밀번호가 틀렸습니다.");
+      return;
+    }
+    setInvestors(prev =>
+      prev.filter(inv => inv.rank !== selectedInvestor.rank)
+    );
+    handleModalClose();
+  };
+
+  const handleEdit = () => {
+    if (password !== selectedInvestor.password) {
+      setErrorMessage("비밀번호가 틀렸습니다.");
+      return;
+    }
+    alert("수정 로직 구현 필요");
+    handleModalClose();
+  };
   return (
     <>
       <table
@@ -59,14 +86,23 @@ function InvestorTable({ companyId, page, pageSize }) {
       </table>
       {modalOpen && (
         <Modal onClose={handleModalClose} size="small">
-          <div>
-            <h3>
-              {modalAction === "edit" ? "수정 권한 인증" : "삭제 권한 인증"}
-            </h3>
-            <input type="password" placeholder="배스워드를 입력해주세요" />
-            <button>확인</button>
-            <button onClick={handleModalClose}>취소</button>
-          </div>
+          {modalAction === "delete" ? (
+            <InvestorDeleteInput
+              password={password}
+              setPassword={setPassword}
+              onConfirm={handleDelete}
+              onCancel={handleModalClose}
+              errorMessage={errorMessage}
+            />
+          ) : (
+            <InvestorEditInput
+              password={password}
+              setPassword={setPassword}
+              onConfirm={handleEdit}
+              onCancel={handleModalClose}
+              errorMessage={errorMessage}
+            />
+          )}
         </Modal>
       )}
     </>

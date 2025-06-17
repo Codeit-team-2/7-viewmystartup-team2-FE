@@ -9,6 +9,8 @@ import InvestmentForm from "../../components/InvestmentForm/InvestmentForm.jsx";
 import InvestorTable from "../../components/DetailCompany/InvestorTable.jsx";
 import { usePagination } from "../../hooks/usePagination.js";
 import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
+import CustomButton from "../../components/customTag/customButton/customButton.jsx";
+import Modal from "../../components/Modal/Modal.jsx";
 
 function CompanyDetail() {
   const { id } = useParams();
@@ -25,11 +27,23 @@ function CompanyDetail() {
     pageSize,
   });
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div>
       <DetailCompanyTitle company={company} />
       <DetailCompanyList company={company} />
       <DetailCompanyInfor company={company} />
+      <div>
+        <h1>View My Startup에서 받은 투자</h1>
+        <CustomButton onClick={handleOpenModal}>기업투자하기</CustomButton>
+      </div>
       <InvestorTable companyId={companyId} page={page} pageSize={pageSize} />
       <PaginationBtn
         page={page}
@@ -38,9 +52,11 @@ function CompanyDetail() {
         hasNext={hasNext}
         handlePageChange={handlePageChange}
       />
-      {/* 앱에서 받은 투자  */}
-      {/* 기업투자하기 버튼 */}
-      {/* 투자한 사람 목록 */}
+      {modalOpen && (
+        <Modal onClose={handleCloseModal}>
+          <InvestmentForm />
+        </Modal>
+      )}
     </div>
   );
 }
