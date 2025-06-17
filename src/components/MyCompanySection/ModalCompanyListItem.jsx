@@ -6,6 +6,7 @@ import {
   useCompareCompany,
   useSetCompareCompany,
 } from "../CompareCompanySection/CompareCompanyContext";
+import React from "react";
 
 function ModalCompanyListItem({ company, type }) {
   const myCompany = useMyCompany();
@@ -25,6 +26,7 @@ function ModalCompanyListItem({ company, type }) {
       if (isSelected) {
         setCompareCompany((prev) => [...prev, company]);
       } else {
+        console.log("이 if문 진입이 되고 있나?");
         setCompareCompany((prev) => prev.filter((item) => item !== company));
       }
     } else {

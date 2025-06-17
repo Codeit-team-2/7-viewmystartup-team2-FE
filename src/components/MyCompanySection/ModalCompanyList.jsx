@@ -1,4 +1,5 @@
 import ModalCompanyListItem from "./ModalCompanyListItem";
+import React from "react";
 
 function ModalCompanyList({ name, companies, type }) {
   const recentCount = 3;

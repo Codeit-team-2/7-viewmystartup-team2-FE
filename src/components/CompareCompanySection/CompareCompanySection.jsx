@@ -6,10 +6,9 @@ import {
   useIsCompareCompany,
   useSetIsCompareCompany,
 } from "./CompareCompanyContext";
-import CompareCompanySelectModal from "./CompareCompanySelectModal";
 import CompanyCard from "../CompanyCard";
-
-import MyCompanySelectModal from "../MyCompanySection/MyCompanySelectModal";
+import CompanySelectModal from "../MyCompanySection/CompanySelectModal";
+import React from "react";
 
 function CompareCompanySection() {
   const isMyCompany = useIsMyCompany();
@@ -28,7 +27,7 @@ function CompareCompanySection() {
     } else {
       setIsCompareCompany(false);
     }
-    console.log(compareCompany);
+    console.log(`비교회사: ${compareCompany}`);
   }, [compareCompany]);
 
   if (!isMyCompany) {
@@ -48,10 +47,8 @@ function CompareCompanySection() {
             </p>
           )}
           {isModalOpen && (
-
-            <MyCompanySelectModal
-
-              name="compareCompany"
+            <CompanySelectModal
+              type="compareCompany"
               listName={["selected", "search"]}
               onCompany={"뭐더라이거"}
               onModal={handleIsModalOpen}

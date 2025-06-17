@@ -3,6 +3,7 @@ import { CompareCompanyProvider } from "../../components/CompareCompanySection/C
 import CompareCompanySection from "../../components/CompareCompanySection/CompareCompanySection";
 import { MyCompanyProvider } from "../../components/MyCompanySection/MyCompanyContext";
 import MyCompanySection from "../../components/MyCompanySection/MyCompanySection";
+import React from "react";
 
 function MyCompanyCompare() {
   return (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MyCompanySelectModal from "./MyCompanySelectModal";
+import CompanySelectModal from "./CompanySelectModal";
 import CompanyCard from "../CompanyCard";
 import BtnPlus from "../../assets/btn_plus.png";
 import "./MyCompany.css";
@@ -9,8 +9,7 @@ import {
   useSetIsMyCompany,
   useSetMyCompany,
 } from "./MyCompanyContext";
-
-
+import React from "react";
 
 function MyCompanySection({ name }) {
   const isMyCompany = useIsMyCompany();
@@ -34,7 +33,6 @@ function MyCompanySection({ name }) {
     } else {
       setIsMyCompany(false);
     }
-
     console.log(myCompany);
   }, [myCompany]);
 
@@ -54,8 +52,8 @@ function MyCompanySection({ name }) {
             </div>
           )}
           {isModalOpen && (
-            <MyCompanySelectModal
-              name="myCompany"
+            <CompanySelectModal
+              type="myCompany"
               listName={["recent", "search"]}
               onCompany={handleIsMyCompany}
               onModal={handleIsModalOpen}

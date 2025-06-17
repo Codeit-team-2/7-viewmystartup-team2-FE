@@ -5,6 +5,7 @@
 
 import IcMinus from "../assets/ic_minus.svg";
 import { useSetCompareCompany } from "./CompareCompanySection/CompareCompanyContext";
+import React from "react";
 
 function CompanyCard({ name, data, button = false }) {
   const setCompareCompany = useSetCompareCompany();
