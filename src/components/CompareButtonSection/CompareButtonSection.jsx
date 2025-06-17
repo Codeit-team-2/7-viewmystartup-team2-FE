@@ -1,6 +1,7 @@
 import { useIsCompareCompany } from "../CompareCompanySection/CompareCompanyContext";
 import { useIsMyCompany } from "../MyCompanySection/MyCompanyContext";
 import "./CompareButtonSection.css";
+import React from "react";
 
 function CompareButtonSection() {
   const isMyCompany = useIsMyCompany();

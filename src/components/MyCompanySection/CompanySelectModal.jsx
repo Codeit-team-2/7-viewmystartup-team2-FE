@@ -2,12 +2,13 @@ import { useState } from "react";
 import IcDelete from "../../assets/ic_delete.svg";
 import ModalCompanyList from "./ModalCompanyList";
 import MainLogo from "../../assets/main_logo.svg";
+import React from "react";
 
 function getCompanies({ keyword }) {
   return;
 }
 
-function MyCompanySelectModal({ name, listName, onCompany, onModal }) {
+function CompanySelectModal({ type, listName, onCompany, onModal }) {
   const [searchValue, setSearchValue] = useState("");
 
   // const items = () => {
@@ -15,7 +16,7 @@ function MyCompanySelectModal({ name, listName, onCompany, onModal }) {
   // };
 
   const modalTitle =
-    name === "myCompany" ? "나의 기업 선택하기" : "비교할 기업 선택하기";
+    type === "myCompany" ? "나의 기업 선택하기" : "비교할 기업 선택하기";
 
   const exCompanies = [
     {
@@ -48,12 +49,12 @@ function MyCompanySelectModal({ name, listName, onCompany, onModal }) {
         <ModalCompanyList
           name={listName[0]}
           companies={exCompanies}
-          type={"compareCompany"}
+          type={type}
         />
         <ModalCompanyList
           name={listName[1]}
           companies={exCompanies}
-          type={"compareCompany"}
+          type={type}
         />
 
         {/* <Pagenation /> */}
@@ -62,4 +63,4 @@ function MyCompanySelectModal({ name, listName, onCompany, onModal }) {
   );
 }
 
-export default MyCompanySelectModal;
+export default CompanySelectModal;
