@@ -12,7 +12,6 @@ function InvestorTable({ companyId, page, pageSize }) {
   const start = (page - 1) * pageSize;
   const currentInvestors = investors.slice(start, start + pageSize);
 
-
   const [modalOpen, setModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState("");
   const [selectedInvestor, setSelectedInvestor] = useState(null);
@@ -61,7 +60,9 @@ function InvestorTable({ companyId, page, pageSize }) {
       {modalOpen && (
         <Modal onClose={handleModalClose} size="small">
           <div>
-            <h3>{modalAction === "edit" ? "수정하기" : "삭제하기"}</h3>
+            <h3>
+              {modalAction === "edit" ? "수정 권한 인증" : "삭제 권한 인증"}
+            </h3>
             <input type="password" placeholder="배스워드를 입력해주세요" />
             <button>확인</button>
             <button onClick={handleModalClose}>취소</button>
@@ -69,7 +70,6 @@ function InvestorTable({ companyId, page, pageSize }) {
         </Modal>
       )}
     </>
-
   );
 }
 
