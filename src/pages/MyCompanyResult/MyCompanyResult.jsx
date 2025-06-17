@@ -1,4 +1,5 @@
 //흠 뭐해야할까 일단 기본적인 틀만들어볼까? ..
+
 import FetchTable from "../../components/FetchTable/FetchTable";
 import { invInitialData } from "../../config/invInitialData_v2";
 import SelectOption from "../../components/SelectOption/selectOption";
@@ -6,6 +7,7 @@ import CustomButton from "../../components/customTag/customButton/customButton";
 import style from "./MyCompanyResult.module.css";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal.jsx";
+
 import {
   resultColumns,
   resultColumnsRank,
@@ -15,6 +17,7 @@ import InvestmentForm from "../../components/InvestmentForm/InvestmentForm.jsx";
 import { useEffect } from "react";
 
 // 임시용입니다
+
 const parseRevenue = (revenueStr) => {
   if (!revenueStr) return 0;
   return parseFloat(revenueStr.replace("억", ""));
@@ -23,6 +26,7 @@ const parseRevenue = (revenueStr) => {
 const topCompanies = [...invInitialData]
   .sort((a, b) => parseRevenue(b.revenue) - parseRevenue(a.revenue))
   .slice(0, 5);
+
 
 // 여기까지임시용입니다
 
@@ -79,6 +83,7 @@ function MyCompanyResult() {
   };
   //
 
+
   const handleOpenModal = () => setIsModalOpen(true);
   const handleConfirm = () => {
     setModalStep("confirm");
@@ -89,6 +94,7 @@ function MyCompanyResult() {
   };
   return (
     <div className={style.container}>
+
       <div className="임시테이블 삭제할 div입니다">
         <div className={style.inputTestBox}>
           <input
@@ -188,18 +194,22 @@ function MyCompanyResult() {
           ></SelectOption>
         </div>
         <FetchTable data={testData} columns={resultColumns} />
+
       </div>
       <div className={style.tableContainer}>
         <div className={style.spaceBetween}>
           <span className={style.titleStyle}>기업 순위 확인하기</span>
+
           <SelectOption
             options={resultOptionsData}
             onChange={handleCompanySortChange}
           ></SelectOption>
+
         </div>
         {/* 여기서 데이터가 기업순위에따라 불러오면되는거잖아? 그럼 함수위에하나만들어야하나?아니면
         훅으로빼서 제어해야하나? 
         */}
+
         <FetchTable
           data={
             sortedCompanyList.length > 5
@@ -208,6 +218,7 @@ function MyCompanyResult() {
           }
           columns={resultColumnsRank}
         />
+
         <div className={style.center}>
           <CustomButton onClick={handleOpenModal}>
             나의 기업에 투자하기
@@ -222,10 +233,12 @@ function MyCompanyResult() {
         >
           {modalStep === "form" ? (
             <>
+
               <InvestmentForm
                 onConfirm={handleConfirm}
                 onCancel={handleCloseModal}
               ></InvestmentForm>
+
             </>
           ) : (
             <>
