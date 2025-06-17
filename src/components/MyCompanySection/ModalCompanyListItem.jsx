@@ -11,6 +11,8 @@ function ModalCompanyListItem({ company }) {
   useEffect(() => {
     if (isSelected) {
       setMyCompany(company);
+    } else {
+      setMyCompany({});
     }
   }, [isSelected]);
 

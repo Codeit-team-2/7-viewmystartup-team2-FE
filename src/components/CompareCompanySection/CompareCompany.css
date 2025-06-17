@@ -1,9 +1,10 @@
-.myCompanySection * {
+.compareCompanySection * {
   background-color: white;
   padding: 10px;
+  margin-top: 50px;
 }
 
-.myCompanySection .selectModal {
+/* .myCompanySection .selectModal {
   width: 496px;
   height: 321px;
   background-color: rgb(160, 228, 255);
@@ -11,4 +12,4 @@
 
 .myCompanySection .modalCloseBtn {
   background-color: black;
-}
+} */
