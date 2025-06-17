@@ -3,32 +3,31 @@ import { DetailCompanyTitle } from "../DetailCompany/DetailCompanyTitle";
 import { useErrorCheck } from "./useErrorCheck";
 import { InputBox } from "./InputBox";
 import { usePasswordCheck } from "./usePasswordCheck";
+import CustomButton from "../customTag/customButton/customButton";
 
 // 에러 메세지 설정
-const nameErrorText = v =>
+const nameErrorText = (v) =>
   v.trim() === ""
     ? "필수 입력 항목입니다."
     : v.length > 5
     ? "5자 이내로 입력해주세요"
     : "";
 
-const amountErrorText = v =>
+const amountErrorText = (v) =>
   v.trim() === ""
     ? "필수 입력 항목입니다."
     : isNaN(v)
     ? "숫자로 입력해주세요"
     : "";
 
-const commentErrorText = v =>
-
+const commentErrorText = (v) =>
   v.trim() === ""
     ? "필수 입력 항목입니다."
     : v.length > 20
     ? "20자 이내로 입력해주세요"
     : "";
 
-function InvestmentForm({ company }) {
-
+function InvestmentForm({ company = {}, onConfirm, onCancel }) {
   const [investorName, investorNameChange, investorNameError] = useErrorCheck(
     "",
     nameErrorText
@@ -61,10 +60,7 @@ function InvestmentForm({ company }) {
     !checkPassword ||
     passwordError;
 
-
-
-  const handleSubmit = e => {
-
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (investorNameError || amountError || commentError || passswordError) {
       return;
@@ -132,11 +128,12 @@ function InvestmentForm({ company }) {
         />
       </div>
       <div>
-
-
-        <button type="button">취소</button>
-        <button type="submit">투자하기</button>
-
+        <CustomButton onClick={onCancel} type="button">
+          취소
+        </CustomButton>
+        <CustomButton onClick={onConfirm} type="submit">
+          투자하기
+        </CustomButton>
       </div>
     </form>
   );
