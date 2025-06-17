@@ -1,6 +1,5 @@
 import style from "./custombutton.module.css";
 import React from "react";
-
 function CustomButton({ children, onClick, type }) {
   return (
     <>

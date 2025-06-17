@@ -1,5 +1,5 @@
 //흠 뭐해야할까 일단 기본적인 틀만들어볼까? ..
-
+import React from "react";
 import FetchTable from "../../components/FetchTable/FetchTable";
 import { invInitialData } from "../../config/invInitialData_v2";
 import SelectOption from "../../components/SelectOption/selectOption";

@@ -1,6 +1,5 @@
 import styles from "./FetchTable.module.css";
 import React from "react";
-
 export default function FetchTable({ data, columns, startIndex = 0 }) {
   return (
     <table className={styles.table}>
