@@ -1,0 +1,16 @@
+.compareCompanySection * {
+  background-color: white;
+  padding: 10px;
+}
+
+.compareCompanySection h2 {
+  background-color: skyblue;
+}
+
+.compareCompanySection .selectModal {
+  background-color: rgb(160, 228, 255);
+}
+
+.compareCompanySection .modalCloseBtn {
+  background-color: black;
+}
