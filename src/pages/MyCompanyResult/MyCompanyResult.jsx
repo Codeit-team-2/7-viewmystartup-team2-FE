@@ -1,5 +1,5 @@
 //흠 뭐해야할까 일단 기본적인 틀만들어볼까? ..
-import MyCompanySection from "../../components/MyCompanySection/MyCompanySection";
+
 import FetchTable from "../../components/FetchTable/FetchTable";
 import { invInitialData } from "../../config/invInitialData_v2";
 import SelectOption from "../../components/SelectOption/selectOption";
@@ -8,24 +8,17 @@ import style from "./MyCompanyResult.module.css";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal.jsx";
 
-const columns = [
-  { label: "기업명", key: "companyName" },
-  { label: "기업 소개", key: "description" },
-  { label: "카테고리", key: "category" },
-  { label: "누적 투자 금액", key: "totalInvestment" },
-  { label: "매출액", key: "revenue" },
-  { label: "고용 인원", key: "employees" },
-];
+import {
+  resultColumns,
+  resultColumnsRank,
+} from "../../config/columnsConfig.js";
+import { resultOptionsData, sortFunctions } from "../../config/filterConfig.js";
+import InvestmentForm from "../../components/InvestmentForm/InvestmentForm.jsx";
+import { useEffect } from "react";
 
-const columns2 = [
-  { label: "순위", key: "rank" },
-  { label: "기업명", key: "companyName" },
-  { label: "기업 소개", key: "description" },
-  { label: "카테고리", key: "category" },
-  { label: "누적 투자 금액", key: "totalInvestment" },
-  { label: "매출액", key: "revenue" },
-  { label: "고용 인원", key: "employees" },
-];
+// 임시용입니다
+
+
 const parseRevenue = (revenueStr) => {
   if (!revenueStr) return 0;
   return parseFloat(revenueStr.replace("억", ""));
@@ -35,9 +28,63 @@ const topCompanies = [...invInitialData]
   .sort((a, b) => parseRevenue(b.revenue) - parseRevenue(a.revenue))
   .slice(0, 5);
 
+
+
+// 여기까지임시용입니다
+
 function MyCompanyResult() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState("form");
+  const [testData, setTestData] = useState([]);
+  const [inputCompany, setInputCompany] = useState({
+    companyName: "",
+    category: "",
+  });
+
+  //
+  const [sortedCompanyList, setSortedCompanyList] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/companies")
+      .then((res) => res.json())
+      .then((data) => {
+        setCompanyList(data);
+        setSortedCompanyList(data); // 초기값
+      })
+      .catch((err) => console.error("데이터 불러오기 실패", err));
+  }, []);
+  const handleCompanySortChange = (e) => {
+    const sortKey = e.target.value;
+    const sortFunc = sortFunctions[sortKey];
+
+    setSortedCompanyList((prevData) => {
+      if (!sortFunc) return prevData;
+      return [...prevData].sort(sortFunc);
+    });
+  };
+  //
+  //
+  const [companyList, setCompanyList] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/companies") // 백엔드 서버 주소
+      .then((res) => res.json())
+      .then((data) => setCompanyList(data))
+      .catch((err) => console.error("데이터 불러오기 실패", err));
+  }, []);
+  //
+
+  //
+
+  const handleSortChange = (e) => {
+    const sortKey = e.target.value;
+    const sortFunc = sortFunctions[sortKey];
+
+    setTestData((prevData) => {
+      if (!sortFunc) return prevData;
+      return [...prevData].sort(sortFunc);
+    });
+  };
+  //
+
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleConfirm = () => {
@@ -49,26 +96,134 @@ function MyCompanyResult() {
   };
   return (
     <div className={style.container}>
+
+
+      <div className="임시테이블 삭제할 div입니다">
+        <div className={style.inputTestBox}>
+          <input
+            type="text"
+            placeholder="기업명"
+            value={inputCompany.companyName}
+            onChange={(e) =>
+              setInputCompany((prev) => ({
+                ...prev,
+                companyName: e.target.value,
+              }))
+            }
+          />
+          <input
+            type="text"
+            placeholder="기업소개"
+            value={inputCompany.description}
+            onChange={(e) =>
+              setInputCompany((prev) => ({
+                ...prev,
+                description: e.target.value,
+              }))
+            }
+          />
+          <input
+            type="text"
+            placeholder="카테고리"
+            value={inputCompany.category}
+            onChange={(e) =>
+              setInputCompany((prev) => ({ ...prev, category: e.target.value }))
+            }
+          />
+          <input
+            type="text"
+            placeholder="누적투자금액"
+            value={inputCompany.totalInvestment}
+            onChange={(e) =>
+              setInputCompany((prev) => ({
+                ...prev,
+                totalInvestment: e.target.value,
+              }))
+            }
+          />
+          <input
+            type="text"
+            placeholder="매출액"
+            value={inputCompany.revenue}
+            onChange={(e) =>
+              setInputCompany((prev) => ({ ...prev, revenue: e.target.value }))
+            }
+          />
+          <input
+            type="text"
+            placeholder="고용인원"
+            value={inputCompany.employees}
+            onChange={(e) =>
+              setInputCompany((prev) => ({
+                ...prev,
+                employees: e.target.value,
+              }))
+            }
+          />
+          <CustomButton
+            onClick={() => {
+              if (!inputCompany.companyName || !inputCompany.category) return;
+              const newCompany = {
+                id: Date.now(), // 임시 ID
+                ...inputCompany,
+              };
+              setTestData((prev) => [...prev, newCompany]);
+              setInputCompany({
+                companyName: "",
+                category: "",
+                description: "",
+                revenue: "",
+                employees: "",
+                totalInvestment: "",
+              }); // 입력값 초기화
+            }}
+          >
+            추가
+          </CustomButton>
+        </div>
+      </div>
+      {/* 여기서부터 내 코드 그위에는삭제되도됨 */}
       <div className={style.spaceBetween}>
-        <MyCompanySection name={"내가 선택한 기업"}></MyCompanySection>
+        {/* <MyCompanySection></MyCompanySection> */}
         <CustomButton className={style.center}>다른기업비교하기</CustomButton>
       </div>
       <div className={style.tableContainer}>
+        {/* 일단 누적되는 데이터 해보기 */}
         <div className={style.spaceBetween}>
           <span className={style.titleStyle}>비교 결과 확인하기</span>
-          <SelectOption></SelectOption>
+          <SelectOption
+            options={resultOptionsData}
+            onChange={handleSortChange}
+          ></SelectOption>
         </div>
-        <FetchTable data={invInitialData.slice(0, 5)} columns={columns} />
+        <FetchTable data={testData} columns={resultColumns} />
+
       </div>
       <div className={style.tableContainer}>
         <div className={style.spaceBetween}>
           <span className={style.titleStyle}>기업 순위 확인하기</span>
-          <SelectOption></SelectOption>
+
+
+          <SelectOption
+            options={resultOptionsData}
+            onChange={handleCompanySortChange}
+          ></SelectOption>
+
         </div>
         {/* 여기서 데이터가 기업순위에따라 불러오면되는거잖아? 그럼 함수위에하나만들어야하나?아니면
         훅으로빼서 제어해야하나? 
         */}
-        <FetchTable data={topCompanies} columns={columns2} />
+
+
+        <FetchTable
+          data={
+            sortedCompanyList.length > 5
+              ? sortedCompanyList.slice(0, 5)
+              : sortedCompanyList
+          }
+          columns={resultColumnsRank}
+        />
+
         <div className={style.center}>
           <CustomButton onClick={handleOpenModal}>
             나의 기업에 투자하기
@@ -83,35 +238,12 @@ function MyCompanyResult() {
         >
           {modalStep === "form" ? (
             <>
-              {/* 일단 임시 인풋 만들어봄 컴포넌트있을예정일꺼같음 ㅇㅇ */}
-              <h2>기업에 투자하기</h2>
-              <p>투자 기업 정보</p>
-              <p>코드잇</p>
 
-              <div>
-                <p>투자자 이름</p>
-                <input></input>
-              </div>
-              <div>
-                <p>투자자 금액액</p>
-                <input></input>
-              </div>
-              <div>
-                <p>투자자 코멘트트</p>
-                <input></input>
-              </div>
-              <div>
-                <p>투자자 비밀번호</p>
-                <input></input>
-              </div>
-              <div>
-                <p>비밀번호 확인</p>
-                <input></input>
-              </div>
-              <div className={style.marginTop}>
-                <CustomButton onClick={handleCloseModal}>취소</CustomButton>
-                <CustomButton onClick={handleConfirm}>확인</CustomButton>
-              </div>
+              <InvestmentForm
+                onConfirm={handleConfirm}
+                onCancel={handleCloseModal}
+              ></InvestmentForm>
+
             </>
           ) : (
             <>

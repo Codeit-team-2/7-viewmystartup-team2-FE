@@ -43,8 +43,19 @@ function MyCompanySelectModal({ name, listName, onCompany, onModal }) {
           />
         </div>
         {/* <SearchBar /> */}
-        <ModalCompanyList name={listName[0]} companies={exCompanies} />
-        <ModalCompanyList name={listName[1]} companies={exCompanies} />
+
+
+        <ModalCompanyList
+          name={listName[0]}
+          companies={exCompanies}
+          type={"compareCompany"}
+        />
+        <ModalCompanyList
+          name={listName[1]}
+          companies={exCompanies}
+          type={"compareCompany"}
+        />
+
         {/* <Pagenation /> */}
       </div>
     </div>

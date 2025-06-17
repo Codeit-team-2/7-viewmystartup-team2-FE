@@ -9,6 +9,8 @@ import {
 import CompareCompanySelectModal from "./CompareCompanySelectModal";
 import CompanyCard from "../CompanyCard";
 
+import MyCompanySelectModal from "../MyCompanySection/MyCompanySelectModal";
+
 function CompareCompanySection() {
   const isMyCompany = useIsMyCompany();
   const isCompareCompany = useIsCompareCompany();
@@ -46,7 +48,9 @@ function CompareCompanySection() {
             </p>
           )}
           {isModalOpen && (
-            <CompareCompanySelectModal
+
+            <MyCompanySelectModal
+
               name="compareCompany"
               listName={["selected", "search"]}
               onCompany={"뭐더라이거"}

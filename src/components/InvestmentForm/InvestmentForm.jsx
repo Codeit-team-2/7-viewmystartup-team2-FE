@@ -20,6 +20,7 @@ const amountErrorText = v =>
     : "";
 
 const commentErrorText = v =>
+
   v.trim() === ""
     ? "필수 입력 항목입니다."
     : v.length > 20
@@ -27,6 +28,7 @@ const commentErrorText = v =>
     : "";
 
 function InvestmentForm({ company }) {
+
   const [investorName, investorNameChange, investorNameError] = useErrorCheck(
     "",
     nameErrorText
@@ -59,7 +61,10 @@ function InvestmentForm({ company }) {
     !checkPassword ||
     passwordError;
 
+
+
   const handleSubmit = e => {
+
     e.preventDefault();
     if (investorNameError || amountError || commentError || passswordError) {
       return;
@@ -127,8 +132,11 @@ function InvestmentForm({ company }) {
         />
       </div>
       <div>
+
+
         <button type="button">취소</button>
         <button type="submit">투자하기</button>
+
       </div>
     </form>
   );
