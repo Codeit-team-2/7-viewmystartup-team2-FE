@@ -10,7 +10,9 @@ import {
   useSetMyCompany,
 } from "./MyCompanyContext";
 
+
 function MyCompanySection({ name }) {
+
   const isMyCompany = useIsMyCompany();
   const setIsMyCompany = useSetIsMyCompany();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,7 +34,9 @@ function MyCompanySection({ name }) {
     } else {
       setIsMyCompany(false);
     }
+
     console.log(myCompany);
+
   }, [myCompany]);
 
   return (
