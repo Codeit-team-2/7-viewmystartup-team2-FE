@@ -1,5 +1,6 @@
 // src/components/Modal/Modal.js
 import styles from "./Modal.module.css";
+import React from "react";
 
 function Modal({ onClose, children, size = "default" }) {
   return (
