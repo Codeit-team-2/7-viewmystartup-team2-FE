@@ -44,7 +44,12 @@ function CompanyDetail() {
         <h1>View My Startup에서 받은 투자</h1>
         <CustomButton onClick={handleOpenModal}>기업투자하기</CustomButton>
       </div>
-      <InvestorTable companyId={companyId} page={page} pageSize={pageSize} />
+      <InvestorTable
+        companyId={companyId}
+        company={company}
+        page={page}
+        pageSize={pageSize}
+      />
       <PaginationBtn
         page={page}
         pageNumbers={pageNumbers}
