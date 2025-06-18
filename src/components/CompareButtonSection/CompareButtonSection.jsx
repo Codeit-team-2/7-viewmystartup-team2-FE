@@ -14,13 +14,37 @@ function CompareButtonSection() {
   const isCompareCompany = useIsCompareCompany();
   const cond = isMyCompany && isCompareCompany;
 
-  const myCompany = useMyCompany();
-  const compareCompany = useCompareCompany();
+  const MyCompany = useMyCompany(); // 객체
+  const CompareCompany = useCompareCompany(); //리스트
 
   const handleCompareBtn = () => {
-    console.log("데이터 전송하는 기능 필요. 지금은 아무 효과 없는 깡통 버튼");
-    console.log(isMyCompany);
-    console.log(isCompareCompany);
+    if (!cond) {
+      alert("비교할 회사가 선택되지 않았습니다.");
+      return;
+    }
+
+    try {
+      let prevMyCompany = JSON.parse(localStorage.getItem("myCompany"));
+
+      // 배열이 아닐 경우 초기화
+      if (!Array.isArray(prevMyCompany)) {
+        prevMyCompany = [];
+      }
+
+      const isDuplicate = prevMyCompany.some(
+        (company) => company.id === MyCompany.id
+      );
+
+      if (!isDuplicate) {
+        const updatedMyCompany = [...prevMyCompany, MyCompany];
+        localStorage.setItem("myCompany", JSON.stringify(updatedMyCompany));
+      }
+
+      localStorage.setItem("compareCompany", JSON.stringify(CompareCompany));
+      alert("기업 정보가 저장되었습니다!");
+    } catch (error) {
+      console.error("로컬스토리지 저장 중 에러:", error);
+    }
   };
 
   return (
