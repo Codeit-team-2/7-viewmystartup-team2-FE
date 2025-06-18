@@ -1,0 +1,33 @@
+.area {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 24px;
+}
+.box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 384px;
+  height: 92px;
+  padding: 36px 24px;
+  border-radius: 10px;
+  background-color: var(--black-200);
+}
+
+.title {
+  color: var(--gray-100);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  background-color: var(--black-200);
+}
+
+.content {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  background-color: var(--black-200);
+}
