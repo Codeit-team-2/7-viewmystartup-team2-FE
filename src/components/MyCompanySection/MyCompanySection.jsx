@@ -10,6 +10,7 @@ import {
   useSetMyCompany,
 } from "./MyCompanyContext";
 import React from "react";
+import MyCompanyReset from "./MyCompanyReset";
 
 function MyCompanySection({ name }) {
   const isMyCompany = useIsMyCompany();
@@ -18,13 +19,11 @@ function MyCompanySection({ name }) {
   const myCompany = useMyCompany();
   const setMyCompany = useSetMyCompany();
 
-  const handleIsMyCompany = (value) => {
-    setIsMyCompany(value);
-  };
-
   const handleIsModalOpen = (value) => {
     setIsModalOpen(value);
   };
+
+  const type = name === "나의 기업을 선택해 주세요!";
 
   useEffect(() => {
     if (Object.keys(myCompany).length !== 0) {
@@ -41,6 +40,7 @@ function MyCompanySection({ name }) {
       <h2>{name}</h2>
       <div>
         <div className="background">
+          <MyCompanyReset type={type} />
           {!isMyCompany && (
             <div>
               <img
@@ -55,13 +55,12 @@ function MyCompanySection({ name }) {
             <CompanySelectModal
               type="myCompany"
               listName={["recent", "search"]}
-              onCompany={handleIsMyCompany}
               onModal={handleIsModalOpen}
             />
           )}
           {isMyCompany && (
             <>
-              <p onClick={() => setMyCompany({})}>선택 취소</p>
+              {type && <p onClick={() => setMyCompany({})}>선택 취소</p>}
               <CompanyCard name="myCompany" button={false} data={myCompany} />
             </>
           )}

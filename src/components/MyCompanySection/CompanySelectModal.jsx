@@ -3,25 +3,30 @@ import IcDelete from "../../assets/ic_delete.svg";
 import ModalCompanyList from "./ModalCompanyList";
 import MainLogo from "../../assets/main_logo.svg";
 import React from "react";
+import SearchBar from "../SearchBar/SearchBar";
+import PaginationBtn from "../DetailCompany/PaginationBtn";
+import { useSearchFilter } from "../../hooks/useSearchFilter";
+import { invInitialData } from "../../config/invInitialData_mock_80_with_description";
+import { data } from "react-router-dom";
 
 function getCompanies({ keyword }) {
   return;
 }
 
-function CompanySelectModal({ type, listName, onCompany, onModal }) {
-  const [searchValue, setSearchValue] = useState("");
+function CompanySelectModal({ type, listName, onModal }) {
+  const { keyword, filteredData, search } = useSearchFilter(invInitialData); // 여기 안에 get으로 가져온 데이터
 
-  // const items = () => {
-  //   getCompanies({ searchValue });
-  // };
+  // filterdData => 키워드가 포함된 데이터
+  // invData 위치에 초기 데이터
+  // keyword = value값 제어
 
   const modalTitle =
     type === "myCompany" ? "나의 기업 선택하기" : "비교할 기업 선택하기";
 
   const exCompanies = [
     {
-      name: "코드잇",
-      name2: "에듀테크",
+      companyName: "코드잇",
+      category: "에듀테크",
       imgUrl: { MainLogo },
       id: "abc",
     },
@@ -34,7 +39,7 @@ function CompanySelectModal({ type, listName, onCompany, onModal }) {
   return (
     <div className="modalBackground" onClick={onClickModalClose}>
       <div className="selectModal" onClick={(e) => e.stopPropagation()}>
-        <div>
+        <div className="modalHeader">
           <p>{modalTitle}</p>
           <img
             className="modalCloseBtn"
@@ -43,8 +48,7 @@ function CompanySelectModal({ type, listName, onCompany, onModal }) {
             onClick={onClickModalClose}
           />
         </div>
-        {/* <SearchBar /> */}
-
+        <SearchBar onSubmit={search} />
 
         <ModalCompanyList
           name={listName[0]}
@@ -53,11 +57,17 @@ function CompanySelectModal({ type, listName, onCompany, onModal }) {
         />
         <ModalCompanyList
           name={listName[1]}
-          companies={exCompanies}
+          companies={filteredData}
           type={type}
         />
 
-        {/* <Pagenation /> */}
+        <PaginationBtn
+          page={1}
+          pageNumbers={[1, 2, 3, 4, 5]}
+          hasPrev={false}
+          hasNext={true}
+          handlePageChange={(x) => console.log(x)}
+        />
       </div>
     </div>
   );
