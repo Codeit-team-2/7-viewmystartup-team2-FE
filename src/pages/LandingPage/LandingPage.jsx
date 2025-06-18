@@ -1,4 +1,5 @@
 // src/pages/LandingPage/LandingPage.jsx
+import React from "react";
 import FetchTable from "../../components/FetchTable/FetchTable.jsx";
 import NoResult from "../../components/SearchBar/NoResult.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
@@ -11,6 +12,9 @@ import { usePagination } from "../../hooks/usePagination.js";
 import { usePageSize } from "../../hooks/usePageSize";
 
 import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
+import { useCompanies } from "../../hooks/useCompanies.js";
+import SelectOption from "../../components/SelectOption/selectOption.jsx";
+import { LandingPageOptionsData } from "../../config/filterConfig.js";
 
 //나중에 config로 뺍시당
 const LandingPageColumns = [
@@ -24,7 +28,10 @@ const LandingPageColumns = [
 ];
 
 export default function LandingPage() {
-  const { keyword, filteredData, search } = useSearchFilter(invInitialData);
+  const [sortOption, setSortOption] = useState("totalInvestment_desc");
+  const [sortBy, order] = sortOption.split("_");
+  const { data, loading } = useCompanies();
+  const { keyword, filteredData, search } = useSearchFilter(data);
 
   const totalCount = filteredData.length;
   const [page, setPage] = useState(1);
@@ -41,7 +48,11 @@ export default function LandingPage() {
   // pageSize, keyword 바뀌면 page를 1로 초기화
   useEffect(() => {
     setPage(1);
-  }, [pageSize, keyword]);
+  }, [pageSize, keyword, sortOption]);
+
+  const handleCompanySortChange = (e) => {
+    setSortOption(e.target.value); // 예: "revenue_desc"
+  };
 
   //현재 페이지의 데이터만 자르기 //요부분은 calculatePageIndex 함수로 따로 빼도될듯
   const startIndex = (page - 1) * pageSize;
@@ -58,7 +69,10 @@ export default function LandingPage() {
           pageSizeOptions={pageSizeOptions}
           onChange={handlePageSizeChange}
         />
-        <h3>필터 selector 컴포넌트 (ex. 누적투자금액 높은순) </h3>
+        <SelectOption
+          options={LandingPageOptionsData}
+          onChange={handleCompanySortChange}
+        ></SelectOption>
 
         {/* 필터 OrderBy 선택 영역 */}
       </div>
