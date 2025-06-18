@@ -9,8 +9,8 @@ export function DetailCompanyTitle({ company }) {
     <div className={styles.area}>
       <div className={styles.img} />
       <div className={styles.box}>
-        <div className={styles.title}>{company.category}</div>
-        <div className={styles.category}>{company.companyName}</div>
+        <div className={styles.title}>{company.companyName}</div>
+        <div className={styles.category}>{company.category}</div>
       </div>
     </div>
   );
