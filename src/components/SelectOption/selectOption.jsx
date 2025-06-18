@@ -1,5 +1,5 @@
 import style from "./selectOption.module.css";
-
+import React from "react";
 
 function SelectOption({ options, onChange }) {
   return (
@@ -12,7 +12,6 @@ function SelectOption({ options, onChange }) {
             </option>
           );
         })}
-
       </select>
     </div>
   );

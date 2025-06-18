@@ -12,3 +12,9 @@
 .myCompanySection .modalCloseBtn {
   background-color: black;
 }
+
+.selectModal .modalHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

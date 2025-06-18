@@ -7,6 +7,7 @@ import {
   useSetCompareCompany,
 } from "../CompareCompanySection/CompareCompanyContext";
 import React from "react";
+import comIcon from "../../assets/main_logo.svg";
 
 function ModalCompanyListItem({ company, type }) {
   const myCompany = useMyCompany();
@@ -26,8 +27,9 @@ function ModalCompanyListItem({ company, type }) {
       if (isSelected) {
         setCompareCompany((prev) => [...prev, company]);
       } else {
-        console.log("이 if문 진입이 되고 있나?");
-        setCompareCompany((prev) => prev.filter((item) => item !== company));
+        setCompareCompany((prev) =>
+          prev.filter((item) => item.key !== company.key)
+        );
       }
     } else {
       if (isSelected) {
@@ -40,9 +42,9 @@ function ModalCompanyListItem({ company, type }) {
 
   return (
     <div>
-      <img>{company.icon}</img>
-      <p>{company.name}</p>
-      <p>{company.name2}</p>
+      <img src={comIcon} style={{ backgroundColor: "gray" }} />
+      <p>{company.companyName}</p>
+      <p>{company.category}</p>
       <CompanySelectBtn
         isSelected={isSelected}
         onSwitch={() => switchIsSelected()}

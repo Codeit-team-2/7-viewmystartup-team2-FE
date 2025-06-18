@@ -2,6 +2,7 @@
 import { useState } from "react";
 import styles from "./SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
+import React from "react";
 
 export default function SearchBar({ onSubmit }) {
   const [input, setInput] = useState(""); //현재 내 input태그에 쓰여지고 있는 상태

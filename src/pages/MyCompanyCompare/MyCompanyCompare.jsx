@@ -10,9 +10,7 @@ function MyCompanyCompare() {
     <>
       <MyCompanyProvider defaultValue={{}}>
         <CompareCompanyProvider defaultValue={[]}>
-
           <MyCompanySection name={"나의 기업을 선택해 주세요!"} />
-
           <CompareCompanySection />
           <CompareButtonSection />
         </CompareCompanyProvider>
