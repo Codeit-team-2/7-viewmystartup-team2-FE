@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import React from "react";
+import { useEffect } from "react";
 
 const MyCompanyContext = createContext();
 
@@ -7,6 +8,9 @@ export function MyCompanyProvider({ defaultValue = {}, children }) {
   const [myCompany, setMyCompany] = useState(defaultValue);
   const [isMyCompany, setIsMyCompany] = useState(false);
 
+  useEffect(() => {
+    setMyCompany(defaultValue);
+  }, [defaultValue]);
   return (
     <MyCompanyContext.Provider
       value={{ myCompany, setMyCompany, isMyCompany, setIsMyCompany }}

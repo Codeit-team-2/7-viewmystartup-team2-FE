@@ -1,6 +1,5 @@
 import style from "./selectOption.module.css";
 import React from "react";
-
 function SelectOption({ options, onChange }) {
   return (
     <div>
