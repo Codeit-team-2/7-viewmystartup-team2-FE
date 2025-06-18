@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./PaginationBtn.module.css";
 
 function PaginationBtn({
   page,
@@ -9,9 +8,9 @@ function PaginationBtn({
   handlePageChange,
 }) {
   return (
-    <div className={styles.area}>
+    <div>
       <button
-        className={styles.pageButton}
+        className="pageButton"
         onClick={() => handlePageChange(page - 1)}
         disabled={!hasPrev}
       >
@@ -19,9 +18,7 @@ function PaginationBtn({
       </button>
       {pageNumbers.map(num => (
         <button
-          className={`${styles.pageButton} ${
-            num === page ? styles.active : ""
-          }`}
+          className={`pageButton${num === page ? " active" : ""}`}
           key={num}
           onClick={() => handlePageChange(num)}
           disabled={num === page}
@@ -30,7 +27,7 @@ function PaginationBtn({
         </button>
       ))}
       <button
-        className={styles.pageButton}
+        className="pageButton"
         onClick={() => handlePageChange(page + 1)}
         disabled={!hasNext}
       >

@@ -1,17 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import styles from "./DetailCompanyTitle.module.css";
 
 export function DetailCompanyTitle({ company }) {
   if (!company) return null;
 
   return (
-    <div className={styles.area}>
-      <div className={styles.img} />
-      <div className={styles.box}>
-        <div className={styles.title}>{company.category}</div>
-        <div className={styles.category}>{company.companyName}</div>
-      </div>
+    <div>
+      <img src="https://picsum.photos/250/250" />
+      <div>{company.companyName}</div>
+      <div>{company.category}</div>
     </div>
   );
 }

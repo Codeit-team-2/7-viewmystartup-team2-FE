@@ -5,7 +5,6 @@ import Modal from "../Modal/Modal.jsx";
 import InvestorDeleteInput from "./InvestorDeleteInput.jsx";
 import InvestorEditInput from "./InvestorEditInput.jsx";
 import InvestmentEditForm from "../InvestmentForm/InvestmentEditForm.jsx";
-import styles from "./InvestorTable.module.css";
 
 function InvestorTable({ companyId, company, page, pageSize }) {
   const [investors, setInvestors] = useState(
@@ -72,24 +71,27 @@ function InvestorTable({ companyId, company, page, pageSize }) {
 
   return (
     <>
-      <table className={styles.area}>
-        <thead className={styles.title}>
+      <table
+        border="1"
+        cellPadding="8"
+        style={{ width: "100%", margin: "10px 0" }}
+      >
+        <thead>
           <tr>
-            <th className={styles.sBox}>이름</th>
-            <th className={styles.sBox}>순위</th>
-            <th className={styles.sBox}>투자금액</th>
-            <th className={styles.comment}>투자 코멘트</th>
-            <th className={styles.option} />
+            <th>이름</th>
+            <th>순위</th>
+            <th>투자금액(억)</th>
+            <th>투자 코멘트</th>
           </tr>
         </thead>
         <tbody>
           {currentInvestors.map(inv => (
-            <tr className={styles.content} key={inv.rank}>
-              <td className={styles.contentBox}>{inv.name}</td>
-              <td className={styles.contentBox}>{inv.rank}</td>
-              <td className={styles.contentBox}>{inv.amount}</td>
-              <td className={styles.commentBox}>{inv.comment}</td>
-              <td className={styles.optionBox}>
+            <tr key={inv.rank}>
+              <td>{inv.name}</td>
+              <td>{inv.rank}</td>
+              <td>{inv.amount}</td>
+              <td>
+                {inv.comment}
                 <InvestorSelectBtn investor={inv} onAction={handleAction} />
               </td>
             </tr>
