@@ -12,7 +12,7 @@ import {
 import React from "react";
 import MyCompanyReset from "./MyCompanyReset";
 
-function MyCompanySection({ name }) {
+function MyCompanySection({ name, children }) {
   const isMyCompany = useIsMyCompany();
   const setIsMyCompany = useSetIsMyCompany();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,7 +37,10 @@ function MyCompanySection({ name }) {
 
   return (
     <div className="myCompanySection">
-      <h2>{name}</h2>
+      <div>
+        <h2>{name}</h2>
+        {children}
+      </div>
       <div>
         <div className="background">
           <MyCompanyReset type={type} />

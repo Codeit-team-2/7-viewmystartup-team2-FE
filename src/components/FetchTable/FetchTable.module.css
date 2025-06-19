@@ -1,21 +1,53 @@
-/* src/components/FetchTable/FetchTable.css */
 .table {
   width: 100%;
   border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
 }
 
-.table th,
+.table thead th {
+  height: 39px;
+  background-color: var(--black-100);
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  padding: 16px 20px;
+  white-space: nowrap;
+  border-bottom: 2px solid #444;
+}
+
 .table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
+  height: 64px;
+  background-color: var(--black-100);
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  padding: 15px 16px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table thead {
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.table tbody {
+  display: block;
+  width: 100%;
 }
 
 .table th {
-  background-color: navy;
-  font-weight: bold;
+  width: auto;
 }
-
-.table tr:hover {
-  background-color: #f1f1f1;
+.table th,
+.table td {
+  width: 20vw;
 }
