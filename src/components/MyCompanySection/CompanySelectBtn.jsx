@@ -5,8 +5,6 @@ function CompanySelectBtn({ isSelected, onSwitch }) {
     onSwitch();
   };
 
-  console.log(`isSelected: ${isSelected}`);
-
   const text = isSelected ? "선택완료" : "선택하기";
 
   return <button onClick={onBtnClick}>{text}</button>;
