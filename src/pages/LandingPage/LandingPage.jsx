@@ -30,7 +30,7 @@ const LandingPageColumns = [
 export default function LandingPage() {
   const [sortOption, setSortOption] = useState("totalInvestment_desc");
   const [sortBy, order] = sortOption.split("_");
-  const { data, loading } = useCompanies();
+  const { data, loading } = useCompanies(sortBy, order);
   const { keyword, filteredData, search } = useSearchFilter(data);
 
   const totalCount = filteredData.length;
@@ -52,6 +52,7 @@ export default function LandingPage() {
 
   const handleCompanySortChange = (e) => {
     setSortOption(e.target.value); // 예: "revenue_desc"
+    console.log(e.target.value);
   };
 
   //현재 페이지의 데이터만 자르기 //요부분은 calculatePageIndex 함수로 따로 빼도될듯

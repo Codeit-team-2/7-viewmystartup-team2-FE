@@ -1,4 +1,10 @@
-//src/api/company.js
+// src/api/company.js
 import axios from "axios";
-export const fetchAllCompanies = () =>
-  axios.get("http://localhost:3000/companies").then((res) => res.data);
+
+export const fetchAllCompanies = (sortBy = "revenue", order = "desc") => {
+  return axios
+    .get("http://localhost:3000/companies", {
+      params: { sortBy, order },
+    })
+    .then((res) => res.data);
+};
