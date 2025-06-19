@@ -6,32 +6,32 @@ import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import PaginationBtn from "../DetailCompany/PaginationBtn";
 import { useSearchFilter } from "../../hooks/useSearchFilter";
-import { invInitialData } from "../../config/invInitialData_mock_80_with_description";
 import { data } from "react-router-dom";
-import { fetchAllCompanies } from "../../api/company";
 import { usePagination } from "../../hooks/usePagination";
+import { fetchFilteredData } from "../../api/api";
 
 function CompanySelectModal({ type, listName, onModal }) {
   const [companies, setCompanies] = useState([]);
+  const { keyword, search } = useSearchFilter();
+
+  // keyword = value값 제어
+  // search = setKeyword
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchAllCompanies();
+      const data = await fetchFilteredData(keyword);
       setCompanies(data);
     };
 
+    console.log("재렌더링 되고 있니?");
+    console.log({ keyword });
+
     fetchData();
-  }, []);
-
-  const { keyword, filteredData, search } = useSearchFilter(companies); // 여기 안에 get으로 가져온 데이터
-
-  // filterdData => 키워드가 포함된 데이터
-  // invData 위치에 초기 데이터
-  // keyword = value값 제어
+  }, [keyword]);
 
   const pageSize = 5;
   const [page, setPage] = useState(1);
-  const totalCount = filteredData.length;
+  const totalCount = companies.length;
 
   const { pageNumbers, hasPrev, hasNext, handlePageChange } = usePagination({
     page,
@@ -77,7 +77,7 @@ function CompanySelectModal({ type, listName, onModal }) {
         />
         <ModalCompanyList
           name={listName[1]}
-          companies={filteredData}
+          companies={companies}
           type={type}
           page={page}
           pageSize={pageSize}
