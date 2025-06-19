@@ -101,8 +101,8 @@ function MyCompanyResult() {
     <CompareCompanyProvider defaultValue={[]}>
       <MyCompanyProvider
         defaultValue={{
-          name: myCompany.name,
-          name2: myCompany.name2,
+          companyName: myCompany.companyName,
+          category: myCompany.category,
           imgUrl: myCompany.imgUrl,
           id: myCompany.id,
         }}
