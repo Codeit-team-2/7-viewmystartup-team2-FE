@@ -22,8 +22,8 @@ function CompanyCard({ name, data, button = false }) {
       <div>
         <img src={data.imgUrl} alt="회사 로고 이미지" />
         <div>
-          <span>{data.name}</span>
-          <span>{data.name2}</span>
+          <span>{data.companyName}</span>
+          <span>{data.category}</span>
         </div>
       </div>
     </div>
