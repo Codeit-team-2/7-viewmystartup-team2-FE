@@ -30,7 +30,7 @@ const LandingPageColumns = [
 export default function LandingPage() {
   const [sortOption, setSortOption] = useState("totalInvestment_desc");
   const [sortBy, order] = sortOption.split("_");
-  const { data, loading } = useCompanies(sortBy, order);
+  const { data, loading } = useCompanies({ sortBy, order });
   const { keyword, filteredData, search } = useSearchFilter(data);
 
   const totalCount = filteredData.length;

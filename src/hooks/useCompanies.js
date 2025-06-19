@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { fetchAllCompanies } from "../api/company";
 
-// 🔧 sortBy, order 인자 받도록 수정되어야 함
-export const useCompanies = (sortBy, order) => {
+//객체형태로 넣어서 없어도 돌아감
+export const useCompanies = ({ sortBy = "", order = "" } = {}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +20,7 @@ export const useCompanies = (sortBy, order) => {
       }
     };
     fetch();
-  }, [sortBy, order]); // 🔧 의존성 배열에 추가
+  }, [sortBy, order]);
 
   return { data, loading };
 };
