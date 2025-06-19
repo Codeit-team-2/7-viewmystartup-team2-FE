@@ -32,7 +32,6 @@ function MyCompanySection({ name, children }) {
     } else {
       setIsMyCompany(false);
     }
-    console.log(myCompany);
   }, [myCompany]);
 
   return (
