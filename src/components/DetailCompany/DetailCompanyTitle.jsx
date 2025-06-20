@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import styles from "./DetailCompanyTitle.module.css";
-console.log("styles:", styles);
 
 export function DetailCompanyTitle({
   company,

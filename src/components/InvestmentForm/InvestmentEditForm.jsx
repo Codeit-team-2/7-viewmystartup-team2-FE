@@ -4,7 +4,7 @@ import { useErrorCheck } from "./useErrorCheck";
 import { InputBox } from "./InputBox";
 import CustomButton from "../customTag/customButton/customButton";
 import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
-
+import style from "./InvestmentEditForm.module.css";
 // const nameErrorText = v =>
 //   v.trim() === ""
 //     ? "필수 입력 항목입니다."

@@ -1,7 +1,6 @@
-
-
 import React, { useEffect, useRef, useState } from "react";
 import icSelectDot from "../../assets/ic_selectDot.svg";
+import styles from "./InvestorSelectBtn.module.css";
 
 function InvestorSelectBtn({ investor, onAction }) {
   const [open, setOpen] = useState(false);
@@ -16,13 +15,14 @@ function InvestorSelectBtn({ investor, onAction }) {
   }, []);
 
   return (
-    <div ref={ref}>
-      <button onClick={() => setOpen(v => !v)}>
+    <div className={styles.area} ref={ref}>
+      <button className={styles.imgBtn} onClick={() => setOpen(v => !v)}>
         <img src={icSelectDot} alt="옵션" />
       </button>
       {open && (
-        <div>
+        <div className={styles.menu}>
           <button
+            className={styles.option}
             onClick={() => {
               onAction && onAction("edit", investor);
               setOpen(false);
@@ -31,6 +31,7 @@ function InvestorSelectBtn({ investor, onAction }) {
             수정하기
           </button>
           <button
+            className={styles.option}
             onClick={() => {
               onAction && onAction("delete", investor);
               setOpen(false);
@@ -45,5 +46,3 @@ function InvestorSelectBtn({ investor, onAction }) {
 }
 
 export default InvestorSelectBtn;
-
-

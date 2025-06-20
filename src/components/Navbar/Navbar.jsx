@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 function Navbar() {
   return (
     <div className="navArea">
-      <div className="logo" />
+      <NavLink to="/" className="logo" />
       <div>
         <NavLink to="/mycompanycompare" className="navbarPage">
           나의 기업 비교
@@ -15,6 +15,9 @@ function Navbar() {
         </NavLink>
         <NavLink to="/investmentoverview" className="navbarPage">
           투자 현황
+        </NavLink>
+        <NavLink to="/companydetail/1" className="navbarPage">
+          임시 기업상세 페이지
         </NavLink>
       </div>
     </div>
