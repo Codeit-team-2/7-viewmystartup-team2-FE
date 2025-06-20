@@ -18,6 +18,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
     if (!validate()) return;
     const companyName = company.companyName || "AI 스타트업"; // 일단 컴퍼니이름이 없어서 임시로 넣어봄
     // 현재 테스트유저 , 비밀번호 123456 을 치고 입력하면 제대로 post가 보내진다. db에도 데이터가 쌓임
+    // 여기코드들은 전부 태홍님 코드로 할것 내코드 X
     try {
       await fetch("http://localhost:3000/investments", {
         method: "POST",
@@ -27,7 +28,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
 
         body: JSON.stringify({
           companyName: companyName,
-          investorName: form.investorName,
+          investorName: form.investorName, //여기에 일단 고정적인 유저가 들어가야됨
           amount: form.amount,
           comment: form.comment,
           password: form.password,
