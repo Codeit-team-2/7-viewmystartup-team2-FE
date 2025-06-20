@@ -10,9 +10,25 @@ export const fetchAllCompanies = (sortBy = "revenue", order = "desc") => {
     .then((res) => res.data);
 };
 
-export const fetchFilteredDataWJ = (keyword, sortBy = "revenue", order = "desc") => {
+export const fetchFilteredDataWJ = (
+  keyword,
+  sortBy = "revenue",
+  order = "desc"
+) => {
   return axios
     .get("http://localhost:3000/companies", {
+      params: { keyword, sortBy, order },
+    })
+    .then((res) => res.data);
+};
+
+export const fetchInvestmentOverviewData = (
+  keyword,
+  sortBy = "vmsInvestment",
+  order = "desc"
+) => {
+  return axios
+    .get("http://localhost:3000/companies/investment-overview", {
       params: { keyword, sortBy, order },
     })
     .then((res) => res.data);

@@ -1,15 +1,16 @@
 // src/pages/InvestmentOverviewPage/InvestmentOverviewPage.jsx
+import { useEffect, useState } from "react";
 import FetchTable from "../../components/FetchTable/FetchTable.jsx";
 import NoResult from "../../components/SearchBar/NoResult.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
-import { invInitialData } from "../../config/invInitialData_mock_80_with_description.js";
-import { useSearchFilter } from "../../hooks/useSearchFilter.js";
-import { useEffect, useState } from "react";
-import { usePagination } from "../../hooks/usePagination.js";
-import { usePageSize } from "../../hooks/usePageSize";
-
-import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
 import PageSizeSelector from "../../components/PageSizeSelector/PageSizeSelector.jsx";
+import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
+import SelectOption from "../../components/SelectOption/selectOption.jsx";
+import { useSearchFilter } from "../../hooks/useSearchFilter.js";
+import { usePagination } from "../../hooks/usePagination.js";
+import { usePageSize } from "../../hooks/usePageSize.js";
+import { fetchInvestmentOverviewData } from "../../api/company.js";
+import { InvestmentOverviewPageOptionsData } from "../../config/filterConfig.js"; // 정렬 옵션
 
 //나중에 config로 뺍시당
 const InvestmentOverviewPageColumns = [
@@ -22,9 +23,12 @@ const InvestmentOverviewPageColumns = [
 ];
 
 export default function InvestmentOverviewPage() {
-  const { keyword, filteredData, search } = useSearchFilter(invInitialData);
+  const [sortOption, setSortOption] = useState("vmsInvestment_desc");
+  const [sortBy, order] = sortOption.split("_");
+  const { keyword, search } = useSearchFilter();
+  const [companies, setCompanies] = useState([]);
 
-  const totalCount = filteredData.length;
+  const totalCount = companies.length;
   const [page, setPage] = useState(1);
 
   const { pageSize, pageSizeOptions, handlePageSizeChange } = usePageSize(5);
@@ -39,12 +43,25 @@ export default function InvestmentOverviewPage() {
   // pageSize, keyword 바뀌면 page를 1로 초기화
   useEffect(() => {
     setPage(1);
-  }, [pageSize, keyword]);
+  }, [pageSize, keyword, sortOption]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchInvestmentOverviewData(keyword, sortBy, order);
+      setCompanies(data);
+    };
+    fetchData();
+  }, [keyword, sortBy, order]);
+
+  const handleCompanySortChange = (e) => {
+    setSortOption(e.target.value); // 예: vmsInvestment_asc
+    console.log(e.target.value);
+  };
 
   //현재 페이지의 데이터만 자르기 //요부분은 calculatePageIndex 함수로 따로 빼도될듯
   const startIndex = (page - 1) * pageSize;
   const endIndex = startIndex + pageSize;
-  const currentPageData = filteredData.slice(startIndex, endIndex);
+  const currentPageData = companies.slice(startIndex, endIndex);
 
   return (
     <div className="startup-page">
@@ -56,16 +73,14 @@ export default function InvestmentOverviewPage() {
           pageSizeOptions={pageSizeOptions}
           onChange={handlePageSizeChange}
         />
-        <h3>필터 selector 컴포넌트 (ex. 누적투자금액 높은순) </h3>
-
-        {/* 필터 OrderBy 선택 영역 */}
+        <SelectOption
+          options={InvestmentOverviewPageOptionsData}
+          onChange={handleCompanySortChange}
+        />
       </div>
-      {/* <FetchTable data={invInitialData} columns={LandingPageColumns} /> */}
-      {/* <FetchTable data={filteredData} columns={LandingPageColumns} /> */}
 
       {currentPageData.length > 0 ? (
         <>
-          {/* <FetchTable data={filteredData} columns={LandingPageColumns} /> */}
           <FetchTable
             data={currentPageData}
             columns={InvestmentOverviewPageColumns}
