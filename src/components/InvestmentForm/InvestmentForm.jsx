@@ -3,7 +3,11 @@ import { DetailCompanyTitle } from "../DetailCompany/DetailCompanyTitle";
 import { InputBox } from "./InputBox";
 import CustomButton from "../customTag/customButton/customButton";
 import { useInvestmentForm } from "./useInvestmentForm";
+<<<<<<< HEAD
 import styles from "./InvestmentForm.module.css";
+=======
+import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
+>>>>>>> e8740a0 (css 수정 #4)
 
 function InvestmentForm({ company = {}, onCancel, onConfirm }) {
   const {
@@ -13,7 +17,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
     validate, // 유효성 검사
     resetForm, // 초기화
   } = useInvestmentForm();
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (!validate()) return;
     const companyName = company.companyName || "AI 스타트업"; // 일단 컴퍼니이름이 없어서 임시로 넣어봄
@@ -42,42 +46,55 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
   };
 
   return (
+<<<<<<< HEAD
     <form className={styles.backgroundColor} onSubmit={handleSubmit}>
       <h1 className={styles.titlefont}>투자 기업 정보</h1>
       <DetailCompanyTitle company={company} />
+=======
+    <form onSubmit={handleSubmit}>
+      <h1>투자 기업 정보</h1>
+      <DetailCompanyTitle
+        company={company}
+        areaClass={titleStyle.areaForm}
+        imgClass={titleStyle.imgForm}
+        boxClass={titleStyle.boxForm}
+        titleClass={titleStyle.titleForm}
+        categoryClass={titleStyle.categoryForm}
+      />
+>>>>>>> e8740a0 (css 수정 #4)
 
       <InputBox
         label="투자자 이름"
         value={form.investorName}
-        onChange={(e) => handleChange("investorName", e.target.value)}
+        onChange={e => handleChange("investorName", e.target.value)}
         type="text"
         error={errors.investorName}
       />
       <InputBox
         label="투자 금액"
         value={form.amount}
-        onChange={(e) => handleChange("amount", e.target.value)}
+        onChange={e => handleChange("amount", e.target.value)}
         type="number"
         error={errors.amount}
       />
       <InputBox
         label="투자 코멘트"
         value={form.comment}
-        onChange={(e) => handleChange("comment", e.target.value)}
+        onChange={e => handleChange("comment", e.target.value)}
         type="text"
         error={errors.comment}
       />
       <InputBox
         label="비밀번호"
         value={form.password}
-        onChange={(e) => handleChange("password", e.target.value)}
+        onChange={e => handleChange("password", e.target.value)}
         type="password"
         error={errors.password}
       />
       <InputBox
         label="비밀번호 확인"
         value={form.checkPassword}
-        onChange={(e) => handleChange("checkPassword", e.target.value)}
+        onChange={e => handleChange("checkPassword", e.target.value)}
         type="password"
         error={errors.checkPassword}
       />

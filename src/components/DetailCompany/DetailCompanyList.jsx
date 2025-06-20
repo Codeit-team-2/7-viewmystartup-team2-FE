@@ -14,7 +14,7 @@ export function DetailCompanyList({ company }) {
       </div>
       <div className={styles.box}>
         <div className={styles.title}>고용 인원</div>
-        <div className={styles.content}>{company.employees}명</div>
+        <div className={styles.content}>{company.employees}</div>
       </div>
     </div>
   );
