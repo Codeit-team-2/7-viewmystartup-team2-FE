@@ -3,7 +3,7 @@ import React from "react";
 function CustomButton({ children, onClick, type }) {
   return (
     <>
-      <button className={style.ButtonStyle} onClick={onClick} type={type}>
+      <button className={style.button} onClick={onClick} type={type}>
         {children}
       </button>
     </>

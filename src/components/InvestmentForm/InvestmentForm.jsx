@@ -4,6 +4,7 @@ import { InputBox } from "./InputBox";
 import CustomButton from "../customTag/customButton/customButton";
 import { useInvestmentForm } from "./useInvestmentForm";
 import styles from "./InvestmentForm.module.css";
+import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
 
 function InvestmentForm({ company = {}, onCancel, onConfirm }) {
   const {
@@ -13,12 +14,11 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
     validate, // 유효성 검사
     resetForm, // 초기화
   } = useInvestmentForm();
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (!validate()) return;
     const companyName = company.companyName || "AI 스타트업"; // 일단 컴퍼니이름이 없어서 임시로 넣어봄
     // 현재 테스트유저 , 비밀번호 123456 을 치고 입력하면 제대로 post가 보내진다. db에도 데이터가 쌓임
-    // 여기코드들은 전부 태홍님 코드로 할것 내코드 X
     try {
       await fetch("http://localhost:3000/investments", {
         method: "POST",
@@ -28,7 +28,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
 
         body: JSON.stringify({
           companyName: companyName,
-          investorName: form.investorName, //여기에 일단 고정적인 유저가 들어가야됨
+          investorName: form.investorName,
           amount: form.amount,
           comment: form.comment,
           password: form.password,
@@ -44,45 +44,52 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
   return (
     <form className={styles.backgroundColor} onSubmit={handleSubmit}>
       <h1 className={styles.titlefont}>투자 기업 정보</h1>
-      <DetailCompanyTitle company={company} />
+      <DetailCompanyTitle
+        company={company}
+        areaClass={titleStyle.areaForm}
+        imgClass={titleStyle.imgForm}
+        boxClass={titleStyle.boxForm}
+        titleClass={titleStyle.titleForm}
+        categoryClass={titleStyle.categoryForm}
+      />
 
       <InputBox
         label="투자자 이름"
         value={form.investorName}
-        onChange={(e) => handleChange("investorName", e.target.value)}
+        onChange={e => handleChange("investorName", e.target.value)}
         type="text"
         error={errors.investorName}
       />
       <InputBox
         label="투자 금액"
         value={form.amount}
-        onChange={(e) => handleChange("amount", e.target.value)}
+        onChange={e => handleChange("amount", e.target.value)}
         type="number"
         error={errors.amount}
       />
       <InputBox
         label="투자 코멘트"
         value={form.comment}
-        onChange={(e) => handleChange("comment", e.target.value)}
+        onChange={e => handleChange("comment", e.target.value)}
         type="text"
         error={errors.comment}
       />
       <InputBox
         label="비밀번호"
         value={form.password}
-        onChange={(e) => handleChange("password", e.target.value)}
+        onChange={e => handleChange("password", e.target.value)}
         type="password"
         error={errors.password}
       />
       <InputBox
         label="비밀번호 확인"
         value={form.checkPassword}
-        onChange={(e) => handleChange("checkPassword", e.target.value)}
+        onChange={e => handleChange("checkPassword", e.target.value)}
         type="password"
         error={errors.checkPassword}
       />
 
-      <div className={styles.postButton}>
+      <div>
         <CustomButton onClick={onCancel} type="button">
           취소
         </CustomButton>

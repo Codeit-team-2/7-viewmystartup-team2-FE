@@ -63,7 +63,7 @@ function CompanyDetail() {
       />
       {modalOpen && (
         <Modal onClose={handleCloseModal}>
-          <InvestmentForm />
+          <InvestmentForm company={company} />
         </Modal>
       )}
     </div>
