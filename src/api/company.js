@@ -33,3 +33,11 @@ export const fetchInvestmentOverviewData = (
     })
     .then((res) => res.data);
 };
+
+export const fetchSelectedOverviewData = (keyword, sortBy, order) => {
+  return axios
+    .get("http://localhost:3000/companies/selected-overview", {
+      params: { keyword, sortBy, order },
+    })
+    .then((res) => res.data);
+};
