@@ -1,7 +1,6 @@
 .area {
   width: 448px;
   height: 221px;
-  padding-top: 30px;
   background-color: var(--black-300);
 }
 
@@ -11,4 +10,13 @@
   margin-top: 20px;
   align-items: center;
   background-color: var(--black-300);
+}
+
+.title {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  background-color: var(--black-300);
+  margin-bottom: 30px;
 }

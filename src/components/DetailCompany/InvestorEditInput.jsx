@@ -12,6 +12,7 @@ function InvestorEditInput({
 }) {
   return (
     <div className={styles.area}>
+      <h1 className={styles.title}>수정하기 비밀번호 확인</h1>
       <InputBox
         label="비밀번호"
         type="password"
