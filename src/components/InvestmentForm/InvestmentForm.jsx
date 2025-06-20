@@ -3,11 +3,8 @@ import { DetailCompanyTitle } from "../DetailCompany/DetailCompanyTitle";
 import { InputBox } from "./InputBox";
 import CustomButton from "../customTag/customButton/customButton";
 import { useInvestmentForm } from "./useInvestmentForm";
-<<<<<<< HEAD
 import styles from "./InvestmentForm.module.css";
-=======
 import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
->>>>>>> e8740a0 (css 수정 #4)
 
 function InvestmentForm({ company = {}, onCancel, onConfirm }) {
   const {
@@ -22,7 +19,6 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
     if (!validate()) return;
     const companyName = company.companyName || "AI 스타트업"; // 일단 컴퍼니이름이 없어서 임시로 넣어봄
     // 현재 테스트유저 , 비밀번호 123456 을 치고 입력하면 제대로 post가 보내진다. db에도 데이터가 쌓임
-    // 여기코드들은 전부 태홍님 코드로 할것 내코드 X
     try {
       await fetch("http://localhost:3000/investments", {
         method: "POST",
@@ -32,7 +28,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
 
         body: JSON.stringify({
           companyName: companyName,
-          investorName: form.investorName, //여기에 일단 고정적인 유저가 들어가야됨
+          investorName: form.investorName,
           amount: form.amount,
           comment: form.comment,
           password: form.password,
@@ -46,13 +42,8 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
   };
 
   return (
-<<<<<<< HEAD
     <form className={styles.backgroundColor} onSubmit={handleSubmit}>
       <h1 className={styles.titlefont}>투자 기업 정보</h1>
-      <DetailCompanyTitle company={company} />
-=======
-    <form onSubmit={handleSubmit}>
-      <h1>투자 기업 정보</h1>
       <DetailCompanyTitle
         company={company}
         areaClass={titleStyle.areaForm}
@@ -61,7 +52,6 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
         titleClass={titleStyle.titleForm}
         categoryClass={titleStyle.categoryForm}
       />
->>>>>>> e8740a0 (css 수정 #4)
 
       <InputBox
         label="투자자 이름"
@@ -99,7 +89,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
         error={errors.checkPassword}
       />
 
-      <div className={styles.postButton}>
+      <div>
         <CustomButton onClick={onCancel} type="button">
           취소
         </CustomButton>
