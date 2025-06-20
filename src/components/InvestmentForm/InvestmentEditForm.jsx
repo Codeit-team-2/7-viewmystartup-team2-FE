@@ -3,22 +3,23 @@ import { DetailCompanyTitle } from "../DetailCompany/DetailCompanyTitle";
 import { useErrorCheck } from "./useErrorCheck";
 import { InputBox } from "./InputBox";
 import CustomButton from "../customTag/customButton/customButton";
+import style from "./InvestmentEditForm.module.css";
 
-const nameErrorText = v =>
+const nameErrorText = (v) =>
   v.trim() === ""
     ? "필수 입력 항목입니다."
     : v.length > 5
     ? "5자 이내로 입력해주세요"
     : "";
 
-const amountErrorText = v =>
+const amountErrorText = (v) =>
   v.trim() === ""
     ? "필수 입력 항목입니다."
     : isNaN(v)
     ? "숫자로 입력해주세요"
     : "";
 
-const commentErrorText = v =>
+const commentErrorText = (v) =>
   v.trim() === ""
     ? "필수 입력 항목입니다."
     : v.length > 20
@@ -38,7 +39,7 @@ function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
     investor.comment,
     commentErrorText
   );
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (investorNameError || amountError || commentError) {
       return;
@@ -81,7 +82,7 @@ function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
           error={commentError}
         />
       </div>
-      <div>
+      <div className={style.backgroudColor}>
         <CustomButton onClick={onCancel} type="button">
           취소
         </CustomButton>
