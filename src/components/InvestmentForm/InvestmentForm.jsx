@@ -3,6 +3,7 @@ import { DetailCompanyTitle } from "../DetailCompany/DetailCompanyTitle";
 import { InputBox } from "./InputBox";
 import CustomButton from "../customTag/customButton/customButton";
 import { useInvestmentForm } from "./useInvestmentForm";
+import styles from "./InvestmentForm.module.css";
 
 function InvestmentForm({ company = {}, onCancel, onConfirm }) {
   const {
@@ -40,8 +41,8 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>투자 기업 정보</h1>
+    <form className={styles.backgroundColor} onSubmit={handleSubmit}>
+      <h1 className={styles.titlefont}>투자 기업 정보</h1>
       <DetailCompanyTitle company={company} />
 
       <InputBox
@@ -80,7 +81,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
         error={errors.checkPassword}
       />
 
-      <div>
+      <div className={styles.postButton}>
         <CustomButton onClick={onCancel} type="button">
           취소
         </CustomButton>

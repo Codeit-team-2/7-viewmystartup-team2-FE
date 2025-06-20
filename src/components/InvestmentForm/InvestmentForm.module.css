@@ -1,0 +1,17 @@
+.titlefont {
+  font-size: 18px;
+  font-weight: 700px;
+  background-color: var(--black-300);
+}
+
+.postButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--black-300);
+}
+
+.backgroundColor {
+  background-color: var(--black-300);
+}

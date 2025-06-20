@@ -162,10 +162,13 @@ function MyCompanyResult() {
               size={modalStep === "confirm" ? "small" : "default"}
             >
               {modalStep === "form" ? (
-                <InvestmentForm
-                  onConfirm={handleConfirm}
-                  onCancel={handleCloseModal}
-                />
+                <>
+                  <p className={style.modaltitle}>기업에 투자하기</p>
+                  <InvestmentForm
+                    onConfirm={handleConfirm}
+                    onCancel={handleCloseModal}
+                  />
+                </>
               ) : (
                 <>
                   <p>투자가 완료되었어요!</p>
