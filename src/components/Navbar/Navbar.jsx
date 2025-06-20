@@ -7,7 +7,7 @@ function Navbar() {
     <div className="navArea">
       <div className="logo" />
       <div>
-        <NavLink to="/myEntList" className="navbarPage">
+        <NavLink to="/mycompanycompare" className="navbarPage">
           나의 기업 비교
         </NavLink>
         <NavLink to="/selectedoverview" className="navbarPage">

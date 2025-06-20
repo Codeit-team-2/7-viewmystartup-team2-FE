@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   useCompareCompany,
   useIsCompareCompany,
@@ -49,9 +50,11 @@ function CompareButtonSection() {
 
   return (
     <>
-      <button className="compareBtn" onClick={handleCompareBtn}>
-        기업 비교하기
-      </button>
+      <Link to="/mycompanyresult">
+        <button className="compareBtn" onClick={handleCompareBtn}>
+          기업 비교하기
+        </button>
+      </Link>
     </>
   );
 }

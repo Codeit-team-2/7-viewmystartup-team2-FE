@@ -23,9 +23,6 @@ function CompanySelectModal({ type, listName, onModal }) {
       setCompanies(data);
     };
 
-    console.log("재렌더링 되고 있니?");
-    console.log({ keyword });
-
     fetchData();
   }, [keyword]);
 
