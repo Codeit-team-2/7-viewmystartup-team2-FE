@@ -59,7 +59,7 @@ function InvestorTable({ companyId, company, page, pageSize }) {
     setEditStep("editForm");
     setErrorMessage("");
   };
-  
+
   const handleEditSubmit = updatedInvestor => {
     setInvestors(prev =>
       prev.map(inv =>
