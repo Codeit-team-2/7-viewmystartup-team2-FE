@@ -15,6 +15,8 @@ import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
 import { useCompanies } from "../../hooks/useCompanies.js";
 import SelectOption from "../../components/SelectOption/selectOption.jsx";
 import { LandingPageOptionsData } from "../../config/filterConfig.js";
+import { fetchFilteredData } from "../../api/api.jsx";
+import { fetchFilteredDataWJ } from "../../api/company.js";
 
 //나중에 config로 뺍시당
 const LandingPageColumns = [
@@ -30,10 +32,12 @@ const LandingPageColumns = [
 export default function LandingPage() {
   const [sortOption, setSortOption] = useState("totalInvestment_desc");
   const [sortBy, order] = sortOption.split("_");
-  const { data, loading } = useCompanies();
-  const { keyword, filteredData, search } = useSearchFilter(data);
+  const { data, loading } = useCompanies({ sortBy, order });
+  const { keyword, search } = useSearchFilter();
+  const [companies, setCompanies] = useState([]);
 
-  const totalCount = filteredData.length;
+  const totalCount = companies.length;
+
   const [page, setPage] = useState(1);
   // const pageSize = 5; // 한 페이지에 보여줄 항목 수
   const { pageSize, pageSizeOptions, handlePageSizeChange } = usePageSize(5);
@@ -49,15 +53,24 @@ export default function LandingPage() {
   useEffect(() => {
     setPage(1);
   }, [pageSize, keyword, sortOption]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchFilteredDataWJ(keyword, sortBy, order);
+      setCompanies(data);
+    };
+
+    fetchData();
+  }, [keyword, sortBy, order]);
 
   const handleCompanySortChange = (e) => {
     setSortOption(e.target.value); // 예: "revenue_desc"
+    console.log(e.target.value);
   };
 
   //현재 페이지의 데이터만 자르기 //요부분은 calculatePageIndex 함수로 따로 빼도될듯
   const startIndex = (page - 1) * pageSize;
   const endIndex = startIndex + pageSize;
-  const currentPageData = filteredData.slice(startIndex, endIndex);
+  const currentPageData = companies.slice(startIndex, endIndex);
 
   return (
     <div className="startup-page">
