@@ -13,6 +13,7 @@ function InvestorDeleteInput({
 }) {
   return (
     <div className={styles.area}>
+      <h1 className={styles.title}>삭제하기 비밀번호 확인</h1>
       <InputBox
         label="비밀번호"
         type="password"

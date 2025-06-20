@@ -4,7 +4,8 @@ import { useErrorCheck } from "./useErrorCheck";
 import { InputBox } from "./InputBox";
 import CustomButton from "../customTag/customButton/customButton";
 import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
-import style from "./InvestmentEditForm.module.css";
+import styles from "./InvestmentEditForm.module.css";
+import btnStyle from "../customTag/customButton/customButton.module.css";
 // const nameErrorText = v =>
 //   v.trim() === ""
 //     ? "필수 입력 항목입니다."
@@ -49,9 +50,9 @@ function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <h1>투자 기업 정보</h1>
+    <form className={styles.area} onSubmit={handleSubmit}>
+      <div className={styles.titleBox}>
+        <h1 className={styles.title}>투자 기업 정보</h1>
         <DetailCompanyTitle
           company={company}
           areaClass={titleStyle.areaForm}
@@ -61,7 +62,7 @@ function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
           categoryClass={titleStyle.categoryForm}
         />
       </div>
-      <div>
+      <div className={styles.inputBox}>
         {/* <InputBox
           label="투자자 이름"
           value={investorName}
@@ -90,11 +91,19 @@ function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
           error={commentError}
         />
       </div>
-      <div className={style.backgroudColor}>
-        <CustomButton onClick={onCancel} type="button">
+      <div className={styles.btnArea}>
+        <CustomButton
+          buttonClass={btnStyle.buttonCancel}
+          onClick={onCancel}
+          type="button"
+        >
           취소
         </CustomButton>
-        <CustomButton onClick={onConfirm} type="submit">
+        <CustomButton
+          buttonClass={btnStyle.buttonLarge}
+          onClick={onConfirm}
+          type="submit"
+        >
           수정하기
         </CustomButton>
       </div>

@@ -5,6 +5,7 @@ import CustomButton from "../customTag/customButton/customButton";
 import { useInvestmentForm } from "./useInvestmentForm";
 import styles from "./InvestmentForm.module.css";
 import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
+import btnStyle from "../customTag/customButton/customButton.module.css";
 
 function InvestmentForm({ company = {}, onCancel, onConfirm }) {
   const {
@@ -89,11 +90,17 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
         error={errors.checkPassword}
       />
 
-      <div>
-        <CustomButton onClick={onCancel} type="button">
+      <div className={styles.btnArea}>
+        <CustomButton
+          buttonClass={btnStyle.buttonCancel}
+          onClick={onCancel}
+          type="button"
+        >
           취소
         </CustomButton>
-        <CustomButton type="submit">투자하기</CustomButton>
+        <CustomButton buttonClass={btnStyle.buttonLarge} type="submit">
+          투자하기
+        </CustomButton>
       </div>
     </form>
   );
