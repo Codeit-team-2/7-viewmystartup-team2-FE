@@ -26,14 +26,14 @@ export const InvestmentOverviewPageOptionsData = [
 ];
 //SelectedOverviewPage 비교현황페이지 필터
 export const SelectedOverviewPageOptionsData = [
-  { value: "myCompanySelectedCnt_desc", label: "나의 기업 선택 횟수 높은순" },
-  { value: "myCompanySelectedCnt_asc", label: "나의 기업 선택 횟수 낮은순" },
+  { value: "myCompanySelectedCount_desc", label: "나의 기업 선택 횟수 높은순" },
+  { value: "myCompanySelectedCount_asc", label: "나의 기업 선택 횟수 낮은순" },
   {
-    value: "compareCompanySelectedCnt_desc",
+    value: "compareSelectedCount_desc",
     label: "비교 기업 선택 횟수 높은순",
   },
   {
-    value: "compareCompanySelectedCnt_asc",
+    value: "compareSelectedCount_asc",
     label: "비교 기업 선택 횟수 낮은순",
   },
 ];
