@@ -1,6 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
+import AuthStatus from "./AuthStatus";
 
 function Navbar() {
   return (
@@ -17,6 +18,7 @@ function Navbar() {
           투자 현황
         </NavLink>
       </div>
+      <AuthStatus />
     </div>
   );
 }

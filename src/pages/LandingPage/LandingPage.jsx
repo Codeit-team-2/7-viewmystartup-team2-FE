@@ -17,6 +17,10 @@ import SelectOption from "../../components/SelectOption/selectOption.jsx";
 import { LandingPageOptionsData } from "../../config/filterConfig.js";
 import { fetchFilteredData } from "../../api/api.jsx";
 import { fetchFilteredDataWJ } from "../../api/company.js";
+//로그인 작업 추가
+import LoginModal from "../../components/Modal/LoginModal.jsx";
+import { loginUser } from "../../api/auth";
+import { useAuth } from "../../hooks/useAuth";
 
 //나중에 config로 뺍시당
 const LandingPageColumns = [
@@ -30,6 +34,8 @@ const LandingPageColumns = [
 ];
 
 export default function LandingPage() {
+  const { isLoggedIn, nickname } = useAuth();
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [sortOption, setSortOption] = useState("totalInvestment_desc");
   const [sortBy, order] = sortOption.split("_");
   const { data, loading } = useCompanies({ sortBy, order });
@@ -58,13 +64,31 @@ export default function LandingPage() {
       const data = await fetchFilteredDataWJ(keyword, sortBy, order);
       setCompanies(data);
     };
-
     fetchData();
   }, [keyword, sortBy, order]);
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setShowLoginModal(true);
+    }
+  }, []);
+
   const handleCompanySortChange = (e) => {
-    setSortOption(e.target.value); // 예: "revenue_desc"
+    setSortOption(e.target.value);
     console.log(e.target.value);
+  };
+
+  const handleLogin = async (nickname, password) => {
+    try {
+      const data = await loginUser({ nickname, password });
+      localStorage.setItem("nickname", data.nickname);
+      localStorage.setItem("userId", data.id);
+      setShowLoginModal(false);
+      alert("로그인 성공!");
+      window.location.reload();
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   //현재 페이지의 데이터만 자르기 //요부분은 calculatePageIndex 함수로 따로 빼도될듯
@@ -86,15 +110,10 @@ export default function LandingPage() {
           options={LandingPageOptionsData}
           onChange={handleCompanySortChange}
         ></SelectOption>
-
-        {/* 필터 OrderBy 선택 영역 */}
       </div>
-      {/* <FetchTable data={invInitialData} columns={LandingPageColumns} /> */}
-      {/* <FetchTable data={filteredData} columns={LandingPageColumns} /> */}
 
       {currentPageData.length > 0 ? (
         <>
-          {/* <FetchTable data={filteredData} columns={LandingPageColumns} /> */}
           <FetchTable
             data={currentPageData}
             columns={LandingPageColumns}
@@ -111,6 +130,8 @@ export default function LandingPage() {
       ) : (
         <NoResult keyword={keyword} />
       )}
+
+      {showLoginModal && <LoginModal onLogin={handleLogin} />}
     </div>
   );
 }
