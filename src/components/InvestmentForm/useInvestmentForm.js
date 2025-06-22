@@ -1,12 +1,33 @@
 import { useState } from "react";
 export function useInvestmentForm() {
+  //우진수정
+  const nickname =
+    localStorage.getItem("nickname") ||
+    `익명사용자${new Date()
+      .toISOString()
+      .replace(/[-:.TZ]/g, "")
+      .slice(4, 14)}`;
+  const userId = localStorage.getItem("userId") || "UnidentifiedID";
+
+  //우진수정
   const [form, setForm] = useState({
-    investorName: "",
+    userId,
+    investorName: nickname,
     amount: "",
     comment: "",
     password: "",
     checkPassword: "",
   });
+
+  //기존코드
+  // const [form, setForm] = useState({
+  //   //userId: "", //우진수정
+  //   investorName: "",
+  //   amount: "",
+  //   comment: "",
+  //   password: "",
+  //   checkPassword: "",
+  // });
 
   const [errors, setErrors] = useState({});
 
@@ -37,16 +58,29 @@ export function useInvestmentForm() {
     return Object.keys(newErrors).length === 0;
   };
 
+  //우진수정
   const resetForm = () => {
-    setForm({
-      investorName: "",
+    setForm((prev) => ({
+      ...prev,
       amount: "",
       comment: "",
       password: "",
       checkPassword: "",
-    });
+    }));
     setErrors({});
   };
+
+  //기존코드
+  // const resetForm = () => {
+  //   setForm({
+  //     investorName: "", //우진수정 - 나중에 요기는 빼야할듯여 닉네임으로 고정해두고요
+  //     amount: "",
+  //     comment: "",
+  //     password: "",
+  //     checkPassword: "",
+  //   });
+  //   setErrors({});
+  // };
 
   return { form, errors, handleChange, validate, resetForm };
 }
