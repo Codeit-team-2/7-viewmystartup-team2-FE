@@ -16,28 +16,6 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
     resetForm, // 초기화
   } = useInvestmentForm();
 
-  //우진 수정//
-  useEffect(() => {
-    const nickname =
-      localStorage.getItem("nickname") ||
-      `익명사용자${new Date()
-        .toISOString()
-        .replace(/[-:.TZ]/g, "")
-        .slice(4, 14)}`;
-    //익명사용자+현재시간초단위(MMDDHHmmss) 익명사용자 0622184547
-    const userId = localStorage.getItem("userId") || "UnidentifiedID";
-    console.log("nickname loaded:", nickname); // ✅ 확인용
-    console.log("userId loaded:", userId); // ✅ 확인용
-
-    if (nickname) {
-      handleChange("investorName", nickname);
-    }
-    if (userId) {
-      handleChange("userId", userId);
-    }
-  }, []);
-  //우진 수정//
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
@@ -60,6 +38,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
           howMuch: Number(form.amount),
           comment: form.comment,
           password: form.password,
+          // userId:form.userId, //우진수정 추가예정
         }),
       });
       resetForm();
@@ -84,7 +63,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
       {/* 우진수정 */}
       <div className={styles.nicknameDisplay}>
         <p>투자자 이름 : </p>
-        <p>{form.investorName|| "닉네임없음"}</p>
+        <p>{form.investorName || "닉네임없음"}</p>
         <p>투자자 ID : </p>
         <p>
           {form.userId === "UnidentifiedID"

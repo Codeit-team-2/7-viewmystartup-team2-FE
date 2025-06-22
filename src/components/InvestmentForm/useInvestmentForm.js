@@ -7,6 +7,7 @@ export function useInvestmentForm() {
       .toISOString()
       .replace(/[-:.TZ]/g, "")
       .slice(4, 14)}`;
+  //익명사용자+현재시간초단위(MMDDHHmmss) 익명사용자 0622184547
   const userId = localStorage.getItem("userId") || "UnidentifiedID";
 
   //우진수정
