@@ -7,6 +7,8 @@ export function useSearchFilter() {
   const search = (newKeyword) => {
     setKeyword(newKeyword);
   };
-  console.log("최종 검색할 keyword : ", keyword);
+  const nickname = localStorage.getItem("nickname") || "익명사용자";
+  const userId = localStorage.getItem("userId") || "UnidentifiedID";
+  console.log(`'${nickname}'(${userId})님이 keword : '${keyword}'라고 검색함`);
   return { keyword, search };
 }
