@@ -98,7 +98,7 @@ export const createMyCompanySelection = async (userId, companyId) => {
 export const createCompareCompanySelection = async (userId, companyIds) => {
   try {
     const res = await axios.post(
-      "http://localhost:3000/my-company-selections",
+      "http://localhost:3000/compare-company-selections",
       {
         userId,
         companyIds,
