@@ -84,13 +84,13 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
       </div>
       {/* 우진수정 */}
 
-      <InputBox
+      {/* <InputBox
         label="투자자 이름"
         value={form.investorName}
         onChange={(e) => handleChange("investorName", e.target.value)}
         type="text"
         error={errors.investorName}
-      />
+      /> */}
       <InputBox
         label="투자 금액"
         value={form.amount}
