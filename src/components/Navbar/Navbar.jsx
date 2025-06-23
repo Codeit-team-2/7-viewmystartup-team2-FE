@@ -16,7 +16,7 @@ function Navbar() {
         <NavLink to="/investmentoverview" className="navbarPage">
           투자 현황
         </NavLink>
-        <NavLink to="/companydetail/1" className="navbarPage">
+        <NavLink to="/companydetailPage/1" className="navbarPage">
           임시 기업상세 페이지
         </NavLink>
       </div>
