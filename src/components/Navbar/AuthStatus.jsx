@@ -1,15 +1,17 @@
 //src/components/Navbar/AuthStatus.jsx
 import React from "react";
-import { logoutUser, getStoredUser } from "../../api/auth";
+// import { logoutUser, getStoredUser } from "../../api/auth";
+import { useAuth } from "../Contexts/AuthContext";
 
 export default function AuthStatus() {
-  const nickname = getStoredUser();
+  const { nickname, logout, isLoggedIn } = useAuth();
+  if (!isLoggedIn) return null;
 
-  if (!nickname) return null;
+  // const nickname = getStoredUser();
+  // if (!nickname) return null;
 
   const handleLogout = () => {
-    logoutUser();
-    window.location.reload(); // 로그인 모달 유도용 새로고침
+    logout();
   };
 
   return (

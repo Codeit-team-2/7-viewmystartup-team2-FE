@@ -6,8 +6,17 @@ import { useInvestmentForm } from "./useInvestmentForm";
 import styles from "./InvestmentForm.module.css";
 import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
 import btnStyle from "../customTag/customButton/customButton.module.css";
+import { useAuth } from "../Contexts/AuthContext"; //우진수정
 
 function InvestmentForm({ company = {}, onCancel, onConfirm }) {
+  const { nickname, userId } = useAuth(); // ✅ context로부터 사용자 정보 받기//우진수정
+
+  useEffect(() => {
+    //우진수정
+    if (nickname) handleChange("investorName", nickname);
+    if (userId) handleChange("userId", userId);
+  }, [nickname, userId]);
+
   const {
     form, // { investorName, amount, comment, password, checkPassword }
     errors, // { investorNameError, amountError, ... }
@@ -19,6 +28,8 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
+    console.log(company);
+    console.log("companyId from prop:", company.companyId);
     const companyName = company.companyName || "AI 스타트업"; // 일단 컴퍼니이름이 없어서 임시로 넣어봄
     // 현재 테스트유저 , 비밀번호 123456 을 치고 입력하면 제대로 post가 보내진다. db에도 데이터가 쌓임
     // 여기서 지금 post 요청에따라 만들어야할거같음 일단 컴퍼니이름은 처음에 로컬스토리지에있는 선택한 기업을가져오고
@@ -33,8 +44,8 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
         },
 
         body: JSON.stringify({
-          userId: "76ad92a4-8b3a-4174-a578-a3e49b82f459", // 일단 임시유저 id값을 넣어봄
-          companyId: "1849ef99-ce9f-4718-91e5-0f3b2c33875b", // 여기서 id값과 유저 id값만 보내면 정상적으로 db에 쌓임
+          userId: userId, //우진수정 고정uuid 하드코딩부분
+          companyId: company.id, //우진수정 //고정 companyid 하드코딩부분
           howMuch: Number(form.amount),
           comment: form.comment,
           password: form.password,
@@ -63,12 +74,12 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
       {/* 우진수정 */}
       <div className={styles.nicknameDisplay}>
         <p>투자자 이름 : </p>
-        <p>{form.investorName || "닉네임없음"}</p>
+        <p>{nickname || "닉네임없음"}</p>
         <p>투자자 ID : </p>
         <p>
-          {form.userId === "UnidentifiedID"
+          {!userId || userId === "UnidentifiedID"
             ? "UnidentifiedID 입니다. 로그인을 해야 정상 서비스 이용가능합니다"
-            : form.userId}
+            : userId}
         </p>
       </div>
       {/* 우진수정 */}
