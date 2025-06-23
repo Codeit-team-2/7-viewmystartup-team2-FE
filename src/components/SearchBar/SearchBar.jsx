@@ -17,7 +17,7 @@ export default function SearchBar({ onSubmit }) {
     if (e.key === "Enter") handleSubmit();
   };
 
-  console.log("현재input : ", input);
+  // console.log("현재input : ", input);
 
   return (
     <div className={styles.searchBar}>

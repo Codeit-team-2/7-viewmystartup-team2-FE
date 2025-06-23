@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useId } from "react";
 import { DetailCompanyTitle } from "../DetailCompany/DetailCompanyTitle";
 import { InputBox } from "./InputBox";
 import CustomButton from "../customTag/customButton/customButton";
@@ -15,6 +15,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
     validate, // 유효성 검사
     resetForm, // 초기화
   } = useInvestmentForm();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
@@ -37,6 +38,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
           howMuch: Number(form.amount),
           comment: form.comment,
           password: form.password,
+          // userId:form.userId, //우진수정 추가예정
         }),
       });
       resetForm();
@@ -57,6 +59,19 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
         titleClass={titleStyle.titleForm}
         categoryClass={titleStyle.categoryForm}
       />
+
+      {/* 우진수정 */}
+      <div className={styles.nicknameDisplay}>
+        <p>투자자 이름 : </p>
+        <p>{form.investorName || "닉네임없음"}</p>
+        <p>투자자 ID : </p>
+        <p>
+          {form.userId === "UnidentifiedID"
+            ? "UnidentifiedID 입니다. 로그인을 해야 정상 서비스 이용가능합니다"
+            : form.userId}
+        </p>
+      </div>
+      {/* 우진수정 */}
 
       <InputBox
         label="투자자 이름"

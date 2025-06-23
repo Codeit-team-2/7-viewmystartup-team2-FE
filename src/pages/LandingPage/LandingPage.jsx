@@ -1,21 +1,17 @@
 // src/pages/LandingPage/LandingPage.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FetchTable from "../../components/FetchTable/FetchTable.jsx";
 import NoResult from "../../components/SearchBar/NoResult.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import PageSizeSelector from "../../components/PageSizeSelector/PageSizeSelector";
-// import { invInitialData } from "../../config/invInitialData_v2";
-import { invInitialData } from "../../config/invInitialData_mock_80_with_description.js";
 import { useSearchFilter } from "../../hooks/useSearchFilter.js";
-import { useEffect, useState } from "react";
 import { usePagination } from "../../hooks/usePagination.js";
 import { usePageSize } from "../../hooks/usePageSize";
-
 import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
 import { useCompanies } from "../../hooks/useCompanies.js";
 import SelectOption from "../../components/SelectOption/selectOption.jsx";
 import { LandingPageOptionsData } from "../../config/filterConfig.js";
-import { fetchFilteredData } from "../../api/api.jsx";
+// import { fetchFilteredData } from "../../api/api.jsx";
 import { fetchFilteredDataWJ } from "../../api/company.js";
 
 //나중에 config로 뺍시당
@@ -58,12 +54,12 @@ export default function LandingPage() {
       const data = await fetchFilteredDataWJ(keyword, sortBy, order);
       setCompanies(data);
     };
-
     fetchData();
   }, [keyword, sortBy, order]);
+  
 
   const handleCompanySortChange = (e) => {
-    setSortOption(e.target.value); // 예: "revenue_desc"
+    setSortOption(e.target.value);
     console.log(e.target.value);
   };
 
@@ -86,15 +82,10 @@ export default function LandingPage() {
           options={LandingPageOptionsData}
           onChange={handleCompanySortChange}
         ></SelectOption>
-
-        {/* 필터 OrderBy 선택 영역 */}
       </div>
-      {/* <FetchTable data={invInitialData} columns={LandingPageColumns} /> */}
-      {/* <FetchTable data={filteredData} columns={LandingPageColumns} /> */}
 
       {currentPageData.length > 0 ? (
         <>
-          {/* <FetchTable data={filteredData} columns={LandingPageColumns} /> */}
           <FetchTable
             data={currentPageData}
             columns={LandingPageColumns}
