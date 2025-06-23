@@ -13,8 +13,11 @@ import {
   createCompareCompanySelection,
   createMyCompanySelection,
 } from "../../api/api";
+import { useAuth } from "../Contexts/AuthContext";
 
 function CompareButtonSection() {
+  const { userId } = useAuth();
+
   const isMyCompany = useIsMyCompany();
   const isCompareCompany = useIsCompareCompany();
   const cond = isMyCompany && isCompareCompany;
@@ -53,9 +56,8 @@ function CompareButtonSection() {
 
     // 버튼 클릭하면 선택한 내역 백엔드에 post
     try {
-      const userId = "fa56099d-9a88-40cc-9d28-f5a78a0d8107";
-      const companyId = MyCompany;
-      const companyIds = CompareCompany;
+      const companyId = MyCompany.id;
+      const companyIds = CompareCompany.map((c) => c.id);
 
       const newMySelectionResult = await createMyCompanySelection(
         userId,

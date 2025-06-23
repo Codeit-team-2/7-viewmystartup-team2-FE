@@ -1,13 +1,12 @@
+import { useCompareCompany } from "../CompareCompanySection/CompareCompanyContext";
 import ModalCompanyListItem from "./ModalCompanyListItem";
-import React, { useState } from "react";
 
-function ModalCompanyList({ companies = [], type, page, pageSize }) {
-  const start = (page - 1) * pageSize;
-  const modalCompanies = companies.slice(start, start + pageSize);
+function ModalCompanyListSelected({ type }) {
+  const modalCompanies = useCompareCompany();
 
   return (
     <div>
-      <p>검색 결과</p>
+      <p>{`선택한 기업 (${modalCompanies.length})`}</p>
       <ul className="companyList">
         {modalCompanies.map((company) => (
           <ModalCompanyListItem
@@ -21,4 +20,4 @@ function ModalCompanyList({ companies = [], type, page, pageSize }) {
   );
 }
 
-export default ModalCompanyList;
+export default ModalCompanyListSelected;

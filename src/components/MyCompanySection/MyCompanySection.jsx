@@ -54,11 +54,7 @@ function MyCompanySection({ name, children }) {
             </div>
           )}
           {isModalOpen && (
-            <CompanySelectModal
-              type="myCompany"
-              listName={["recent", "search"]}
-              onModal={handleIsModalOpen}
-            />
+            <CompanySelectModal type="myCompany" onModal={handleIsModalOpen} />
           )}
           {isMyCompany && (
             <>
