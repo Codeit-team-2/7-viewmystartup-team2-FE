@@ -41,3 +41,21 @@ export const fetchSelectedOverviewData = (keyword, sortBy, order) => {
     })
     .then((res) => res.data);
 };
+
+//내 투자현황 목록
+
+export const matchingInvestmentUserList = async ({ userId, nickname }) => {
+  try {
+    const params = {};
+    if (userId) params.userId = userId;
+    if (nickname) params.nickname = nickname;
+
+    const response = await axios.get("http://localhost:3000/investments", {
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("matchingInvestmentUserList api error:", error);
+    return [];
+  }
+};
