@@ -28,6 +28,8 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
+    console.log(company);
+    console.log("companyId from prop:", company.companyId);
     const companyName = company.companyName || "AI 스타트업"; // 일단 컴퍼니이름이 없어서 임시로 넣어봄
     // 현재 테스트유저 , 비밀번호 123456 을 치고 입력하면 제대로 post가 보내진다. db에도 데이터가 쌓임
     // 여기서 지금 post 요청에따라 만들어야할거같음 일단 컴퍼니이름은 처음에 로컬스토리지에있는 선택한 기업을가져오고
@@ -43,7 +45,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
 
         body: JSON.stringify({
           userId: userId, //우진수정 고정uuid 하드코딩부분
-          companyId: company.companyId, //우진수정 //고정 companyid 하드코딩부분
+          companyId: company.id, //우진수정 //고정 companyid 하드코딩부분
           howMuch: Number(form.amount),
           comment: form.comment,
           password: form.password,
