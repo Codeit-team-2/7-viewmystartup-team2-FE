@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 import LandingPage from "./pages/LandingPage/LandingPage.jsx";
 import MyCompanyCompare from "./pages/MyCompanyCompare/MyCompanyCompare.jsx";
 import MyCompanyResult from "./pages/MyCompanyResult/MyCompanyResult.jsx";
-import CompanyDetail from "./pages/CompanyDetail/CompanyDetail.jsx";
+import CompanyDetailPage from "./pages/CompanyDetailPage/CompanyDetailPage.jsx";
 import InvestmentOverviewPage from "./pages/InvestmentOverviewPage/InvestmentOverviewPage.jsx";
 import SelectedOverviewPage from "./pages/SelectedOverviewPage/SelectedOverviewPage.jsx";
 
@@ -21,7 +21,7 @@ function App() {
           path="/investmentoverview"
           element={<InvestmentOverviewPage />}
         />
-        <Route path="/companydetail/:id" element={<CompanyDetail />} />
+        <Route path="/companydetailpage/:id" element={<CompanyDetailPage />} />
         <Route path="/selectedoverview" element={<SelectedOverviewPage />} />
       </Routes>
     </div>

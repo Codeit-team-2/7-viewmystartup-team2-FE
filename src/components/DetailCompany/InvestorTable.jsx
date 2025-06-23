@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { investorsListData } from "../../config/investorsListData.js";
 import InvestorSelectBtn from "./InvestorSelectBtn.jsx";
 import Modal from "../Modal/Modal.jsx";
 import InvestorDeleteInput from "./InvestorDeleteInput.jsx";
@@ -7,14 +6,14 @@ import InvestorEditInput from "./InvestorEditInput.jsx";
 import InvestmentEditForm from "../InvestmentForm/InvestmentEditForm.jsx";
 import styles from "./InvestorTable.module.css";
 
-function InvestorTable({ companyId, company, page, pageSize }) {
-  const [investors, setInvestors] = useState(
-    (investorsListData[companyId] || []).slice().sort((a, b) => a.rank - b.rank)
-  );
-
-  const start = (page - 1) * pageSize;
-  const currentInvestors = investors.slice(start, start + pageSize);
-
+function InvestorTable({
+  investors,
+  company,
+  page,
+  pageSize,
+  onDelete,
+  onEdit,
+}) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState("");
   const [selectedInvestor, setSelectedInvestor] = useState(null);
@@ -45,9 +44,7 @@ function InvestorTable({ companyId, company, page, pageSize }) {
       setErrorMessage("비밀번호가 틀렸습니다.");
       return;
     }
-    setInvestors(prev =>
-      prev.filter(inv => inv.rank !== selectedInvestor.rank)
-    );
+    onDelete && onDelete(selectedInvestor);
     handleModalClose();
   };
 
@@ -61,13 +58,7 @@ function InvestorTable({ companyId, company, page, pageSize }) {
   };
 
   const handleEditSubmit = updatedInvestor => {
-    setInvestors(prev =>
-      prev.map(inv =>
-        inv.rank === selectedInvestor.rank
-          ? { ...inv, ...updatedInvestor }
-          : inv
-      )
-    );
+    onEdit && onEdit(selectedInvestor, updatedInvestor);
     handleModalClose();
   };
 
@@ -84,11 +75,11 @@ function InvestorTable({ companyId, company, page, pageSize }) {
           </tr>
         </thead>
         <tbody>
-          {currentInvestors.map(inv => (
+          {(investors || []).map(inv => (
             <tr className={styles.content} key={inv.rank}>
-              <td className={styles.contentBox}>{inv.name}</td>
-              <td className={styles.contentBox}>{inv.rank}</td>
-              <td className={styles.contentBox}>{inv.amount}</td>
+              <td className={styles.contentBox}>{inv.user?.nickname}</td>
+              <td className={styles.contentBox}>{inv.rank}위</td>
+              <td className={styles.contentBox}>{inv.howMuch} 억</td>
               <td className={styles.commentBox}>{inv.comment}</td>
               <td className={styles.optionBox}>
                 <InvestorSelectBtn investor={inv} onAction={handleAction} />
