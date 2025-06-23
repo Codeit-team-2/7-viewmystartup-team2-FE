@@ -9,6 +9,9 @@ export function useInvestmentForm() {
       .slice(4, 14)}`;
   //익명사용자+현재시간초단위(MMDDHHmmss) 익명사용자 0622184547
   const userId = localStorage.getItem("userId") || "UnidentifiedID";
+//useContext 래퍼로 감ㅏㅓ 로컬스토리지 쓰ㄴㅣ 안ㅡㅡㄴ지 모게
+// 유저id 를 body가 아니라 header 
+// //autorization이라는 키로 담아라 - 안전위해서
 
   //우진수정
   const [form, setForm] = useState({
