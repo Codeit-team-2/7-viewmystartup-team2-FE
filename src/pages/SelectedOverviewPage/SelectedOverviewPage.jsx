@@ -13,6 +13,7 @@ import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
 import PageSizeSelector from "../../components/PageSizeSelector/PageSizeSelector.jsx";
 import { fetchSelectedOverviewData } from "../../api/company.js";
 import { SelectedOverviewPageOptionsData } from "../../config/filterConfig.js";
+import styles from "./SelectedOverviewPage.module.css";
 
 //나중에 config로 뺍시당
 const SelectedOverviewPageColumns = [
@@ -68,39 +69,47 @@ export default function SelectedOverviewPage() {
   const currentPageData = companies.slice(startIndex, endIndex);
 
   return (
-    <div className="startup-page">
+    <div className={styles.startupPage}>
       <div>
-        <h2>비교 현황</h2>
-        <SearchBar onSubmit={search} />
-        <PageSizeSelector
-          pageSize={pageSize}
-          pageSizeOptions={pageSizeOptions}
-          onChange={handlePageSizeChange}
-        />
-        <SelectOption
-          options={SelectedOverviewPageOptionsData}
-          onChange={handleCompanySortChange}
-        />
+        <div className={styles.tableNav}>
+          <div className={styles.tableNavLeft}>
+            <h2 className={styles.tableTitle}>비교 현황</h2>
+          </div>
+          <div className={styles.tableNavRight}>
+            <SearchBar onSubmit={search} />
+            <PageSizeSelector
+              pageSize={pageSize}
+              pageSizeOptions={pageSizeOptions}
+              onChange={handlePageSizeChange}
+            />
+            <SelectOption
+              options={SelectedOverviewPageOptionsData}
+              onChange={handleCompanySortChange}
+            />
+          </div>
+        </div>
+        <div className={styles.tableSize}>
+          {currentPageData.length > 0 ? (
+            <>
+              {/* <FetchTable data={filteredData} columns={LandingPageColumns} /> */}
+              <FetchTable
+                data={currentPageData}
+                columns={SelectedOverviewPageColumns}
+                startIndex={startIndex}
+              />
+              <PaginationBtn
+                page={page}
+                pageNumbers={pageNumbers}
+                hasPrev={hasPrev}
+                hasNext={hasNext}
+                handlePageChange={handlePageChange}
+              />
+            </>
+          ) : (
+            <NoResult keyword={keyword} />
+          )}
+        </div>
       </div>
-      {currentPageData.length > 0 ? (
-        <>
-          {/* <FetchTable data={filteredData} columns={LandingPageColumns} /> */}
-          <FetchTable
-            data={currentPageData}
-            columns={SelectedOverviewPageColumns}
-            startIndex={startIndex}
-          />
-          <PaginationBtn
-            page={page}
-            pageNumbers={pageNumbers}
-            hasPrev={hasPrev}
-            hasNext={hasNext}
-            handlePageChange={handlePageChange}
-          />
-        </>
-      ) : (
-        <NoResult keyword={keyword} />
-      )}
     </div>
   );
 }
