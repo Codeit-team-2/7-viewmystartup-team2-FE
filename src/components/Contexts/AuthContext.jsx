@@ -1,7 +1,7 @@
-//src/hooks/contexts/AuthContext.jsx
-import React, { createContext, useState, useEffect } from "react";
+//src/components/Contexts/AuthContext.jsx
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [nickname, setNickname] = useState(null);
@@ -10,7 +10,6 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const storedNickname = localStorage.getItem("nickname");
     const storedUserId = localStorage.getItem("userId");
-
     if (storedNickname) setNickname(storedNickname);
     if (storedUserId) setUserId(storedUserId);
   }, []);
@@ -29,7 +28,7 @@ export function AuthProvider({ children }) {
     setUserId(null);
   };
 
-  const isLoggedIn = !!nickname;
+  const isLoggedIn = Boolean(nickname && userId);
 
   return (
     <AuthContext.Provider
@@ -39,3 +38,5 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+
+export const useAuth = () => useContext(AuthContext);
