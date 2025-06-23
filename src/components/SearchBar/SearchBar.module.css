@@ -1,4 +1,30 @@
 .searchBar {
-  padding: 20px 20px;
-  background-color: skyblue;
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  background-color: var(--black-400);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.input {
+  width: 448px;
+  height: 48px;
+  border-radius: 10px;
+  padding-right: 40px;
+  padding-left: 46px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
+
+/* 아이콘 위치 설정 */
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #ccc;
+  font-size: 18px;
 }
