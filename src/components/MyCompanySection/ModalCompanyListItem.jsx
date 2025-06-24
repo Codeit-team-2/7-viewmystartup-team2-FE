@@ -14,7 +14,7 @@ function ModalCompanyListItem({ company, type }) {
   const compareCompany = useCompareCompany();
   const initBoolean =
     type === "compareCompany"
-      ? compareCompany === company
+      ? compareCompany.map((c) => c.id).includes(company.id)
       : myCompany === company;
 
   const [isSelected, switchIsSelected] = useBoolean(initBoolean);
@@ -25,10 +25,11 @@ function ModalCompanyListItem({ company, type }) {
   useEffect(() => {
     if (type === "compareCompany") {
       if (isSelected) {
-        setCompareCompany((prev) => [...prev, company]);
+        if (!compareCompany.map((c) => c.id).includes(company.id))
+          setCompareCompany((prev) => [...prev, company]);
       } else {
         setCompareCompany((prev) =>
-          prev.filter((item) => item.key !== company.key)
+          prev.filter((item) => item.id !== company.id)
         );
       }
     } else {
@@ -41,7 +42,7 @@ function ModalCompanyListItem({ company, type }) {
   }, [isSelected]);
 
   return (
-    <div>
+    <li>
       <img src={comIcon} style={{ backgroundColor: "gray" }} />
       <p>{company.companyName}</p>
       <p>{company.category}</p>
@@ -49,7 +50,7 @@ function ModalCompanyListItem({ company, type }) {
         isSelected={isSelected}
         onSwitch={() => switchIsSelected()}
       />
-    </div>
+    </li>
   );
 }
 

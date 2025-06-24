@@ -32,7 +32,6 @@ function MyCompanySection({ name, children }) {
     } else {
       setIsMyCompany(false);
     }
-    console.log(myCompany);
   }, [myCompany]);
 
   return (
@@ -55,11 +54,7 @@ function MyCompanySection({ name, children }) {
             </div>
           )}
           {isModalOpen && (
-            <CompanySelectModal
-              type="myCompany"
-              listName={["recent", "search"]}
-              onModal={handleIsModalOpen}
-            />
+            <CompanySelectModal type="myCompany" onModal={handleIsModalOpen} />
           )}
           {isMyCompany && (
             <>

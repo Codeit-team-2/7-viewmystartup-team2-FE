@@ -96,13 +96,17 @@ function MyCompanyResult() {
     setIsModalOpen(false);
     setModalStep("form");
   };
+  //우진수정 확인용
+  useEffect(() => {
+    console.log("변경된 myCompany", myCompany);
+  }, [myCompany]);
 
   return (
     <CompareCompanyProvider defaultValue={[]}>
       <MyCompanyProvider
         defaultValue={{
-          name: myCompany.name,
-          name2: myCompany.name2,
+          companyName: myCompany.companyName,
+          category: myCompany.category,
           imgUrl: myCompany.imgUrl,
           id: myCompany.id,
         }}
@@ -162,10 +166,19 @@ function MyCompanyResult() {
               size={modalStep === "confirm" ? "small" : "default"}
             >
               {modalStep === "form" ? (
-                <InvestmentForm
-                  onConfirm={handleConfirm}
-                  onCancel={handleCloseModal}
-                />
+                <>
+                  <p className={style.modaltitle}>기업에 투자하기</p>
+                  <InvestmentForm
+                    company={myCompany}
+                    onConfirm={handleConfirm}
+                    onCancel={handleCloseModal}
+                  />
+                  {/* <InvestmentForm
+                    onConfirm={handleConfirm}
+                    onCancel={handleCloseModal}
+                  /> */}
+                  {/* 우진수정 company에 내가선택한 myCompany 내려주기*/}
+                </>
               ) : (
                 <>
                   <p>투자가 완료되었어요!</p>

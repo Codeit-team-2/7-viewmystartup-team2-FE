@@ -7,19 +7,38 @@
   padding-bottom: 32px;
   border-bottom: 1px solid var(--gray-200);
 }
+.areaForm {
+  height: 40px;
+  margin: 16px 0 0;
+  gap: 12px;
+  padding: 0;
+  border: none;
+  background-color: var(--black-300);
+}
 
 .img {
   width: 82px;
   height: 82px;
+  border-radius: 50px;
   background-image: url("https://picsum.photos/250/250");
   background-repeat: no-repeat;
   background-position: center;
+}
+.imgForm {
+  width: 40px;
+  height: 40px;
 }
 
 .box {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.boxForm {
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  background-color: var(--black-300);
 }
 
 .title {
@@ -28,6 +47,11 @@
   font-weight: 700;
   line-height: normal;
 }
+.titleForm {
+  font-size: 18px;
+  font-weight: 500;
+  background-color: var(--black-300);
+}
 
 .category {
   color: var(--gray-200);
@@ -35,4 +59,9 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+.categoryForm {
+  font-size: 16px;
+  font-weight: 400;
+  background-color: var(--black-300);
 }

@@ -1,36 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IcDelete from "../../assets/ic_delete.svg";
 import ModalCompanyList from "./ModalCompanyList";
-import MainLogo from "../../assets/main_logo.svg";
 import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import PaginationBtn from "../DetailCompany/PaginationBtn";
 import { useSearchFilter } from "../../hooks/useSearchFilter";
-import { invInitialData } from "../../config/invInitialData_mock_80_with_description";
 import { data } from "react-router-dom";
+import { usePagination } from "../../hooks/usePagination";
+import { fetchFilteredData } from "../../api/api";
+import ModalCompanyListRecent from "./ModalCompanyListRecent";
+import ModalCompanyListSelected from "./ModalCompanyListSelected";
 
-function getCompanies({ keyword }) {
-  return;
-}
+function CompanySelectModal({ type, onModal }) {
+  const [companies, setCompanies] = useState([]);
+  const { keyword, search } = useSearchFilter();
 
-function CompanySelectModal({ type, listName, onModal }) {
-  const { keyword, filteredData, search } = useSearchFilter(invInitialData); // 여기 안에 get으로 가져온 데이터
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchFilteredData(keyword);
+      setCompanies(data);
+    };
 
-  // filterdData => 키워드가 포함된 데이터
-  // invData 위치에 초기 데이터
-  // keyword = value값 제어
+    fetchData();
+  }, [keyword]);
+
+  const pageSize = 5;
+  const [page, setPage] = useState(1);
+  const totalCount = companies.length;
+
+  const { pageNumbers, hasPrev, hasNext, handlePageChange } = usePagination({
+    page,
+    setPage,
+    totalCount,
+    pageSize,
+  });
 
   const modalTitle =
     type === "myCompany" ? "나의 기업 선택하기" : "비교할 기업 선택하기";
-
-  const exCompanies = [
-    {
-      companyName: "코드잇",
-      category: "에듀테크",
-      imgUrl: { MainLogo },
-      id: "abc",
-    },
-  ];
 
   const onClickModalClose = () => {
     onModal(false);
@@ -50,23 +56,22 @@ function CompanySelectModal({ type, listName, onModal }) {
         </div>
         <SearchBar onSubmit={search} />
 
+        {type === "myCompany" && <ModalCompanyListRecent type={type} />}
+        {type === "compareCompany" && <ModalCompanyListSelected type={type} />}
+
         <ModalCompanyList
-          name={listName[0]}
-          companies={exCompanies}
+          companies={companies}
           type={type}
-        />
-        <ModalCompanyList
-          name={listName[1]}
-          companies={filteredData}
-          type={type}
+          page={page}
+          pageSize={pageSize}
         />
 
         <PaginationBtn
-          page={1}
-          pageNumbers={[1, 2, 3, 4, 5]}
-          hasPrev={false}
-          hasNext={true}
-          handlePageChange={(x) => console.log(x)}
+          page={page}
+          pageNumbers={pageNumbers}
+          hasPrev={hasPrev}
+          hasNext={hasNext}
+          handlePageChange={handlePageChange}
         />
       </div>
     </div>
@@ -74,3 +79,74 @@ function CompanySelectModal({ type, listName, onModal }) {
 }
 
 export default CompanySelectModal;
+
+// function CompanySelectModal({ type, listName, onModal }) {
+//   const [companies, setCompanies] = useState([]);
+//   const { keyword, search } = useSearchFilter();
+
+//   // keyword = value값 제어
+//   // search = setKeyword
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const data = await fetchFilteredData(keyword);
+//       setCompanies(data);
+//     };
+
+//     fetchData();
+//   }, [keyword]);
+
+//   const pageSize = 5;
+//   const [page, setPage] = useState(1);
+//   const totalCount = companies.length;
+
+//   const { pageNumbers, hasPrev, hasNext, handlePageChange } = usePagination({
+//     page,
+//     setPage,
+//     totalCount,
+//     pageSize,
+//   });
+
+//   const modalTitle =
+//     type === "myCompany" ? "나의 기업 선택하기" : "비교할 기업 선택하기";
+
+//   const onClickModalClose = () => {
+//     onModal(false);
+//   };
+
+//   return (
+//     <div className="modalBackground" onClick={onClickModalClose}>
+//       <div className="selectModal" onClick={(e) => e.stopPropagation()}>
+//         <div className="modalHeader">
+//           <p>{modalTitle}</p>
+//           <img
+//             className="modalCloseBtn"
+//             src={IcDelete}
+//             alt="모달 닫기 버튼"
+//             onClick={onClickModalClose}
+//           />
+//         </div>
+//         <SearchBar onSubmit={search} />
+
+//         <ModalCompanyList name={listName[0]} type={type} />
+//         <ModalCompanyList
+//           name={listName[1]}
+//           companies={companies}
+//           type={type}
+//           page={page}
+//           pageSize={pageSize}
+//         />
+
+//         <PaginationBtn
+//           page={page}
+//           pageNumbers={pageNumbers}
+//           hasPrev={hasPrev}
+//           hasNext={hasNext}
+//           handlePageChange={handlePageChange}
+//         />
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default CompanySelectModal;

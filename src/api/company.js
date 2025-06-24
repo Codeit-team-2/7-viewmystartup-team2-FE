@@ -1,4 +1,68 @@
-//src/api/company.js
+// src/api/company.js
 import axios from "axios";
-export const fetchAllCompanies = () =>
-  axios.get("http://localhost:3000/companies").then((res) => res.data);
+
+//기존 키워드 없이 다가져오는 부분 삭제예정
+export const fetchAllCompanies = (sortBy = "revenue", order = "desc") => {
+  return axios
+    .get("http://localhost:3000/companies", {
+      params: { sortBy, order },
+    })
+    .then((res) => res.data);
+};
+
+export const fetchFilteredDataWJ = (
+  keyword,
+  sortBy = "revenue",
+  order = "desc"
+) => {
+  return axios
+    .get("http://localhost:3000/companies", {
+      params: { keyword, sortBy, order },
+    })
+    .then((res) => res.data);
+};
+
+export const fetchInvestmentOverviewData = (
+  keyword,
+  sortBy = "vmsInvestment",
+  order = "desc"
+) => {
+  return axios
+    .get("http://localhost:3000/companies/investment-overview", {
+      params: { keyword, sortBy, order },
+    })
+    .then((res) => res.data);
+};
+
+export const fetchSelectedOverviewData = (keyword, sortBy, order) => {
+  return axios
+    .get("http://localhost:3000/companies/selected-overview", {
+      params: { keyword, sortBy, order },
+    })
+    .then((res) => res.data);
+};
+
+//내 투자현황 목록
+
+export const matchingInvestmentUserList = async ({
+  userId,
+  nickname,
+  sortBy,
+  order,
+}) => {
+  try {
+    const params = {};
+    if (userId) params.userId = userId;
+    if (nickname) params.nickname = nickname;
+    if (sortBy) params.sortBy = sortBy;
+    if (order) params.order = order;
+
+    const response = await axios.get("http://localhost:3000/investments", {
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("matchingInvestmentUserList api error:", error);
+    return [];
+  }
+};

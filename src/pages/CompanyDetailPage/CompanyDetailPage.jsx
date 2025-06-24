@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { invInitialData } from "../../config/invInitialData_v2.js";
-import { investorsListData } from "../../config/investorsListData.js";
+import React, { useEffect, useState } from "react";
+import {
+  fetchCompanyDetailData,
+  fetchCompanyInvestorsData,
+} from "../../api/api.jsx";
 import { useParams } from "react-router-dom";
 import { DetailCompanyTitle } from "../../components/DetailCompany/DetailCompanyTitle.jsx";
 import { DetailCompanyList } from "../../components/DetailCompany/DetailCompanyList.jsx";
@@ -11,15 +13,20 @@ import { usePagination } from "../../hooks/usePagination.js";
 import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
 import CustomButton from "../../components/customTag/customButton/customButton.jsx";
 import Modal from "../../components/Modal/Modal.jsx";
-import styles from "./CompanyDetail.module.css";
+import styles from "./CompanyDetailPage.module.css";
 
-function CompanyDetail() {
+function CompanyDetailPage() {
   const { id } = useParams();
-  const company = invInitialData.find(c => c.id === Number(id));
-  const companyId = company.id;
+  const [company, setCompany] = useState(null);
+  const [investors, setInvestors] = useState([]);
   const pageSize = 5;
   const [page, setPage] = useState(1);
-  const totalCount = (investorsListData[companyId] || []).length;
+  const totalCount = investors.length;
+
+  useEffect(() => {
+    fetchCompanyDetailData(id).then(setCompany);
+    fetchCompanyInvestorsData(id).then(setInvestors);
+  }, [id]);
 
   const { pageNumbers, hasPrev, hasNext, handlePageChange } = usePagination({
     page,
@@ -27,6 +34,20 @@ function CompanyDetail() {
     totalCount,
     pageSize,
   });
+  const paginatedInvestors = investors.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  );
+
+  const handleDeleteInvestor = investor => {
+    setInvestors(prev => prev.filter(inv => inv.id !== investor.id));
+  };
+
+  const handleEditInvestor = (investor, updated) => {
+    setInvestors(prev =>
+      prev.map(inv => (inv.id === investor.id ? { ...inv, ...updated } : inv))
+    );
+  };
 
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => {
@@ -36,6 +57,11 @@ function CompanyDetail() {
     setModalOpen(false);
   };
 
+  const totalInvestment = investors.reduce(
+    (acc, cur) => acc + (cur.howMuch || 0),
+    0
+  );
+  if (!company) return <div>Loading...</div>;
   return (
     <div className={styles.area}>
       <div>
@@ -47,10 +73,15 @@ function CompanyDetail() {
         <h1 className={styles.title}>View My Startup에서 받은 투자</h1>
         <CustomButton onClick={handleOpenModal}>기업투자하기</CustomButton>
       </div>
-      <div className={styles.amount}> 총 투자금액 나와야합니다</div>
+      <div className={styles.amount}>
+        총 {totalInvestment.toLocaleString()}억 원
+      </div>
       <InvestorTable
-        companyId={companyId}
+        companyId={company.id}
         company={company}
+        investors={paginatedInvestors}
+        onDelete={handleDeleteInvestor}
+        onEdit={handleEditInvestor}
         page={page}
         pageSize={pageSize}
       />
@@ -63,11 +94,11 @@ function CompanyDetail() {
       />
       {modalOpen && (
         <Modal onClose={handleCloseModal}>
-          <InvestmentForm />
+          <InvestmentForm company={company} />
         </Modal>
       )}
     </div>
   );
 }
 
-export default CompanyDetail;
+export default CompanyDetailPage;

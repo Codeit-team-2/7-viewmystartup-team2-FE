@@ -2,9 +2,9 @@
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  table-layout: fixed;
 }
 
+/* 헤더 스타일 */
 .table thead th {
   height: 39px;
   background-color: var(--black-100);
@@ -18,6 +18,7 @@
   border-bottom: 2px solid #444;
 }
 
+/* 바디 셀 스타일 */
 .table td {
   height: 64px;
   background-color: var(--black-100);
@@ -33,21 +34,10 @@
   border-bottom: none;
 }
 
-.table thead {
-  display: block;
-  margin-bottom: 10px;
-  width: 100%;
+.table tbody tr:hover td {
+  background-color: var(--gray-300);
+  cursor: pointer;
 }
-
-.table tbody {
-  display: block;
-  width: 100%;
-}
-
-.table th {
-  width: auto;
-}
-.table th,
-.table td {
-  width: 20vw;
+.table tbody tr:nth-child(1) td {
+  border-top: 20px solid var(--black-400); /* 원하는 색과 두께로 설정 */
 }

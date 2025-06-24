@@ -3,13 +3,15 @@ import { DetailCompanyTitle } from "../DetailCompany/DetailCompanyTitle";
 import { useErrorCheck } from "./useErrorCheck";
 import { InputBox } from "./InputBox";
 import CustomButton from "../customTag/customButton/customButton";
-
-const nameErrorText = v =>
-  v.trim() === ""
-    ? "필수 입력 항목입니다."
-    : v.length > 5
-    ? "5자 이내로 입력해주세요"
-    : "";
+import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
+import styles from "./InvestmentEditForm.module.css";
+import btnStyle from "../customTag/customButton/customButton.module.css";
+// const nameErrorText = v =>
+//   v.trim() === ""
+//     ? "필수 입력 항목입니다."
+//     : v.length > 5
+//     ? "5자 이내로 입력해주세요"
+//     : "";
 
 const amountErrorText = v =>
   v.trim() === ""
@@ -26,10 +28,10 @@ const commentErrorText = v =>
     : "";
 
 function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
-  const [investorName, investorNameChange, investorNameError] = useErrorCheck(
-    investor.name,
-    nameErrorText
-  );
+  // const [investorName, investorNameChange, investorNameError] = useErrorCheck(
+  //   investor.name,
+  //   nameErrorText
+  // );
   const [amount, amountChange, amountError] = useErrorCheck(
     investor.amount,
     amountErrorText
@@ -40,20 +42,28 @@ function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
   );
   const handleSubmit = e => {
     e.preventDefault();
-    if (investorNameError || amountError || commentError) {
+    if (amountError || commentError) {
+      //investorNameError || 제거
       return;
     }
-    onConfirm({ ...investor, name: investorName, amount, comment });
+    onConfirm({ ...investor, amount, comment }); // name: investorName,
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <h1>투자 기업 정보</h1>
-        <DetailCompanyTitle company={company} />
+    <form className={styles.area} onSubmit={handleSubmit}>
+      <div className={styles.titleBox}>
+        <h1 className={styles.title}>투자 기업 정보</h1>
+        <DetailCompanyTitle
+          company={company}
+          areaClass={titleStyle.areaForm}
+          imgClass={titleStyle.imgForm}
+          boxClass={titleStyle.boxForm}
+          titleClass={titleStyle.titleForm}
+          categoryClass={titleStyle.categoryForm}
+        />
       </div>
-      <div>
-        <InputBox
+      <div className={styles.inputBox}>
+        {/* <InputBox
           label="투자자 이름"
           value={investorName}
           onChange={investorNameChange}
@@ -61,7 +71,7 @@ function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
           id="investorName"
           placeholder="투자자 이름을 입력해주세요"
           error={investorNameError}
-        />
+        /> */}
         <InputBox
           label="투자 금액"
           value={amount}
@@ -81,11 +91,19 @@ function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
           error={commentError}
         />
       </div>
-      <div>
-        <CustomButton onClick={onCancel} type="button">
+      <div className={styles.btnArea}>
+        <CustomButton
+          buttonClass={btnStyle.buttonCancel}
+          onClick={onCancel}
+          type="button"
+        >
           취소
         </CustomButton>
-        <CustomButton onClick={onConfirm} type="submit">
+        <CustomButton
+          buttonClass={btnStyle.buttonLarge}
+          onClick={onConfirm}
+          type="submit"
+        >
           수정하기
         </CustomButton>
       </div>

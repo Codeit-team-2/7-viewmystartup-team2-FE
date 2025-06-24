@@ -1,0 +1,26 @@
+.area {
+  width: 400px;
+  height: 400px;
+  background-color: var(--black-300);
+}
+.titleBox {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--black-300);
+}
+.title {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  background-color: var(--black-300);
+}
+
+.inputBox {
+  background-color: var(--black-300);
+}
+.btnArea {
+  display: flex;
+  justify-content: space-around;
+  background-color: var(--black-300);
+}

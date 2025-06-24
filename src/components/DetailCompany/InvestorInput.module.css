@@ -1,0 +1,22 @@
+.area {
+  width: 448px;
+  height: 221px;
+  background-color: var(--black-300);
+}
+
+.btnArea {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  align-items: center;
+  background-color: var(--black-300);
+}
+
+.title {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  background-color: var(--black-300);
+  margin-bottom: 30px;
+}
