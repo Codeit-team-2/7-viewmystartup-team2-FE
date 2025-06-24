@@ -24,3 +24,42 @@
   align-items: center;
   background-color: var(--black-300);
 }
+
+.nameBox {
+  background-color: var(--black-300);
+  border-radius: 5px;
+  height: 64px;
+  width: 440px;
+}
+
+.nameBox > p {
+  font-size: 30px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--black-300);
+}
+
+.idTag {
+  font-size: 15px;
+  color: #7a7979;
+  background-color: var(--black-300);
+  margin-top: 10px;
+}
+
+.info {
+  background-color: var(--black-300);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.nicknameDisplay {
+  background-color: var(--black-300);
+  margin-top: 20px;
+}
+
+.emtybox {
+  margin-top: 15px;
+  width: 450px;
+  height: 3px;
+  background-color: var(--black-100);
+}

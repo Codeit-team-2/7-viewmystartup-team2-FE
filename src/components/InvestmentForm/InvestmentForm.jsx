@@ -70,15 +70,12 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
       />
 
       {/* 우진수정 */}
+      <div className={styles.emtybox}></div>
       <div className={styles.nicknameDisplay}>
-        <p>투자자 이름 : </p>
-        <p>{nickname || "닉네임없음"}</p>
-        <p>투자자 ID : </p>
-        <p>
-          {!userId || userId === "UnidentifiedID"
-            ? "UnidentifiedID 입니다. 로그인을 해야 정상 서비스 이용가능합니다"
-            : userId}
-        </p>
+        <p className={styles.info}>투자자 정보</p>
+        <div className={styles.nameBox}>
+          <p>{nickname || "닉네임없음"}</p>
+        </div>
       </div>
 
       <InputBox
