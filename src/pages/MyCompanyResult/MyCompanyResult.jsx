@@ -28,6 +28,8 @@ const topCompanies = [...invInitialData]
 function MyCompanyResult() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState("form");
+  const [modalMessage, setModalMessage] = useState("투자가 완료되었어요!");
+
   const [testData, setTestData] = useState([]);
 
   const [myCompany, setMyCompany] = useState({});
@@ -91,7 +93,12 @@ function MyCompanyResult() {
 
   const navigate = useNavigate();
   const handleOpenModal = () => setIsModalOpen(true);
-  const handleConfirm = () => setModalStep("confirm");
+
+  const handleConfirm = (isSuccess = true, message = "투자가 완료되었어요!") => {
+    setModalMessage(message);
+    setModalStep("confirm");
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setModalStep("form");
@@ -173,15 +180,10 @@ function MyCompanyResult() {
                     onConfirm={handleConfirm}
                     onCancel={handleCloseModal}
                   />
-                  {/* <InvestmentForm
-                    onConfirm={handleConfirm}
-                    onCancel={handleCloseModal}
-                  /> */}
-                  {/* 우진수정 company에 내가선택한 myCompany 내려주기*/}
                 </>
               ) : (
                 <>
-                  <p>투자가 완료되었어요!</p>
+                  <p>{modalMessage}</p>
                   <div className={style.marginTop}>
                     <CustomButton onClick={handleCloseModal}>확인</CustomButton>
                   </div>

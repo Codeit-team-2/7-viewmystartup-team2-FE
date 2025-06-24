@@ -12,7 +12,7 @@ export function InputBox({
   return (
     <div className={styles.inputBox}>
       <label className={styles.labelText}>{label}</label>
-      {console.log("comment 값:", value)}
+      {/* {console.log("comment 값:", value)} */}
       {label === "투자 코멘트" ? (
         <textarea
           className={styles.def}
