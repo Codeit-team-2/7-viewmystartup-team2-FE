@@ -57,17 +57,21 @@ function MyCompanySection({ name, children }) {
               </div>
             </div>
           )}
-          {isModalOpen && (
-            <CompanySelectModal type="myCompany" onModal={handleIsModalOpen} />
-          )}
           {isMyCompany && (
             <>
-              {type && <p onClick={() => setMyCompany({})}>선택 취소</p>}
+              {type && (
+                <p className={styles.cancel} onClick={() => setMyCompany({})}>
+                  선택 취소
+                </p>
+              )}
               <CompanyCard name="myCompany" button={false} data={myCompany} />
             </>
           )}
         </div>
       </div>
+      {isModalOpen && (
+        <CompanySelectModal type="myCompany" onModal={handleIsModalOpen} />
+      )}
     </div>
   );
 }

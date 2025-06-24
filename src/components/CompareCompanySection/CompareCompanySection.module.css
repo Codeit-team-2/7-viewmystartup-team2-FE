@@ -1,0 +1,85 @@
+.section {
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  width: 1200px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.title > span {
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  vertical-align: middle;
+}
+
+.addBtn {
+  display: flex;
+  height: 40px;
+  padding: 8px 24px;
+
+  border: none;
+  border-radius: 50px;
+  background: var(--brand-brand_orange, #eb5230);
+
+  justify-content: center;
+  align-items: center;
+
+  color: #fff;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.background {
+  height: 300px;
+
+  border-radius: 4px;
+  border: 1px dashed #212121;
+  background: var(--black-black_200, #212121);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.noCompanyText {
+  background-color: transparent;
+  color: var(--gray-gray_200, #747474);
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.companies {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}

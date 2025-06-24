@@ -5,7 +5,9 @@
 
 import IcMinus from "../assets/ic_minus.svg";
 import { useSetCompareCompany } from "./CompareCompanySection/CompareCompanyContext";
+import comIcon from "../assets/main_logo.svg";
 import React from "react";
+import styles from "./CompanyCard.module.css";
 
 function CompanyCard({ name, data, button = false }) {
   const setCompareCompany = useSetCompareCompany();
@@ -15,15 +17,20 @@ function CompanyCard({ name, data, button = false }) {
   };
 
   return (
-    <div className={name}>
+    <div className={name === "myCompany" ? styles.my : styles.com}>
       {button ? (
-        <img src={IcMinus} onClick={handleRemoveBtn} alt="카드 제거 버튼" />
+        <img
+          className={styles.deleteBtn}
+          src={IcMinus}
+          onClick={handleRemoveBtn}
+          alt="카드 제거 버튼"
+        />
       ) : null}
-      <div>
-        <img src={data.imgUrl} alt="회사 로고 이미지" />
+      <div className={styles.content}>
+        <img className={styles.img} src={comIcon} alt="회사 로고 이미지" />
         <div>
-          <span>{data.companyName}</span>
-          <span>{data.category}</span>
+          <span className={styles.name}>{data.companyName}</span>
+          <span className={styles.category}>{data.category}</span>
         </div>
       </div>
     </div>

@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CompanySelectBtn.module.css";
+import { useCompareCompany } from "../CompareCompanySection/CompareCompanyContext";
 
 function CompanySelectBtn({ isSelected, onSwitch }) {
   const [text, setText] = useState("");
+  const compareCompany = useCompareCompany();
+
   const onBtnClick = () => {
-    onSwitch();
+    if (compareCompany.length >= 5) {
+      alert("비교 기업은 5개까지만 선택 가능합니다.");
+    } else {
+      onSwitch();
+    }
   };
 
   useEffect(() => {
