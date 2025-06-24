@@ -4,18 +4,24 @@ import CompareCompanySection from "../../components/CompareCompanySection/Compar
 import { MyCompanyProvider } from "../../components/MyCompanySection/MyCompanyContext";
 import MyCompanySection from "../../components/MyCompanySection/MyCompanySection";
 import React from "react";
+import styles from "./MyCompanyCompare.module.css";
+import MyCompanyReset from "../../components/MyCompanySection/MyCompanyReset";
 
 function MyCompanyCompare() {
   return (
-    <>
+    <div className={styles.window}>
       <MyCompanyProvider defaultValue={{}}>
         <CompareCompanyProvider defaultValue={[]}>
-          <MyCompanySection name={"나의 기업을 선택해 주세요!"} />
-          <CompareCompanySection />
-          <CompareButtonSection />
+          <div className={styles.main}>
+            <MyCompanySection name={"나의 기업을 선택해 주세요!"}>
+              <MyCompanyReset type={true} />
+            </MyCompanySection>
+            <CompareCompanySection />
+            <CompareButtonSection />
+          </div>
         </CompareCompanyProvider>
       </MyCompanyProvider>
-    </>
+    </div>
   );
 }
 

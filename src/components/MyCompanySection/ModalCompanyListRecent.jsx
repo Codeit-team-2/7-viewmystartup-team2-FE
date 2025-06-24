@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ModalCompanyListItem from "./ModalCompanyListItem";
 import { fetchRecentSelectedCompanies } from "../../api/api";
 import { useAuth } from "../Contexts/AuthContext";
+import styles from "./ModalCompanyList.module.css";
 
 function ModalCompanyListRecent({ type }) {
   const [modalCompanies, setModalCompanies] = useState([]);
@@ -17,8 +18,10 @@ function ModalCompanyListRecent({ type }) {
   }, []);
 
   return (
-    <div>
-      <p>{`최근 비교한 기업 (${modalCompanies.length})`}</p>
+    <div className={styles.listBox}>
+      <p
+        className={styles.title}
+      >{`최근 비교한 기업 (${modalCompanies.length})`}</p>
       <ul className="companyList">
         {modalCompanies.map((company) => (
           <ModalCompanyListItem

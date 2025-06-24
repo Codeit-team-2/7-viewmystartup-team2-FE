@@ -1,0 +1,52 @@
+.item {
+  display: flex;
+  width: 448px;
+  height: 48px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+}
+
+.item > * {
+  background-color: transparent;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: transparent;
+}
+
+.img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50px;
+  padding: 3px;
+  background-color: #bbb;
+}
+
+.companyName {
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-left: 16px;
+  margin-right: 8px;
+  background-color: transparent;
+  word-break: break-all;
+  flex-shrink: 1;
+}
+
+.category {
+  color: #747474;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background-color: transparent;
+  margin-right: 50px;
+}

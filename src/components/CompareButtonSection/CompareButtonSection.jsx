@@ -7,13 +7,13 @@ import {
   useIsMyCompany,
   useMyCompany,
 } from "../MyCompanySection/MyCompanyContext";
-import "./CompareButtonSection.css";
 import React from "react";
 import {
   createCompareCompanySelection,
   createMyCompanySelection,
 } from "../../api/api";
 import { useAuth } from "../Contexts/AuthContext";
+import styles from "./CompareButtonSection.module.css";
 
 function CompareButtonSection() {
   const { userId } = useAuth();
@@ -83,11 +83,14 @@ function CompareButtonSection() {
 
   return (
     <>
-      <Link to="/mycompanyresult">
-        <button className="compareBtn" onClick={handleCompareBtn}>
-          기업 비교하기
-        </button>
-      </Link>
+      {!cond && <div className={styles.unactive}>기업 비교하기</div>}
+      {cond && (
+        <Link to="/mycompanyresult" className={styles.link}>
+          <button className={styles.compareBtn} onClick={handleCompareBtn}>
+            기업 비교하기
+          </button>
+        </Link>
+      )}
     </>
   );
 }

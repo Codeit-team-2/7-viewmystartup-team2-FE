@@ -1,0 +1,82 @@
+.my {
+  background-color: transparent;
+
+  width: 126px;
+  height: 187px;
+  flex-shrink: 0;
+}
+
+.com {
+  border-radius: 8px;
+  background: var(--gray-gray_400, #333);
+  width: 126px;
+  height: 187px;
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+
+.deleteBtn {
+  width: 24px;
+  height: 24px;
+
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  background-color: transparent;
+}
+
+.content {
+  width: 114px;
+  flex-shrink: 0;
+  background-color: transparent;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.content > div {
+  background-color: transparent;
+}
+
+.img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50px;
+  padding: 5px;
+}
+
+.name {
+  display: block;
+  background-color: transparent;
+
+  color: #fff;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 4px;
+}
+
+.category {
+  display: block;
+  background-color: transparent;
+
+  color: #747474;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

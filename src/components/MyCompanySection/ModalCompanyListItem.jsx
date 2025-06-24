@@ -8,6 +8,7 @@ import {
 } from "../CompareCompanySection/CompareCompanyContext";
 import React from "react";
 import comIcon from "../../assets/main_logo.svg";
+import styles from "./ModalCompanyListItem.module.css";
 
 function ModalCompanyListItem({ company, type }) {
   const myCompany = useMyCompany();
@@ -42,10 +43,12 @@ function ModalCompanyListItem({ company, type }) {
   }, [isSelected]);
 
   return (
-    <li>
-      <img src={comIcon} style={{ backgroundColor: "gray" }} />
-      <p>{company.companyName}</p>
-      <p>{company.category}</p>
+    <li className={styles.item}>
+      <div className={styles.info}>
+        <img className={styles.img} src={comIcon} />
+        <p className={styles.companyName}>{company.companyName}</p>
+        <p className={styles.category}>{company.category}</p>
+      </div>
       <CompanySelectBtn
         isSelected={isSelected}
         onSwitch={() => switchIsSelected()}

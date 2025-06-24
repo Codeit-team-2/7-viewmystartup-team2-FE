@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import CompanySelectModal from "./CompanySelectModal";
 import CompanyCard from "../CompanyCard";
 import BtnPlus from "../../assets/btn_plus.png";
-import "./MyCompany.css";
 import {
   useIsMyCompany,
   useMyCompany,
@@ -11,6 +10,7 @@ import {
 } from "./MyCompanyContext";
 import React from "react";
 import MyCompanyReset from "./MyCompanyReset";
+import styles from "./MyCompanySection.module.css";
 
 function MyCompanySection({ name, children }) {
   const isMyCompany = useIsMyCompany();
@@ -35,35 +35,43 @@ function MyCompanySection({ name, children }) {
   }, [myCompany]);
 
   return (
-    <div className="myCompanySection">
-      <div>
-        <h2>{name}</h2>
+    <div className={styles.myCompanySection}>
+      <div className={styles.header}>
+        <h2 className={styles.myCompanySectionTitle}>{name}</h2>
         {children}
       </div>
       <div>
-        <div className="background">
-          <MyCompanyReset type={type} />
+        <div className={styles.myCompanyBox}>
           {!isMyCompany && (
-            <div>
-              <img
-                src={BtnPlus}
-                alt="나의 기업 추가하기 버튼"
+            <div className={styles.plusBtnBackground}>
+              <div
+                className={styles.myCompanyPlus}
                 onClick={() => setIsModalOpen(true)}
-              />
-              <span>기업 추가</span>
+              >
+                <img
+                  className={styles.myCompanyPlusBtn}
+                  src={BtnPlus}
+                  alt="나의 기업 추가하기 버튼"
+                />
+                <span className={styles.myCompanyPlusText}>기업 추가</span>
+              </div>
             </div>
-          )}
-          {isModalOpen && (
-            <CompanySelectModal type="myCompany" onModal={handleIsModalOpen} />
           )}
           {isMyCompany && (
             <>
-              {type && <p onClick={() => setMyCompany({})}>선택 취소</p>}
+              {type && (
+                <p className={styles.cancel} onClick={() => setMyCompany({})}>
+                  선택 취소
+                </p>
+              )}
               <CompanyCard name="myCompany" button={false} data={myCompany} />
             </>
           )}
         </div>
       </div>
+      {isModalOpen && (
+        <CompanySelectModal type="myCompany" onModal={handleIsModalOpen} />
+      )}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import {
 } from "../CompareCompanySection/CompareCompanyContext";
 import { useIsMyCompany, useSetMyCompany } from "./MyCompanyContext";
 import React from "react";
+import styles from "./MyCompanyReset.module.css";
 
 function MyCompanyReset({ type }) {
   const isMyCompany = useIsMyCompany();
@@ -20,10 +21,14 @@ function MyCompanyReset({ type }) {
   if (isMyCompany && isCompareCompany) {
     return (
       <>
-        {type && <button onClick={handleAllReset}>전체 초기화</button>}
+        {type && (
+          <button className={styles.btn} onClick={handleAllReset}>
+            전체 초기화
+          </button>
+        )}
         {!type && (
           <Link to="/mycompanycompare">
-            <button>다른 기업 비교하기</button>
+            <button className={styles.btn}>다른 기업 비교하기</button>
           </Link>
         )}
       </>

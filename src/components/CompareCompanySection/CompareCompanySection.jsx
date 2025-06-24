@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useIsMyCompany } from "../MyCompanySection/MyCompanyContext";
-import "./CompareCompany.css";
 import {
   useCompareCompany,
   useIsCompareCompany,
@@ -9,6 +8,7 @@ import {
 import CompanyCard from "../CompanyCard";
 import CompanySelectModal from "../MyCompanySection/CompanySelectModal";
 import React from "react";
+import styles from "./CompareCompanySection.module.css";
 
 function CompareCompanySection() {
   const isMyCompany = useIsMyCompany();
@@ -35,26 +35,26 @@ function CompareCompanySection() {
   } // 나의 기업을 선택한 상황에서만 비교 기업 선택하는 필드가 나오게 함
 
   return (
-    <div className="compareCompanySection">
-      <h2>어떤 기업이 궁금하세요?</h2>
-      <button onClick={() => setIsModalOpen(true)}>기업 추가하기</button>
+    <div className={styles.section}>
+      <div className={styles.header}>
+        <h2 className={styles.title}>
+          어떤 기업이 궁금하세요? <span>(최대 5개)</span>{" "}
+        </h2>
+        <button className={styles.addBtn} onClick={() => setIsModalOpen(true)}>
+          기업 추가하기
+        </button>
+      </div>
       <div>
-        <div className="background">
+        <div className={styles.background}>
           {!isCompareCompany && (
-            <p>
+            <p className={styles.noCompanyText}>
               아직 추가한 기업이 없어요, <br />
               버튼을 눌러 기업을 추가해보세요!
             </p>
           )}
-          {isModalOpen && (
-            <CompanySelectModal
-              type="compareCompany"
-              onModal={handleIsModalOpen}
-            />
-          )}
 
           {isCompareCompany && (
-            <>
+            <div className={styles.companies}>
               {compareCompany.map((company) => (
                 <CompanyCard
                   key={company.id}
@@ -63,10 +63,13 @@ function CompareCompanySection() {
                   data={company}
                 />
               ))}
-            </>
+            </div>
           )}
         </div>
       </div>
+      {isModalOpen && (
+        <CompanySelectModal type="compareCompany" onModal={handleIsModalOpen} />
+      )}
     </div>
   );
 }
