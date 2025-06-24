@@ -44,11 +44,18 @@ export const fetchSelectedOverviewData = (keyword, sortBy, order) => {
 
 //내 투자현황 목록
 
-export const matchingInvestmentUserList = async ({ userId, nickname }) => {
+export const matchingInvestmentUserList = async ({
+  userId,
+  nickname,
+  sortBy,
+  order,
+}) => {
   try {
     const params = {};
     if (userId) params.userId = userId;
     if (nickname) params.nickname = nickname;
+    if (sortBy) params.sortBy = sortBy;
+    if (order) params.order = order;
 
     const response = await axios.get("http://localhost:3000/investments", {
       params,

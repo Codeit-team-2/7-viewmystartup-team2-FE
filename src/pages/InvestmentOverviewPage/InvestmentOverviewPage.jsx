@@ -63,21 +63,22 @@ export default function InvestmentOverviewPage() {
       const userId = localStorage.getItem("userId");
       const nickname = localStorage.getItem("nickname");
 
-      const data = await matchingInvestmentUserList({ userId, nickname });
-
-      let runningTotal = 0;
-
-      const formattedData = data.map((item, idx) => {
-        runningTotal += item.howMuch || 0;
-        return {
-          rank: idx + 1,
-          companyName: item.company?.companyName || "-",
-          description: item.comment || "-",
-          category: item.company?.category || "-",
-          vmsInvestment: item.howMuch || 0,
-          totalInvestment: runningTotal,
-        };
+      const data = await matchingInvestmentUserList({
+        userId,
+        nickname,
+        sortBy,
+        order,
+        keyword,
       });
+
+      const formattedData = data.map((item, idx) => ({
+        rank: idx + 1,
+        companyName: item.company?.companyName || "-",
+        description: item.comment || "-",
+        category: item.company?.category || "-",
+        vmsInvestment: item.howMuch || 0,
+        totalInvestment: item.company.totalInvestment || 0,
+      }));
 
       setCompanies(formattedData);
     };
