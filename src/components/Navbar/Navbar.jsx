@@ -1,53 +1,116 @@
 //src/components/Navbar/Navbar.jsx
 import React, { useEffect, useState } from "react";
-import "./Navbar.css";
+import styles from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
 import AuthStatus from "./AuthStatus";
-import LoginModal from "../Modal/LoginModal";
+import LoginInput from "../LoginInput/LoginInput";
 import { loginUser } from "../../api/auth";
 import { useAuth } from "../Contexts/AuthContext";
+import Modal from "../Modal/Modal";
+import CustomButton from "../customTag/customButton/customButton";
+import btnStyle from "../customTag/customButton/customButton.module.css";
 
 export default function Navbar() {
   const { isLoggedIn, login } = useAuth();
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [logoutModal, setLogoutModal] = useState(false);
+  const [loginCheckModal, setLoginCheckModal] = useState("");
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      setShowLoginModal(true);
-    }
-  }, [isLoggedIn]);
+  useEffect(() => {}, [isLoggedIn]);
 
   const handleLogin = async (nickname, password) => {
     try {
       const data = await loginUser({ nickname, password }); //api/auth.js로 가져오기
       login(data.nickname, data.id); // ✅ Context의 login 함수로 상태 업데이트
-      alert("로그인 성공!");
-      setShowLoginModal(false); //모달닫기
+      setOpenModal(false); //모달닫기
+      setLoginCheckModal("로그인 성공");
       // window.location.reload();// ✅ reload 없이 상태 반영
     } catch (err) {
-      alert(err.message);
+      setLoginCheckModal(err.message || "로그인에 실패했습니다.");
     }
   };
 
   return (
-    <div className="navArea">
-      <NavLink to="/" className="logo" />
-      <div>
-        <NavLink to="/mycompanycompare" className="navbarPage">
-          나의 기업 비교
-        </NavLink>
-        <NavLink to="/selectedoverview" className="navbarPage">
-          비교 현황
-        </NavLink>
-        <NavLink to="/investmentoverview" className="navbarPage">
-          투자 현황
-        </NavLink>
-        <NavLink to="/companydetailPage/1" className="navbarPage">
-          임시 기업상세 페이지
-        </NavLink>
+    <div className={styles.setting}>
+      <div className={styles.navArea}>
+        <NavLink to="/" className={styles.logo} />
+        <div>
+          <NavLink
+            to="/mycompanycompare"
+            className={({ isActive }) =>
+              `${styles.navbarPage} ${isActive ? styles.active : ""}`
+            }
+          >
+            나의 기업 비교
+          </NavLink>
+          <NavLink
+            to="/selectedoverview"
+            className={({ isActive }) =>
+              `${styles.navbarPage} ${isActive ? styles.active : ""}`
+            }
+          >
+            비교 현황
+          </NavLink>
+          <NavLink
+            to="/investmentoverview"
+            className={({ isActive }) =>
+              `${styles.navbarPage} ${isActive ? styles.active : ""}`
+            }
+          >
+            투자 현황
+          </NavLink>
+          <NavLink
+            to="/company/07419ea2-a14c-4c5f-8b9a-eb398bba6a27"
+            className={({ isActive }) =>
+              `${styles.navbarPage} ${isActive ? styles.active : ""}`
+            }
+          >
+            임시 기업상세 페이지
+          </NavLink>
+        </div>
       </div>
-      <AuthStatus />
-      {showLoginModal && <LoginModal onLogin={handleLogin} />}
+      <div>
+        {!isLoggedIn && (
+          <button
+            className={styles.loginBtn}
+            onClick={() => setOpenModal(true)}
+          >
+            로그인
+          </button>
+        )}
+        {openModal && (
+          <Modal onClose={() => setOpenModal(false)} size="small">
+            <LoginInput onLogin={handleLogin} />
+          </Modal>
+        )}
+        {loginCheckModal && (
+          <Modal onClose={() => setLoginCheckModal("")} size="small">
+            <div className={styles.checkbox}>
+              <div className={styles.checkTitle}>{loginCheckModal}</div>
+              <CustomButton
+                buttonClass={btnStyle.buttonLarge}
+                onClick={() => setLoginCheckModal("")}
+              >
+                확인
+              </CustomButton>
+            </div>
+          </Modal>
+        )}
+        <AuthStatus onLogoutSuccess={() => setLogoutModal(true)} />
+        {logoutModal && (
+          <Modal onClose={() => setLogoutModal(false)} size="small">
+            <div className={styles.outModal}>
+              <div className={styles.logout}>로그아웃 되었습니다</div>
+              <CustomButton
+                buttonClass={btnStyle.buttonLarge}
+                onClick={() => setLogoutModal(false)}
+              >
+                확인
+              </CustomButton>
+            </div>
+          </Modal>
+        )}
+      </div>
     </div>
   );
 }

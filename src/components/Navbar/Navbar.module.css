@@ -1,0 +1,119 @@
+.setting {
+  width: 100%;
+  height: 60px;
+  padding: 0 250px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.navArea {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px;
+}
+
+.logo {
+  background-image: url("../../assets/main_logo.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 111px;
+  height: 39px;
+}
+
+.navbarPage {
+  padding: 20px 17px;
+  color: var(--gray-200);
+  text-align: center;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.active {
+  color: var(--white-text);
+}
+
+.loginBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 90px;
+  height: 35px;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--brand-orange);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  cursor: pointer;
+}
+.outModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  background-color: var(--black-300);
+  margin-top: 30px;
+}
+.logout {
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: center;
+  background-color: var(--black-300);
+}
+
+.checkbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  background-color: var(--black-300);
+  margin-top: 30px;
+}
+.checkTitle {
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: center;
+  background-color: var(--black-300);
+}
+
+@media (min-width: 744px) and (max-width: 1199px) {
+  .setting {
+    padding: 0 24px;
+  }
+  .navArea {
+    gap: 24px;
+  }
+}
+@media (min-width: 375px) and (max-width: 743px) {
+  .setting {
+    height: 56px;
+    padding: 0 16px;
+  }
+  .navArea {
+    gap: 16px;
+  }
+  .logo {
+    width: 64px;
+    height: 23px;
+    background-image: url("../../assets/mobile_logo.svg");
+  }
+  .navbarPage {
+    padding: 19px 8px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+}

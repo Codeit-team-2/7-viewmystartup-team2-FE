@@ -41,10 +41,9 @@ function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
   const handleSubmit = e => {
     e.preventDefault();
     if (howMuchError || commentError) {
-      //investorNameError || 제거
       return;
     }
-    onConfirm({ id: investor.id, howMuch, comment }); // name: investorName,
+    onConfirm({ id: investor.id, howMuch, comment });
   };
 
   return (
