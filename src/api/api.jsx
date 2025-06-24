@@ -1,10 +1,10 @@
 import axios from "axios";
 
 // keyword를 받아서 데이터 fetch
-export const fetchFilteredData = async (keyword) => {
+export const fetchFilteredData = async (query) => {
   try {
     const res = await axios.get("http://localhost:3000/companies/filtered", {
-      params: { keyword },
+      params: query,
     });
     return res.data;
   } catch (e) {
@@ -71,7 +71,6 @@ export const fetchCompanyInvestorsData = async (companyId) => {
       console.log("리퀘스트가 실패했습니다.");
     }
   }
-
 };
 
 export const createMyCompanySelection = async (userId, companyId) => {

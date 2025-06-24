@@ -22,7 +22,7 @@ function ModalCompanyListRecent({ type }) {
       <p
         className={styles.title}
       >{`최근 비교한 기업 (${modalCompanies.length})`}</p>
-      <ul className="companyList">
+      <ul className={styles.companyList}>
         {modalCompanies.map((company) => (
           <ModalCompanyListItem
             key={company.id}

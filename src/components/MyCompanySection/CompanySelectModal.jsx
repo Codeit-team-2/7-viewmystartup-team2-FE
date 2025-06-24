@@ -13,13 +13,15 @@ import ModalCompanyListSelected from "./ModalCompanyListSelected";
 import styles from "./CompanySelectModal.module.css";
 import pageButton from "../DetailCompany/PaginationBtn.module.css";
 
-function CompanySelectModal({ type, onModal }) {
+function CompanySelectModal({ type, onModal, id }) {
   const [companies, setCompanies] = useState([]);
   const { keyword, search } = useSearchFilter();
 
+  const query = id ? { keyword, id } : { keyword };
+
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchFilteredData(keyword);
+      const data = await fetchFilteredData(query);
       setCompanies(data);
     };
 
@@ -46,7 +48,7 @@ function CompanySelectModal({ type, onModal }) {
 
   return (
     <div className={styles.modalOutside} onClick={onClickModalClose}>
-      <div className={styles.selectModal} onClick={e => e.stopPropagation()}>
+      <div className={styles.selectModal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modalHeader}>
           <p className={styles.modalHeaderText}>{modalTitle}</p>
           <img

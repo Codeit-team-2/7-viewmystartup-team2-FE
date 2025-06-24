@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import { useIsMyCompany } from "../MyCompanySection/MyCompanyContext";
+import {
+  useIsMyCompany,
+  useMyCompany,
+} from "../MyCompanySection/MyCompanyContext";
 import {
   useCompareCompany,
   useIsCompareCompany,
@@ -15,6 +18,7 @@ function CompareCompanySection() {
   const isCompareCompany = useIsCompareCompany();
   const setIsCompareCompany = useSetIsCompareCompany();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const myCompany = useMyCompany();
   const compareCompany = useCompareCompany();
 
   const handleIsModalOpen = (value) => {
@@ -68,7 +72,11 @@ function CompareCompanySection() {
         </div>
       </div>
       {isModalOpen && (
-        <CompanySelectModal type="compareCompany" onModal={handleIsModalOpen} />
+        <CompanySelectModal
+          type="compareCompany"
+          onModal={handleIsModalOpen}
+          id={myCompany.id}
+        />
       )}
     </div>
   );
