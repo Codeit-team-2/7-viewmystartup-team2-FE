@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
     localStorage.getItem("nickname")
   );
   const [userId, setUserId] = useState(() => localStorage.getItem("userId"));
-  const isLoggedIn = Boolean(nickname && userId); 
+  const isLoggedIn = Boolean(nickname && userId);
 
   const login = (nickname, userId) => {
     localStorage.setItem("nickname", nickname);
