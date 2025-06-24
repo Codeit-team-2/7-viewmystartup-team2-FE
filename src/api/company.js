@@ -66,3 +66,22 @@ export const matchingInvestmentUserList = async ({
     return [];
   }
 };
+
+// 기업명 클릭했을때 기업 id 가져오는 api
+
+export const getCompanyName = async (companyName) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:3000/companies/companyName?companyName=${encodeURIComponent(
+        companyName
+      )}`
+    );
+
+    // axios는 자동으로 JSON 파싱되므로 .json() 필요 없음
+    console.log("qtqtqt응답 데이터:", res.data);
+    return res.data.id; // ← 응답 구조에 맞게 수정 필요
+  } catch (error) {
+    console.error("회사 ID 요청 실패:", error);
+    return null;
+  }
+};
