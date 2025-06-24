@@ -61,3 +61,22 @@ td {
 tbody tr:last-child td {
   border-bottom: none;
 }
+.modalArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--black-300);
+}
+.text {
+  width: 250px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0;
+  background-color: var(--black-300);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+}

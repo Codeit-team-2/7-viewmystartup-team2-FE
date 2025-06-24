@@ -5,6 +5,8 @@ import InvestorDeleteInput from "./InvestorDeleteInput.jsx";
 import InvestorEditInput from "./InvestorEditInput.jsx";
 import InvestmentEditForm from "../InvestmentForm/InvestmentEditForm.jsx";
 import styles from "./InvestorTable.module.css";
+import CustomButton from "../customTag/customButton/customButton.jsx";
+import btnStyle from "../customTag/customButton/customButton.module.css";
 import {
   deleteInvestment,
   postPasswordCheck,
@@ -20,6 +22,8 @@ function InvestorTable({
   onEdit,
 }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
   const [modalAction, setModalAction] = useState("");
   const [selectedInvestor, setSelectedInvestor] = useState(null);
   const [password, setPassword] = useState("");
@@ -52,6 +56,7 @@ function InvestorTable({
         password
       );
       onDelete && onDelete(selectedInvestor);
+      setDeleteModal(true);
       handleModalClose();
     } catch (e) {
       setErrorMessage("비밀번호가 틀렸거나 삭제 권한이 없습니다.");
@@ -75,14 +80,7 @@ function InvestorTable({
 
   const handleEditSubmit = async updatedInvestor => {
     try {
-      console.log("updateInvestment 요청 데이터:", {
-        investmentId: selectedInvestor.id,
-        userId: selectedInvestor.user.id,
-        password,
-        howMuch: updatedInvestor.howMuch,
-        comment: updatedInvestor.comment,
-      });
-      const result = await updateInvestment(
+      await updateInvestment(
         selectedInvestor.id,
         selectedInvestor.user.id,
         password,
@@ -91,20 +89,17 @@ function InvestorTable({
           comment: updatedInvestor.comment ?? "",
         }
       );
-      console.log("updateInvestor 결과:", result);
 
-      if (onEdit) {
-        console.log("onEdit 호출", selectedInvestor, updatedInvestor, password);
-        onEdit(selectedInvestor, updatedInvestor, password);
-      }
-      // onEdit && onEdit(selectedInvestor, updatedInvestor);
-      console.log("모든 로직 완료");
+      if (onEdit) onEdit(selectedInvestor, updatedInvestor, password);
+      setSuccessModal(true);
       handleModalClose();
     } catch (error) {
-      console.error("수정 실패 catch 발생:", error);
       setErrorMessage("비밀번호가 틀렸거나 삭제 권한이 없습니다.");
     }
   };
+
+  const handleSuccessModalClose = () => setSuccessModal(false);
+  const handleDeleteModalClose = () => setDeleteModal(false);
 
   return (
     <>
@@ -160,6 +155,32 @@ function InvestorTable({
               />
             )
           ) : null}
+        </Modal>
+      )}
+      {successModal && (
+        <Modal onClose={handleSuccessModalClose} size="small">
+          <div className={styles.modalArea}>
+            <div className={styles.text}>수정이 완료되었습니다</div>
+            <CustomButton
+              buttonClass={btnStyle.buttonLarge}
+              onClick={handleSuccessModalClose}
+            >
+              확인
+            </CustomButton>
+          </div>
+        </Modal>
+      )}
+      {deleteModal && (
+        <Modal onClose={handleDeleteModalClose} size="small">
+          <div className={styles.modalArea}>
+            <div className={styles.text}>삭제가 완료되었습니다</div>
+            <CustomButton
+              buttonClass={btnStyle.buttonLarge}
+              onClick={handleDeleteModalClose}
+            >
+              확인
+            </CustomButton>
+          </div>
         </Modal>
       )}
     </>
