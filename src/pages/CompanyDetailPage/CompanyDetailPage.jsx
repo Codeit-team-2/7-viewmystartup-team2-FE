@@ -136,7 +136,10 @@ function CompanyDetailPage() {
                 <p className={styles.modalText}>{modalMessage}</p>
                 <CustomButton
                   buttonClass={btnStyle.buttonLarge}
-                  onClick={handleCloseModal}
+                  onClick={() => {
+                    handleCloseModal();
+                    window.location.reload();
+                  }}
                 >
                   확인
                 </CustomButton>
