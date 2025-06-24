@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { DetailCompanyTitle } from "../DetailCompany/DetailCompanyTitle";
 import { useErrorCheck } from "./useErrorCheck";
 import { InputBox } from "./InputBox";
@@ -6,6 +6,7 @@ import CustomButton from "../customTag/customButton/customButton";
 import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
 import styles from "./InvestmentEditForm.module.css";
 import btnStyle from "../customTag/customButton/customButton.module.css";
+import { updateInvestment } from "../../api/api.jsx";
 // const nameErrorText = v =>
 //   v.trim() === ""
 //     ? "필수 입력 항목입니다."
@@ -28,25 +29,22 @@ const commentErrorText = v =>
     : "";
 
 function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
-  // const [investorName, investorNameChange, investorNameError] = useErrorCheck(
-  //   investor.name,
-  //   nameErrorText
-  // );
-  const [amount, amountChange, amountError] = useErrorCheck(
-    investor.amount,
+  const [howMuch, howMuchChange, howMuchError] = useErrorCheck(
+    investor.howMuch,
     amountErrorText
   );
   const [comment, commentChange, commentError] = useErrorCheck(
     investor.comment,
     commentErrorText
   );
+
   const handleSubmit = e => {
     e.preventDefault();
-    if (amountError || commentError) {
+    if (howMuchError || commentError) {
       //investorNameError || 제거
       return;
     }
-    onConfirm({ ...investor, amount, comment }); // name: investorName,
+    onConfirm({ id: investor.id, howMuch, comment }); // name: investorName,
   };
 
   return (
@@ -74,12 +72,12 @@ function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
         /> */}
         <InputBox
           label="투자 금액"
-          value={amount}
-          onChange={amountChange}
+          value={howMuch}
+          onChange={howMuchChange}
           type={"number"}
-          id="amount"
+          id="howMuch"
           placeholder="투자 금액을 입력해 주세요"
-          error={amountError}
+          error={howMuchError}
         />
         <InputBox
           label="투자 코멘트"
@@ -99,11 +97,7 @@ function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
         >
           취소
         </CustomButton>
-        <CustomButton
-          buttonClass={btnStyle.buttonLarge}
-          onClick={onConfirm}
-          type="submit"
-        >
+        <CustomButton buttonClass={btnStyle.buttonLarge} type="submit">
           수정하기
         </CustomButton>
       </div>

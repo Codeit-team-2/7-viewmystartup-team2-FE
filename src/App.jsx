@@ -21,7 +21,7 @@ function App() {
           path="/investmentoverview"
           element={<InvestmentOverviewPage />}
         />
-        <Route path="/companydetailpage/:id" element={<CompanyDetailPage />} />
+        <Route path="/company/:companyId" element={<CompanyDetailPage />} />
         <Route path="/selectedoverview" element={<SelectedOverviewPage />} />
       </Routes>
     </div>

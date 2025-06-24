@@ -5,6 +5,11 @@ import InvestorDeleteInput from "./InvestorDeleteInput.jsx";
 import InvestorEditInput from "./InvestorEditInput.jsx";
 import InvestmentEditForm from "../InvestmentForm/InvestmentEditForm.jsx";
 import styles from "./InvestorTable.module.css";
+import {
+  deleteInvestment,
+  postPasswordCheck,
+  updateInvestment,
+} from "../../api/api.jsx";
 
 function InvestorTable({
   investors,
@@ -39,27 +44,66 @@ function InvestorTable({
     setEditStep("password");
   };
 
-  const handleDelete = () => {
-    if (password !== selectedInvestor.password) {
-      setErrorMessage("비밀번호가 틀렸습니다.");
-      return;
+  const handleDelete = async () => {
+    try {
+      await deleteInvestment(
+        selectedInvestor.id,
+        selectedInvestor.user.id,
+        password
+      );
+      onDelete && onDelete(selectedInvestor);
+      handleModalClose();
+    } catch (e) {
+      setErrorMessage("비밀번호가 틀렸거나 삭제 권한이 없습니다.");
     }
-    onDelete && onDelete(selectedInvestor);
-    handleModalClose();
   };
 
-  const handleEdit = () => {
-    if (password !== selectedInvestor.password) {
-      setErrorMessage("비밀번호가 틀렸습니다.");
-      return;
+  const handleEdit = async () => {
+    try {
+      console.log(
+        "handleEdit userId, password:",
+        selectedInvestor.user.id,
+        password
+      );
+      await postPasswordCheck(selectedInvestor.user.id, password);
+      setEditStep("editForm");
+      setErrorMessage("");
+    } catch (e) {
+      setErrorMessage("비밀번호가 틀렸거나 삭제 권한이 없습니다.");
     }
-    setEditStep("editForm");
-    setErrorMessage("");
   };
 
-  const handleEditSubmit = updatedInvestor => {
-    onEdit && onEdit(selectedInvestor, updatedInvestor);
-    handleModalClose();
+  const handleEditSubmit = async updatedInvestor => {
+    try {
+      console.log("updateInvestment 요청 데이터:", {
+        investmentId: selectedInvestor.id,
+        userId: selectedInvestor.user.id,
+        password,
+        howMuch: updatedInvestor.howMuch,
+        comment: updatedInvestor.comment,
+      });
+      const result = await updateInvestment(
+        selectedInvestor.id,
+        selectedInvestor.user.id,
+        password,
+        {
+          howMuch: updatedInvestor.howMuch ?? "",
+          comment: updatedInvestor.comment ?? "",
+        }
+      );
+      console.log("updateInvestor 결과:", result);
+
+      if (onEdit) {
+        console.log("onEdit 호출", selectedInvestor, updatedInvestor, password);
+        onEdit(selectedInvestor, updatedInvestor, password);
+      }
+      // onEdit && onEdit(selectedInvestor, updatedInvestor);
+      console.log("모든 로직 완료");
+      handleModalClose();
+    } catch (error) {
+      console.error("수정 실패 catch 발생:", error);
+      setErrorMessage("비밀번호가 틀렸거나 삭제 권한이 없습니다.");
+    }
   };
 
   return (
