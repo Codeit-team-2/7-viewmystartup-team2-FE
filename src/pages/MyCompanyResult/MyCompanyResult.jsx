@@ -94,7 +94,10 @@ function MyCompanyResult() {
   const navigate = useNavigate();
   const handleOpenModal = () => setIsModalOpen(true);
 
-  const handleConfirm = (isSuccess = true, message = "투자가 완료되었어요!") => {
+  const handleConfirm = (
+    isSuccess = true,
+    message = "투자가 완료되었어요!"
+  ) => {
     setModalMessage(message);
     setModalStep("confirm");
   };
