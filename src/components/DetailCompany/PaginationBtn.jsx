@@ -7,11 +7,13 @@ function PaginationBtn({
   hasPrev,
   hasNext,
   handlePageChange,
+  btnClass,
+  areaClass,
 }) {
   return (
-    <div className={styles.area}>
+    <div className={`${styles.area} ${areaClass}`}>
       <button
-        className={styles.pageButton}
+        className={`${styles.pageButton} ${btnClass}`}
         onClick={() => handlePageChange(page - 1)}
         disabled={!hasPrev}
       >
@@ -19,7 +21,7 @@ function PaginationBtn({
       </button>
       {pageNumbers.map(num => (
         <button
-          className={`${styles.pageButton} ${
+          className={`${styles.pageButton} ${btnClass} ${
             num === page ? styles.active : ""
           }`}
           key={num}
@@ -30,7 +32,7 @@ function PaginationBtn({
         </button>
       ))}
       <button
-        className={styles.pageButton}
+        className={`${styles.pageButton} ${btnClass}`}
         onClick={() => handlePageChange(page + 1)}
         disabled={!hasNext}
       >

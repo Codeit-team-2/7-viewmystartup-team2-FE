@@ -11,6 +11,7 @@ import { fetchFilteredData } from "../../api/api";
 import ModalCompanyListRecent from "./ModalCompanyListRecent";
 import ModalCompanyListSelected from "./ModalCompanyListSelected";
 import styles from "./CompanySelectModal.module.css";
+import pageButton from "../DetailCompany/PaginationBtn.module.css";
 
 function CompanySelectModal({ type, onModal }) {
   const [companies, setCompanies] = useState([]);
@@ -45,7 +46,7 @@ function CompanySelectModal({ type, onModal }) {
 
   return (
     <div className={styles.modalOutside} onClick={onClickModalClose}>
-      <div className={styles.selectModal} onClick={(e) => e.stopPropagation()}>
+      <div className={styles.selectModal} onClick={e => e.stopPropagation()}>
         <div className={styles.modalHeader}>
           <p className={styles.modalHeaderText}>{modalTitle}</p>
           <img
@@ -68,6 +69,8 @@ function CompanySelectModal({ type, onModal }) {
         />
 
         <PaginationBtn
+          areaClass={pageButton.modalArea}
+          btnClass={pageButton.smallButton}
           page={page}
           pageNumbers={pageNumbers}
           hasPrev={hasPrev}
