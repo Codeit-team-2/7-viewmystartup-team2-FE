@@ -11,6 +11,8 @@ import { usePagination } from "../../hooks/usePagination.js";
 import { usePageSize } from "../../hooks/usePageSize.js";
 import { fetchInvestmentOverviewData } from "../../api/company.js";
 import { InvestmentOverviewPageOptionsData } from "../../config/filterConfig.js"; // 정렬 옵션
+import styles from "./InvestmentOverviewPage.module.css";
+import { matchingInvestmentUserList } from "../../api/company.js";
 
 //나중에 config로 뺍시당
 const InvestmentOverviewPageColumns = [
@@ -45,13 +47,45 @@ export default function InvestmentOverviewPage() {
     setPage(1);
   }, [pageSize, keyword, sortOption]);
 
+  //
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await fetchInvestmentOverviewData(keyword, sortBy, order);
+  //     setCompanies(data);
+  //   };
+  //   fetchData();
+  // }, [keyword, sortBy, order]);
+  //
+  // 위에 있는 useEffect가 현재 대충 sort기능있으면서 백엔드불러오는거같음 내가 원하는건 내api로 새로가져와야됨
+  //
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchInvestmentOverviewData(keyword, sortBy, order);
-      setCompanies(data);
+      const userId = localStorage.getItem("userId");
+      const nickname = localStorage.getItem("nickname");
+
+      const data = await matchingInvestmentUserList({
+        userId,
+        nickname,
+        sortBy,
+        order,
+        keyword,
+      });
+
+      const formattedData = data.map((item, idx) => ({
+        rank: idx + 1,
+        companyName: item.company?.companyName || "-",
+        description: item.comment || "-",
+        category: item.company?.category || "-",
+        vmsInvestment: item.howMuch || 0,
+        totalInvestment: item.company.totalInvestment || 0,
+      }));
+
+      setCompanies(formattedData);
     };
+
     fetchData();
-  }, [keyword, sortBy, order]);
+  }, [sortOption, pageSize, keyword]);
+  //
 
   const handleCompanySortChange = (e) => {
     setSortOption(e.target.value); // 예: vmsInvestment_asc
@@ -64,39 +98,46 @@ export default function InvestmentOverviewPage() {
   const currentPageData = companies.slice(startIndex, endIndex);
 
   return (
-    <div className="startup-page">
+    <div className={styles.startupPage}>
       <div>
-        <h2>투자 현황</h2>
-        <SearchBar onSubmit={search} />
-        <PageSizeSelector
-          pageSize={pageSize}
-          pageSizeOptions={pageSizeOptions}
-          onChange={handlePageSizeChange}
-        />
-        <SelectOption
-          options={InvestmentOverviewPageOptionsData}
-          onChange={handleCompanySortChange}
-        />
+        <div className={styles.tableNav}>
+          <div className={styles.tableNavLeft}>
+            <h2 className={styles.tableTitle}>투자 현황</h2>
+          </div>
+          <div className={styles.tableNavRight}>
+            <SearchBar onSubmit={search} />
+            <PageSizeSelector
+              pageSize={pageSize}
+              pageSizeOptions={pageSizeOptions}
+              onChange={handlePageSizeChange}
+            />
+            <SelectOption
+              options={InvestmentOverviewPageOptionsData}
+              onChange={handleCompanySortChange}
+            />
+          </div>
+        </div>
+        <div className={styles.tableSize}>
+          {currentPageData.length > 0 ? (
+            <>
+              <FetchTable
+                data={currentPageData}
+                columns={InvestmentOverviewPageColumns}
+                startIndex={startIndex}
+              />
+              <PaginationBtn
+                page={page}
+                pageNumbers={pageNumbers}
+                hasPrev={hasPrev}
+                hasNext={hasNext}
+                handlePageChange={handlePageChange}
+              />
+            </>
+          ) : (
+            <NoResult keyword={keyword} />
+          )}
+        </div>
       </div>
-
-      {currentPageData.length > 0 ? (
-        <>
-          <FetchTable
-            data={currentPageData}
-            columns={InvestmentOverviewPageColumns}
-            startIndex={startIndex}
-          />
-          <PaginationBtn
-            page={page}
-            pageNumbers={pageNumbers}
-            hasPrev={hasPrev}
-            hasNext={hasNext}
-            handlePageChange={handlePageChange}
-          />
-        </>
-      ) : (
-        <NoResult keyword={keyword} />
-      )}
     </div>
   );
 }

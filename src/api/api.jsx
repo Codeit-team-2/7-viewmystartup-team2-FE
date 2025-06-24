@@ -71,6 +71,7 @@ export const fetchCompanyInvestorsData = async (companyId) => {
       console.log("리퀘스트가 실패했습니다.");
     }
   }
+
 };
 
 export const createMyCompanySelection = async (userId, companyId) => {
