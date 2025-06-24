@@ -1,0 +1,24 @@
+.listBox {
+  background-color: transparent;
+  margin-bottom: 32px;
+}
+
+.listBox > * {
+  background-color: transparent;
+}
+
+.title {
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 16px;
+}
+
+.companyList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

@@ -10,6 +10,7 @@ import { usePagination } from "../../hooks/usePagination";
 import { fetchFilteredData } from "../../api/api";
 import ModalCompanyListRecent from "./ModalCompanyListRecent";
 import ModalCompanyListSelected from "./ModalCompanyListSelected";
+import styles from "./CompanySelectModal.module.css";
 
 function CompanySelectModal({ type, onModal }) {
   const [companies, setCompanies] = useState([]);
@@ -43,12 +44,12 @@ function CompanySelectModal({ type, onModal }) {
   };
 
   return (
-    <div className="modalBackground" onClick={onClickModalClose}>
-      <div className="selectModal" onClick={(e) => e.stopPropagation()}>
-        <div className="modalHeader">
-          <p>{modalTitle}</p>
+    <div className={styles.modalOutside} onClick={onClickModalClose}>
+      <div className={styles.selectModal} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.modalHeader}>
+          <p className={styles.modalHeaderText}>{modalTitle}</p>
           <img
-            className="modalCloseBtn"
+            className={styles.modalCloseBtn}
             src={IcDelete}
             alt="모달 닫기 버튼"
             onClick={onClickModalClose}

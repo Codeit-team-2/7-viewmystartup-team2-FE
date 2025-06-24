@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useIsMyCompany } from "../MyCompanySection/MyCompanyContext";
-import "./CompareCompany.css";
 import {
   useCompareCompany,
   useIsCompareCompany,

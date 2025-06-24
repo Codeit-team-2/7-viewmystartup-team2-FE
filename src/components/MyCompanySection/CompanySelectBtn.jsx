@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styles from "./CompanySelectBtn.module.css";
 
 function CompanySelectBtn({ isSelected, onSwitch }) {
   const [text, setText] = useState("");
@@ -14,7 +15,14 @@ function CompanySelectBtn({ isSelected, onSwitch }) {
     }
   }, [isSelected]);
 
-  return <button onClick={onBtnClick}>{text}</button>;
+  return (
+    <button
+      className={isSelected ? styles.selected : styles.unSelected}
+      onClick={onBtnClick}
+    >
+      {text}
+    </button>
+  );
 }
 
 export default CompanySelectBtn;

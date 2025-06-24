@@ -1,0 +1,47 @@
+.modalOutside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectModal {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 16px;
+
+  border-radius: 16px;
+  background-color: var(--black-black_300, #212121);
+  padding: 24px;
+}
+
+.modalHeader {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.modalHeaderText {
+  background-color: transparent;
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.modalCloseBtn {
+  background-color: transparent;
+  width: 32px;
+  height: 32px;
+}

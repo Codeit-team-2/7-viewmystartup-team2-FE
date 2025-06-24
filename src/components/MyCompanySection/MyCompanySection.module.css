@@ -1,0 +1,66 @@
+.myCompanySection {
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.myCompanySection > * {
+  background-color: transparent;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.myCompanySectionTitle {
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.myCompanyBox {
+  width: 1200px;
+  height: 300px;
+  border-radius: 4px;
+  background: #212121;
+}
+
+.plusBtnBackground {
+  width: 1200px;
+  height: 300px;
+  border-radius: 4px;
+  background: var(--black-black_300, #212121);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.myCompanyPlus {
+  background-color: transparent;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.myCompanyPlusBtn {
+  background-color: transparent;
+  width: 48px;
+  height: 48px;
+}
+
+.myCompanyPlusText {
+  background-color: transparent;
+  color: #fff;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
