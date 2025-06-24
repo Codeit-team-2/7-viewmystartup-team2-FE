@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   fetchCompanyDetailData,
   fetchCompanyInvestorsData,
+  updateInvestment,
 } from "../../api/api.jsx";
 import { useParams } from "react-router-dom";
 import { DetailCompanyTitle } from "../../components/DetailCompany/DetailCompanyTitle.jsx";
@@ -16,7 +17,7 @@ import Modal from "../../components/Modal/Modal.jsx";
 import styles from "./CompanyDetailPage.module.css";
 
 function CompanyDetailPage() {
-  const { id } = useParams();
+  const { companyId } = useParams();
   const [company, setCompany] = useState(null);
   const [investors, setInvestors] = useState([]);
   const pageSize = 5;
@@ -24,9 +25,9 @@ function CompanyDetailPage() {
   const totalCount = investors.length;
 
   useEffect(() => {
-    fetchCompanyDetailData(id).then(setCompany);
-    fetchCompanyInvestorsData(id).then(setInvestors);
-  }, [id]);
+    fetchCompanyDetailData(companyId).then(setCompany);
+    fetchCompanyInvestorsData(companyId).then(setInvestors);
+  }, [companyId]);
 
   const { pageNumbers, hasPrev, hasNext, handlePageChange } = usePagination({
     page,
@@ -43,10 +44,19 @@ function CompanyDetailPage() {
     setInvestors(prev => prev.filter(inv => inv.id !== investor.id));
   };
 
-  const handleEditInvestor = (investor, updated) => {
-    setInvestors(prev =>
-      prev.map(inv => (inv.id === investor.id ? { ...inv, ...updated } : inv))
-    );
+  const handleEditInvestor = async (investor, updated, password) => {
+    try {
+      await updateInvestment(investor.id, investor.user.id, password, {
+        howMuch: Number(updated.howMuch),
+        comment: updated.comment,
+      });
+      setInvestors(prev =>
+        prev.map(inv => (inv.id === investor.id ? { ...inv, ...updated } : inv))
+      );
+    } catch (e) {
+      console.error("수정실패 error:", e);
+      alert("수정실패");
+    }
   };
 
   const [modalOpen, setModalOpen] = useState(false);
