@@ -5,10 +5,10 @@ import { NavLink } from "react-router-dom";
 import AuthStatus from "./AuthStatus";
 import LoginModal from "../Modal/LoginModal";
 import { loginUser } from "../../api/auth";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../Contexts/AuthContext";
 
 export default function Navbar() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, login } = useAuth();
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   useEffect(() => {
@@ -19,12 +19,11 @@ export default function Navbar() {
 
   const handleLogin = async (nickname, password) => {
     try {
-      const data = await loginUser({ nickname, password });
-      localStorage.setItem("nickname", data.nickname);
-      localStorage.setItem("userId", data.id);
+      const data = await loginUser({ nickname, password }); //api/auth.js로 가져오기
+      login(data.nickname, data.id); // ✅ Context의 login 함수로 상태 업데이트
       alert("로그인 성공!");
-      setShowLoginModal(false);
-      window.location.reload();
+      setShowLoginModal(false); //모달닫기
+      // window.location.reload();// ✅ reload 없이 상태 반영
     } catch (err) {
       alert(err.message);
     }

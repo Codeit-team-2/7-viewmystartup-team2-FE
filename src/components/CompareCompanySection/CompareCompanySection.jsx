@@ -49,8 +49,6 @@ function CompareCompanySection() {
           {isModalOpen && (
             <CompanySelectModal
               type="compareCompany"
-              listName={["selected", "search"]}
-              onCompany={"뭐더라이거"}
               onModal={handleIsModalOpen}
             />
           )}

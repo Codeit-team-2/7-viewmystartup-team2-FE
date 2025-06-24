@@ -1,25 +1,21 @@
-//src/hooks/contexts/AuthContext.jsx
-import React, { createContext, useState, useEffect } from "react";
+//src/components/Contexts/AuthContext.jsx
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [nickname, setNickname] = useState(null);
-  const [userId, setUserId] = useState(null);
-
-  useEffect(() => {
-    const storedNickname = localStorage.getItem("nickname");
-    const storedUserId = localStorage.getItem("userId");
-
-    if (storedNickname) setNickname(storedNickname);
-    if (storedUserId) setUserId(storedUserId);
-  }, []);
+  const [nickname, setNickname] = useState(() =>
+    localStorage.getItem("nickname")
+  );
+  const [userId, setUserId] = useState(() => localStorage.getItem("userId"));
+  const isLoggedIn = Boolean(nickname && userId); 
 
   const login = (nickname, userId) => {
     localStorage.setItem("nickname", nickname);
     localStorage.setItem("userId", userId);
     setNickname(nickname);
     setUserId(userId);
+    // setIsLoggedIn(true);
   };
 
   const logout = () => {
@@ -27,9 +23,8 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("userId");
     setNickname(null);
     setUserId(null);
+    // setIsLoggedIn(false);
   };
-
-  const isLoggedIn = !!nickname;
 
   return (
     <AuthContext.Provider
@@ -39,3 +34,5 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+
+export const useAuth = () => useContext(AuthContext);
