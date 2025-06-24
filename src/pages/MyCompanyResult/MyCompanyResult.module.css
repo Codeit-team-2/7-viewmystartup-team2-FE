@@ -25,10 +25,6 @@
   position: relative;
 }
 
-.marginTop {
-  margin-top: 20px;
-}
-
 .tableContainer {
   width: 1024px;
   height: auto;
@@ -51,6 +47,26 @@
 
 .modaltitle {
   font-size: 22px;
+  font-weight: 700;
   margin-bottom: 30px;
+  background-color: var(--black-300);
+}
+
+.modalArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 30px;
+  background-color: var(--black-300);
+}
+
+.modalText {
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: center;
   background-color: var(--black-300);
 }

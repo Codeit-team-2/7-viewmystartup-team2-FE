@@ -59,14 +59,6 @@ export default function Navbar() {
           >
             투자 현황
           </NavLink>
-          <NavLink
-            to="/company/07419ea2-a14c-4c5f-8b9a-eb398bba6a27"
-            className={({ isActive }) =>
-              `${styles.navbarPage} ${isActive ? styles.active : ""}`
-            }
-          >
-            임시 기업상세 페이지
-          </NavLink>
         </div>
       </div>
       <div>
