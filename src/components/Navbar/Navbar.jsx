@@ -7,14 +7,11 @@ import LoginInput from "../LoginInput/LoginInput";
 import { loginUser } from "../../api/auth";
 import { useAuth } from "../Contexts/AuthContext";
 import Modal from "../Modal/Modal";
-import CustomButton from "../customTag/customButton/customButton";
-import btnStyle from "../customTag/customButton/customButton.module.css";
 import Toast from "../ToastMessage/Toast";
 
 export default function Navbar() {
   const { isLoggedIn, login } = useAuth();
   const [openModal, setOpenModal] = useState(false);
-  const [logoutModal, setLogoutModal] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [showToast, setShowToast] = useState(false);
 
