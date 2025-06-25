@@ -67,6 +67,7 @@ export default function LandingPage() {
           totalInvestment: formatFromTrillionFloat(item.totalInvestment), // 변환 적용
           revenue: formatFromTrillionFloat(item.revenue), // 변환 적용
           employees: item.employees,
+          imgUrl: item.imgUrl,
         }));
         setCompanies(formattedData);
       } catch (error) {

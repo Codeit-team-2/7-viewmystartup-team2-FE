@@ -88,6 +88,7 @@ export default function InvestmentOverviewPage() {
         totalInvestment: formatFromTrillionFloat(
           item.company.totalInvestment || 0
         ),
+        imgUrl: item.company?.imgUrl,
       }));
       setCompanies(formattedData);
     };
