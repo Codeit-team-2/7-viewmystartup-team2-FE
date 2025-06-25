@@ -105,7 +105,7 @@ function InvestorTable({
     <>
       <table className={styles.area}>
         <thead className={styles.title}>
-          <tr>
+          <tr className={styles.trArea}>
             <th className={styles.sBox}>이름</th>
             <th className={styles.sBox}>순위</th>
             <th className={styles.sBox}>투자금액</th>

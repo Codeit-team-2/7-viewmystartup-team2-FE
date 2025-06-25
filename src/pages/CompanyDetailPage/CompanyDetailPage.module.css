@@ -54,3 +54,10 @@
   text-align: center;
   background-color: var(--black-300);
 }
+
+@media (min-width: 744px) and (max-width: 1199px) {
+  .area {
+    max-width: 744px;
+    padding: 0 10px;
+  }
+}
