@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import styles from "./DetailCompanyTitle.module.css";
 
 export function DetailCompanyTitle({
@@ -14,7 +13,7 @@ export function DetailCompanyTitle({
 
   return (
     <div className={`${styles.area} ${areaClass}`}>
-      <div className={`${styles.img} ${imgClass}`} />
+      <img className={`${styles.img} ${imgClass}`} src={company.imgUrl} />
       <div className={`${styles.box} ${boxClass}`}>
         <div className={`${styles.title} ${titleClass}`}>
           {company.companyName}

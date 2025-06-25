@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import styles from "./Toast.module.css";
 
-function Toast({ message, visible, onClose, duration = 2000 }) {
+function Toast({ message, visible, onClose, duration = 1500 }) {
   const timerRef = useRef();
 
   useEffect(() => {

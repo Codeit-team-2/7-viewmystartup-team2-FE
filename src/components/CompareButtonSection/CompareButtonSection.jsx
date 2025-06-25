@@ -7,13 +7,14 @@ import {
   useIsMyCompany,
   useMyCompany,
 } from "../MyCompanySection/MyCompanyContext";
-import React from "react";
+import React, { useState } from "react";
 import {
   createCompareCompanySelection,
   createMyCompanySelection,
 } from "../../api/api";
 import { useAuth } from "../Contexts/AuthContext";
 import styles from "./CompareButtonSection.module.css";
+import Toast from "../ToastMessage/Toast";
 
 function CompareButtonSection() {
   const { userId } = useAuth();
@@ -24,10 +25,14 @@ function CompareButtonSection() {
 
   const MyCompany = useMyCompany(); // 객체
   const CompareCompany = useCompareCompany(); //리스트
+  // alert 대신 toast
+  const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
 
   const handleCompareBtn = async () => {
     if (!cond) {
-      alert("비교할 회사가 선택되지 않았습니다.");
+      setToastMessage("비교할 회사가 선택되지 않았습니다.");
+      setShowToast(true);
       return;
     }
 
@@ -40,7 +45,7 @@ function CompareButtonSection() {
       }
 
       const isDuplicate = prevMyCompany.some(
-        (company) => company.id === MyCompany.id
+        company => company.id === MyCompany.id
       );
 
       if (!isDuplicate) {
@@ -49,15 +54,21 @@ function CompareButtonSection() {
       }
 
       localStorage.setItem("compareCompany", JSON.stringify(CompareCompany));
-      alert("기업 정보가 저장되었습니다!");
+      setToastMessage("기업 정보가 저장되었습니다!");
+      setShowToast(true);
+      setTimeout(() => {
+        window.location.href = "/mycompanyresult";
+      }, 1000);
     } catch (error) {
+      setToastMessage("기업 정보 저장이 실패하였습니다.");
+      setShowToast(true);
       console.error("로컬스토리지 저장 중 에러:", error);
     }
 
     // 버튼 클릭하면 선택한 내역 백엔드에 post
     try {
       const companyId = MyCompany.id;
-      const companyIds = CompareCompany.map((c) => c.id);
+      const companyIds = CompareCompany.map(c => c.id);
 
       const newMySelectionResult = await createMyCompanySelection(
         userId,
@@ -83,13 +94,18 @@ function CompareButtonSection() {
 
   return (
     <>
+      <Toast
+        message={toastMessage}
+        visible={showToast}
+        onClose={() => setShowToast(false)}
+      />
       {!cond && <div className={styles.unactive}>기업 비교하기</div>}
       {cond && (
-        <Link to="/mycompanyresult" className={styles.link}>
+        <>
           <button className={styles.compareBtn} onClick={handleCompareBtn}>
             기업 비교하기
           </button>
-        </Link>
+        </>
       )}
     </>
   );
