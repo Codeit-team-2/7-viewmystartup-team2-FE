@@ -80,3 +80,10 @@ tbody tr:last-child td {
   font-style: normal;
   font-weight: 600;
 }
+
+@media (min-width: 744px) and (max-width: 1199px) {
+  .comment,
+  .commentBox {
+    width: 420px;
+  }
+}
