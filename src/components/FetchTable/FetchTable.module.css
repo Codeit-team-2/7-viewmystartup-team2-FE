@@ -38,6 +38,36 @@
   background-color: var(--gray-300);
   cursor: pointer;
 }
+
+.table tbody tr:hover td span div {
+  background-color: var(--gray-300);
+  cursor: pointer;
+}
+
+.table tbody tr:hover td div {
+  background-color: var(--gray-300);
+  cursor: pointer;
+}
 .table tbody tr:nth-child(1) td {
   border-top: 20px solid var(--black-400); /* 원하는 색과 두께로 설정 */
+}
+
+.imgbox img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50px;
+  background-color: var(--black-100);
+  background-image: url("https://picsum.photos/250/250");
+}
+
+.namebox {
+  background-color: var(--black-100);
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  gap: 10px;
+}
+
+.imgbox {
+  background-color: var(--black-100);
 }

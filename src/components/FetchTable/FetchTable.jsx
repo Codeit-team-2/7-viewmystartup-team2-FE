@@ -3,6 +3,7 @@ import styles from "./FetchTable.module.css";
 import React from "react";
 import { getCompanyName } from "../../api/company";
 import { useNavigate } from "react-router-dom";
+import defaultImg from "../../assets/panda_question.svg";
 
 // FetchTable 사용방법 프롭스에  tableType 이걸 아무값을 넣으면 기업명에서 Link to 기능비활성화, 기본값은 상세페이지이동
 // <FetchTable 예시 비활성화
@@ -47,7 +48,6 @@ export default function FetchTable({
             {columns.map((col) => {
               const cellValue = item[col.key];
 
-              // description이 없을 때 빈 문자열 처리
               const value =
                 col.key === "rank"
                   ? `${startIndex + index + 1}위`
@@ -57,18 +57,35 @@ export default function FetchTable({
                     : ""
                   : cellValue;
 
-              if (tableType === "default" && col.key === "companyName") {
+              if (col.key === "companyName") {
+                const content = (
+                  <div className={styles.namebox}>
+                    <div className={styles.imgbox}>
+                      <img
+                        className={styles.imgbackground}
+                        src={item.imgUrl || defaultImg}
+                        alt="기업 로고"
+                      />
+                    </div>
+                    {value}
+                  </div>
+                );
+
                 return (
                   <td key={col.key}>
-                    <span
-                      className={styles.linkLikeText}
-                      onClick={() => {
-                        console.log("지금 오류난곳값제대로들어감?", value);
-                        handleCompanyClick(value);
-                      }}
-                    >
-                      {value}
-                    </span>
+                    {tableType === "default" ? (
+                      <span
+                        className={styles.linkLikeText}
+                        onClick={() => {
+                          console.log("지금 오류난곳값제대로들어감?", value);
+                          handleCompanyClick(value);
+                        }}
+                      >
+                        {content}
+                      </span>
+                    ) : (
+                      content
+                    )}
                   </td>
                 );
               } else {

@@ -151,7 +151,11 @@ function MyCompanyResult() {
                 onChange={handleSortChange}
               />
             </div>
-            <FetchTable data={testData} columns={resultColumns} />
+            <FetchTable
+              data={testData}
+              columns={resultColumns}
+              tableType="상세페이지X"
+            />
           </div>
 
           <div className={style.tableContainer}>
@@ -170,6 +174,7 @@ function MyCompanyResult() {
                   : sortedCompanyList
               }
               columns={resultColumnsRank}
+              tableType="상세페이지X"
             />
 
             <div className={style.center}>

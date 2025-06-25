@@ -67,6 +67,7 @@ export default function LandingPage() {
           totalInvestment: formatFromTrillionFloat(item.totalInvestment), // 변환 적용
           revenue: formatFromTrillionFloat(item.revenue), // 변환 적용
           employees: item.employees,
+          imgUrl: item.imgUrl,
         }));
         setCompanies(formattedData);
       } catch (error) {
@@ -90,7 +91,7 @@ export default function LandingPage() {
 
   return (
     <div className={styles.startupPage}>
-      <div>
+      <div className={styles.tablebox}>
         <div className={styles.tableNav}>
           <div className={styles.tableNavLeft}>
             <h2 className={styles.tableTitle}>전체 스타트업 목록</h2>
@@ -118,7 +119,6 @@ export default function LandingPage() {
                 data={currentPageData}
                 columns={LandingPageColumns}
                 startIndex={startIndex}
-                tableType="asd" // 여기서 아무값을
               />
               <PaginationBtn
                 page={page}
