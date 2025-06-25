@@ -13,6 +13,10 @@ import { fetchInvestmentOverviewData } from "../../api/company.js";
 import { InvestmentOverviewPageOptionsData } from "../../config/filterConfig.js"; // 정렬 옵션
 import styles from "./InvestmentOverviewPage.module.css";
 import { matchingInvestmentUserList } from "../../api/company.js";
+import {
+  formatFromBillion,
+  formatFromTrillionFloat,
+} from "../../utils/formatCurrency.js";
 
 //나중에 config로 뺍시당
 const InvestmentOverviewPageColumns = [
@@ -70,16 +74,17 @@ export default function InvestmentOverviewPage() {
         order,
         keyword,
       });
-
+      console.log("🔥 raw API data:", data);
       const formattedData = data.map((item, idx) => ({
         rank: idx + 1,
         companyName: item.company?.companyName || "-",
         description: item.comment || "-",
         category: item.company?.category || "-",
-        vmsInvestment: item.howMuch || 0,
-        totalInvestment: item.company.totalInvestment || 0,
+        vmsInvestment: formatFromBillion(item.howMuch || 0),
+        totalInvestment: formatFromTrillionFloat(
+          item.company.totalInvestment || 0
+        ),
       }));
-
       setCompanies(formattedData);
     };
 
@@ -96,7 +101,6 @@ export default function InvestmentOverviewPage() {
   const startIndex = (page - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const currentPageData = companies.slice(startIndex, endIndex);
-
   return (
     <div className={styles.startupPage}>
       <div>
