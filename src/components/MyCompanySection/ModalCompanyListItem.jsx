@@ -44,7 +44,7 @@ function ModalCompanyListItem({ company, type }) {
   return (
     <li className={styles.item}>
       <div className={styles.info}>
-        <img className={styles.img} src={data.imgUrl} />
+        <img className={styles.img} src={company.imgUrl} />
         <p className={styles.companyName}>{company.companyName}</p>
         <p className={styles.category}>{company.category}</p>
       </div>
