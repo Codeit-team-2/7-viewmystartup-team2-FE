@@ -49,6 +49,7 @@ export const matchingInvestmentUserList = async ({
   nickname,
   sortBy,
   order,
+  keyword,
 }) => {
   try {
     const params = {};
@@ -56,6 +57,7 @@ export const matchingInvestmentUserList = async ({
     if (nickname) params.nickname = nickname;
     if (sortBy) params.sortBy = sortBy;
     if (order) params.order = order;
+    if (keyword) params.keyword = keyword;
 
     const response = await axios.get("http://localhost:3000/investments", {
       params,

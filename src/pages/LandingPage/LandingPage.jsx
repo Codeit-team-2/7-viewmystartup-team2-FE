@@ -14,6 +14,7 @@ import { LandingPageOptionsData } from "../../config/filterConfig.js";
 // import { fetchFilteredData } from "../../api/api.jsx";
 import { fetchFilteredDataWJ } from "../../api/company.js";
 import styles from "./LandingPage.module.css";
+import { formatFromTrillionFloat } from "../../utils/formatCurrency.js";
 
 //나중에 config로 뺍시당
 const LandingPageColumns = [
@@ -34,7 +35,6 @@ export default function LandingPage() {
   const [companies, setCompanies] = useState([]);
 
   const totalCount = companies.length;
-
   const [page, setPage] = useState(1);
   // const pageSize = 5; // 한 페이지에 보여줄 항목 수
   const { pageSize, pageSizeOptions, handlePageSizeChange } = usePageSize(5);
@@ -53,7 +53,18 @@ export default function LandingPage() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchFilteredDataWJ(keyword, sortBy, order);
-      setCompanies(data);
+
+      const formattedData = data.map((item, idx) => ({
+        rank: idx + 1,
+        companyName: item.companyName,
+        description: item.description,
+        category: item.category,
+        totalInvestment: formatFromTrillionFloat(item.totalInvestment), // 변환 적용
+        revenue: formatFromTrillionFloat(item.revenue), // 변환 적용
+        employees: item.employees,
+      }));
+
+      setCompanies(formattedData);
     };
     fetchData();
   }, [keyword, sortBy, order]);

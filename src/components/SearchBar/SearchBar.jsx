@@ -22,7 +22,11 @@ export default function SearchBar({ onSubmit }) {
         type="text"
         placeholder="검색어를 입력하세요"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => {
+          const value = e.target.value;
+          setInput(value);
+          if (value === "") onSubmit("");
+        }}
         onKeyDown={handleKeyDown}
         className={styles.input}
       />
