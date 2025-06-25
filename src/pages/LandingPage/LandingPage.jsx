@@ -8,13 +8,15 @@ import { useSearchFilter } from "../../hooks/useSearchFilter.js";
 import { usePagination } from "../../hooks/usePagination.js";
 import { usePageSize } from "../../hooks/usePageSize";
 import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
-import { useCompanies } from "../../hooks/useCompanies.js";
+// import { useCompanies } from "../../hooks/useCompanies.js";
 import SelectOption from "../../components/SelectOption/selectOption.jsx";
 import { LandingPageOptionsData } from "../../config/filterConfig.js";
 // import { fetchFilteredData } from "../../api/api.jsx";
 import { fetchFilteredDataWJ } from "../../api/company.js";
 import styles from "./LandingPage.module.css";
 import { formatFromTrillionFloat } from "../../utils/formatCurrency.js";
+import SkeletonTable from "../../components/Skeletons/SkeletonTable.jsx";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
 
 //나중에 config로 뺍시당
 const LandingPageColumns = [
@@ -28,9 +30,10 @@ const LandingPageColumns = [
 ];
 
 export default function LandingPage() {
+  const [loading, setLoading] = useState(true);
   const [sortOption, setSortOption] = useState("totalInvestment_desc");
   const [sortBy, order] = sortOption.split("_");
-  const { data, loading } = useCompanies({ sortBy, order });
+  // const { data, loading } = useCompanies({ sortBy, order });
   const { keyword, search } = useSearchFilter();
   const [companies, setCompanies] = useState([]);
 
@@ -50,21 +53,27 @@ export default function LandingPage() {
   useEffect(() => {
     setPage(1);
   }, [pageSize, keyword, sortOption]);
+
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchFilteredDataWJ(keyword, sortBy, order);
-
-      const formattedData = data.map((item, idx) => ({
-        rank: idx + 1,
-        companyName: item.companyName,
-        description: item.description,
-        category: item.category,
-        totalInvestment: formatFromTrillionFloat(item.totalInvestment), // 변환 적용
-        revenue: formatFromTrillionFloat(item.revenue), // 변환 적용
-        employees: item.employees,
-      }));
-
-      setCompanies(formattedData);
+      setLoading(true); // 로딩 시작
+      try {
+        const data = await fetchFilteredDataWJ(keyword, sortBy, order);
+        const formattedData = data.map((item, idx) => ({
+          rank: idx + 1,
+          companyName: item.companyName,
+          description: item.description,
+          category: item.category,
+          totalInvestment: formatFromTrillionFloat(item.totalInvestment), // 변환 적용
+          revenue: formatFromTrillionFloat(item.revenue), // 변환 적용
+          employees: item.employees,
+        }));
+        setCompanies(formattedData);
+      } catch (error) {
+        console.error("데이터 불러오기 실패", error);
+      } finally {
+        setLoading(false); // 로딩 종료
+      }
     };
     fetchData();
   }, [keyword, sortBy, order]);
@@ -100,7 +109,10 @@ export default function LandingPage() {
           </div>
         </div>
         <div className={styles.tableSize}>
-          {currentPageData.length > 0 ? (
+          {loading ? (
+            <SkeletonTable rows={pageSize} />
+          ) : // <LoadingSpinner />
+          currentPageData.length > 0 ? (
             <>
               <FetchTable
                 data={currentPageData}

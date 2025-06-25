@@ -13,6 +13,7 @@ export const useCompanies = ({ sortBy = "", order = "" } = {}) => {
         const result = await fetchAllCompanies(sortBy, order); // 인자 넘겨주기
         setLoading(true);
         setData(result);
+        // console.log(result);
       } catch (err) {
         console.error("기업 데이터 로딩 실패:", err);
       } finally {

@@ -62,6 +62,10 @@ export default function InvestmentOverviewPage() {
   //
   // 위에 있는 useEffect가 현재 대충 sort기능있으면서 백엔드불러오는거같음 내가 원하는건 내api로 새로가져와야됨
   //
+
+  //우진요청사항
+  //아래 로컬스토리지에서 나온 userId, nickname context에 저장된 userId, nickname으로 바꾸면 좋을거같아요
+  //말씀주시면 제가 바꿈
   useEffect(() => {
     const fetchData = async () => {
       const userId = localStorage.getItem("userId");
