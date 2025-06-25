@@ -9,12 +9,14 @@ import { useAuth } from "../Contexts/AuthContext";
 import Modal from "../Modal/Modal";
 import CustomButton from "../customTag/customButton/customButton";
 import btnStyle from "../customTag/customButton/customButton.module.css";
+import Toast from "../ToastMessage/Toast";
 
 export default function Navbar() {
   const { isLoggedIn, login } = useAuth();
   const [openModal, setOpenModal] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
-  const [loginCheckModal, setLoginCheckModal] = useState("");
+  const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {}, [isLoggedIn]);
 
@@ -23,10 +25,12 @@ export default function Navbar() {
       const data = await loginUser({ nickname, password }); //api/auth.js로 가져오기
       login(data.nickname, data.id); // ✅ Context의 login 함수로 상태 업데이트
       setOpenModal(false); //모달닫기
-      setLoginCheckModal("로그인 성공");
+      setToastMessage("로그인 성공");
+      setShowToast(true);
       // window.location.reload();// ✅ reload 없이 상태 반영
     } catch (err) {
-      setLoginCheckModal(err.message || "로그인에 실패했습니다.");
+      setToastMessage(err.message || "로그인에 실패했습니다.");
+      setShowToast(true);
     }
   };
 
@@ -75,33 +79,17 @@ export default function Navbar() {
             <LoginInput onLogin={handleLogin} />
           </Modal>
         )}
-        {loginCheckModal && (
-          <Modal onClose={() => setLoginCheckModal("")} size="small">
-            <div className={styles.checkbox}>
-              <div className={styles.checkTitle}>{loginCheckModal}</div>
-              <CustomButton
-                buttonClass={btnStyle.buttonLarge}
-                onClick={() => setLoginCheckModal("")}
-              >
-                확인
-              </CustomButton>
-            </div>
-          </Modal>
-        )}
-        <AuthStatus onLogoutSuccess={() => setLogoutModal(true)} />
-        {logoutModal && (
-          <Modal onClose={() => setLogoutModal(false)} size="small">
-            <div className={styles.outModal}>
-              <div className={styles.logout}>로그아웃 되었습니다</div>
-              <CustomButton
-                buttonClass={btnStyle.buttonLarge}
-                onClick={() => setLogoutModal(false)}
-              >
-                확인
-              </CustomButton>
-            </div>
-          </Modal>
-        )}
+        <Toast
+          message={toastMessage}
+          visible={showToast}
+          onClose={() => setShowToast(false)}
+        />
+        <AuthStatus
+          onLogoutSuccess={() => {
+            setToastMessage("로그아웃 되었습니다");
+            setShowToast(true);
+          }}
+        />
       </div>
     </div>
   );
