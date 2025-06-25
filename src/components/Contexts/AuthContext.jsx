@@ -8,27 +8,56 @@ export function AuthProvider({ children }) {
     localStorage.getItem("nickname")
   );
   const [userId, setUserId] = useState(() => localStorage.getItem("userId"));
+  const [email, setEmail] = useState(() => localStorage.getItem("email"));
+  const [balance, setBalance] = useState(() =>
+    Number(localStorage.getItem("balance") || 0)
+  );
+  const [investmentsCount, setInvestmentsCount] = useState(() =>
+    Number(localStorage.getItem("investmentsCount") || 0)
+  );
+
   const isLoggedIn = Boolean(nickname && userId);
 
-  const login = (nickname, userId) => {
+  const login = ({ nickname, userId, email, balance, investmentsCount }) => {
     localStorage.setItem("nickname", nickname);
     localStorage.setItem("userId", userId);
+    localStorage.setItem("email", email);
+    localStorage.setItem("balance", balance.toString());
+    localStorage.setItem("investmentsCount", investmentsCount.toString());
+
     setNickname(nickname);
     setUserId(userId);
-    // setIsLoggedIn(true);
+    setEmail(email);
+    setBalance(balance);
+    setInvestmentsCount(investmentsCount);
   };
 
   const logout = () => {
     localStorage.removeItem("nickname");
     localStorage.removeItem("userId");
+    localStorage.removeItem("email");
+    localStorage.removeItem("balance");
+    localStorage.removeItem("investmentsCount");
+
     setNickname(null);
     setUserId(null);
-    // setIsLoggedIn(false);
+    setEmail(null);
+    setBalance(0);
+    setInvestmentsCount(0);
   };
 
   return (
     <AuthContext.Provider
-      value={{ nickname, userId, isLoggedIn, login, logout }}
+      value={{
+        nickname,
+        userId,
+        email,
+        balance,
+        investmentsCount,
+        isLoggedIn,
+        login,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>
