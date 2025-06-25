@@ -63,7 +63,7 @@ export default function FetchTable({
                     <div className={styles.imgbox}>
                       <img
                         className={styles.imgbackground}
-                        src={item.companyImgUrl || defaultImg}
+                        src={item.imgUrl || defaultImg}
                         alt="기업 로고"
                       />
                     </div>
