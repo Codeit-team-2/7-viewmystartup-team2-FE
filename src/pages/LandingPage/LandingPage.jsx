@@ -118,7 +118,6 @@ export default function LandingPage() {
                 data={currentPageData}
                 columns={LandingPageColumns}
                 startIndex={startIndex}
-                tableType="asd" // 여기서 아무값을
               />
               <PaginationBtn
                 page={page}
