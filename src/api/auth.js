@@ -23,7 +23,7 @@ export const loginUser = async ({ nickname, password }) => {
 export const logoutUser = () => {
   localStorage.removeItem("nickname");
   localStorage.removeItem("userId");
-  // 필요 시 redirect or 상태 초기화도 가능
+  localStorage.removeItem("email", data.email);
 };
 
 export const getStoredUser = () => {
