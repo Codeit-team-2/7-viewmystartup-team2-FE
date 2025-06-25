@@ -108,13 +108,16 @@ function MyCompanyResult() {
     setIsModalOpen(false);
     setModalStep("form");
     if (isInvestSuccess) {
-      navigate("/investmentoverview");
+      // 투자성공시 localStorage 초기화
+      localStorage.removeItem("myCompany");
+      localStorage.removeItem("compareCompany");
+      navigate("/investmentoverview"); // 투자성공시 투자현황페이지로
     }
   };
-  //우진수정 확인용
-  useEffect(() => {
-    console.log("변경된 myCompany", myCompany);
-  }, [myCompany]);
+
+  // useEffect(() => {
+  //   console.log("변경된 myCompany", myCompany);
+  // }, [myCompany]);
 
   return (
     <CompareCompanyProvider defaultValue={[]}>

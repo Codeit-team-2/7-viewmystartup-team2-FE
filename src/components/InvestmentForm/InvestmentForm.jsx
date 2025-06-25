@@ -69,7 +69,6 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
         categoryClass={titleStyle.categoryForm}
       />
 
-      {/* 우진수정 */}
       <div className={styles.emtybox}></div>
       <div className={styles.nicknameDisplay}>
         <p className={styles.info}>투자자 정보</p>
