@@ -7,7 +7,7 @@ function CompanySelectBtn({ isSelected, onSwitch }) {
   const compareCompany = useCompareCompany();
 
   const onBtnClick = () => {
-    if (compareCompany.length >= 5) {
+    if (compareCompany.length >= 5 && !isSelected) {
       alert("비교 기업은 5개까지만 선택 가능합니다.");
     } else {
       onSwitch();
