@@ -8,8 +8,10 @@ import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
 import btnStyle from "../customTag/customButton/customButton.module.css";
 import { useAuth } from "../Contexts/AuthContext"; //우진수정
 import { postInvestment } from "../../api/investment"; //우진수정
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 function InvestmentForm({ company = {}, onCancel, onConfirm }) {
+  const [loading, setLoading] = useState(false); //우진수정 - 중복 요청 방지용 로딩 상태
   const { nickname, userId } = useAuth(); // ✅ context로부터 사용자 정보 받기//우진수정
 
   useEffect(() => {
@@ -40,6 +42,9 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
     console.log(company);
     console.log("companyId from prop:", company.id);
 
+    //fetch api 이전에 try문 밖에서 setLoading - true 설정
+    //finally 추가 후 setLoading - false 설정
+    setLoading(true);
     try {
       await postInvestment({
         userId,
@@ -49,11 +54,13 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
         password: form.password,
       });
 
-      resetForm();//모달비우기
+      resetForm(); //모달비우기
       onConfirm?.(true, "투자가 완료되었어요!");
     } catch (err) {
       console.error("투자 실패:", err);
       onConfirm?.(false, `투자실패 - 사유: ${err.message}`);
+    } finally {
+      setLoading(false); //우진수정 - 로딩종료 이후 아래 커스텀버튼을 로딩상태에 따라 disabled 하게 변경
     }
   };
 
@@ -105,16 +112,21 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
         type="password"
         error={errors.checkPassword}
       />
-
+      {loading && <LoadingSpinner />}
       <div className={styles.btnArea}>
         <CustomButton
           buttonClass={btnStyle.buttonCancel}
           onClick={onCancel}
           type="button"
+          disabled={loading} //우진수정 - 로딩중 버튼비활성화
         >
           취소
         </CustomButton>
-        <CustomButton buttonClass={btnStyle.buttonLarge} type="submit">
+        <CustomButton
+          buttonClass={btnStyle.buttonLarge}
+          type="submit"
+          disabled={loading} //우진수정 - 로딩중 버튼비활성화
+        >
           투자하기
         </CustomButton>
       </div>
