@@ -21,20 +21,19 @@ function CompanySelectModal({ type, onModal, id }) {
   const query = id ? { keyword, id } : { keyword };
 
   useEffect(() => {
-    setLoading(true);
-
     const fetchData = async () => {
-      const data = await fetchFilteredData(query);
-      setCompanies(data);
+      setLoading(true);
+      try {
+        const data = await fetchFilteredData(query);
+        setCompanies(data);
+      } catch (e) {
+        console.error(`검색 결과 fetch 오류: ${e}`);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    try {
-      fetchData();
-    } catch (e) {
-      console.error(`검색 결과 fetch 오류: ${e}`);
-    } finally {
-      setLoading(false);
-    }
+    fetchData();
   }, [keyword]);
 
   const pageSize = 5;

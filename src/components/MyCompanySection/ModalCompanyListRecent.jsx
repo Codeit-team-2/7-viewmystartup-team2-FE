@@ -11,21 +11,19 @@ function ModalCompanyListRecent({ type }) {
   const { userId } = useAuth();
 
   useEffect(() => {
-    setLoading(true);
-
     const fetchData = async () => {
-      const data = await fetchRecentSelectedCompanies(userId);
-      setModalCompanies(data);
+      setLoading(true);
+      try {
+        const data = await fetchRecentSelectedCompanies(userId);
+        setModalCompanies(data);
+      } catch (e) {
+        console.error(`최근 선택 기업 불러오기 오류: ${e}`);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    try {
-      console.log("진입함?");
-      fetchData();
-    } catch (e) {
-      console.error(`최근 선택 기업 불러오기 오류: ${e}`);
-    } finally {
-      setLoading(false);
-    }
+    fetchData();
   }, []);
 
   return (
