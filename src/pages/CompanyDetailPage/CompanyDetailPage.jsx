@@ -15,6 +15,7 @@ import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
 import CustomButton from "../../components/customTag/customButton/customButton.jsx";
 import Modal from "../../components/Modal/Modal.jsx";
 import styles from "./CompanyDetailPage.module.css";
+import btnStyle from "../../components/customTag/customButton/customButton.module.css";
 
 function CompanyDetailPage() {
   const { companyId } = useParams();
@@ -60,11 +61,23 @@ function CompanyDetailPage() {
   };
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalStep, setModalStep] = useState("form");
+  const [modalMessage, setModalMessage] = useState("투자가 완료되었어요!");
+
   const handleOpenModal = () => {
     setModalOpen(true);
   };
   const handleCloseModal = () => {
     setModalOpen(false);
+    setModalStep("form");
+  };
+
+  const handleConfirm = (
+    isSuccess = true,
+    message = "투자가 완료되었어요!"
+  ) => {
+    setModalMessage(message);
+    setModalStep("confirm");
   };
 
   const totalInvestment = investors.reduce(
@@ -72,6 +85,7 @@ function CompanyDetailPage() {
     0
   );
   if (!company) return <div>Loading...</div>;
+
   return (
     <div className={styles.area}>
       <div>
@@ -103,8 +117,35 @@ function CompanyDetailPage() {
         handlePageChange={handlePageChange}
       />
       {modalOpen && (
-        <Modal onClose={handleCloseModal}>
-          <InvestmentForm company={company} />
+        <Modal
+          onClose={handleCloseModal}
+          size={modalStep === "confirm" ? "small" : "default"}
+        >
+          {modalStep === "form" ? (
+            <>
+              <p className={styles.modalTitle}>기업에 투자하기</p>
+              <InvestmentForm
+                company={company}
+                onConfirm={handleConfirm}
+                onCancel={handleCloseModal}
+              />
+            </>
+          ) : (
+            <>
+              <div className={styles.modalArea}>
+                <p className={styles.modalText}>{modalMessage}</p>
+                <CustomButton
+                  buttonClass={btnStyle.buttonLarge}
+                  onClick={() => {
+                    handleCloseModal();
+                    window.location.reload();
+                  }}
+                >
+                  확인
+                </CustomButton>
+              </div>
+            </>
+          )}
         </Modal>
       )}
     </div>

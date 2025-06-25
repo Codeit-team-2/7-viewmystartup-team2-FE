@@ -31,3 +31,23 @@
   line-height: normal;
   background-color: var(--black-200);
 }
+
+@media (min-width: 375px) and (max-width: 743px) {
+  .area {
+    gap: 16px;
+  }
+  .box {
+    flex-direction: column;
+    width: 104px;
+    height: 125px;
+    gap: 16px;
+  }
+  .title {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .content {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+}
