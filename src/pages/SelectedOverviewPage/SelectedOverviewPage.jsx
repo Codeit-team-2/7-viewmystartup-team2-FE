@@ -70,7 +70,7 @@ export default function SelectedOverviewPage() {
 
   return (
     <div className={styles.startupPage}>
-      <div>
+      <div className={styles.tablebox}>
         <div className={styles.tableNav}>
           <div className={styles.tableNavLeft}>
             <h2 className={styles.tableTitle}>비교 현황</h2>

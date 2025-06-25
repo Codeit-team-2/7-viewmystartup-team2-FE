@@ -90,7 +90,7 @@ export default function LandingPage() {
 
   return (
     <div className={styles.startupPage}>
-      <div>
+      <div className={styles.tablebox}>
         <div className={styles.tableNav}>
           <div className={styles.tableNavLeft}>
             <h2 className={styles.tableTitle}>전체 스타트업 목록</h2>

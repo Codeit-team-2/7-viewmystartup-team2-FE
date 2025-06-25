@@ -107,7 +107,7 @@ export default function InvestmentOverviewPage() {
   const currentPageData = companies.slice(startIndex, endIndex);
   return (
     <div className={styles.startupPage}>
-      <div>
+      <div className={styles.tablebox}>
         <div className={styles.tableNav}>
           <div className={styles.tableNavLeft}>
             <h2 className={styles.tableTitle}>투자 현황</h2>
