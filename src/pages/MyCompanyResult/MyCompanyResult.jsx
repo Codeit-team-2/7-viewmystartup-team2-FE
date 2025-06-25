@@ -26,6 +26,7 @@ const topCompanies = [...invInitialData]
   .slice(0, 5);
 
 function MyCompanyResult() {
+  const [isInvestSuccess, SetIsInvestSuccess] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState("form");
   const [modalMessage, setModalMessage] = useState("투자가 완료되었어요!");
@@ -98,6 +99,7 @@ function MyCompanyResult() {
     isSuccess = true,
     message = "투자가 완료되었어요!"
   ) => {
+    SetIsInvestSuccess(isSuccess);
     setModalMessage(message);
     setModalStep("confirm");
   };
@@ -105,6 +107,9 @@ function MyCompanyResult() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setModalStep("form");
+    if (isInvestSuccess) {
+      navigate("/investmentoverview");
+    }
   };
   //우진수정 확인용
   useEffect(() => {
