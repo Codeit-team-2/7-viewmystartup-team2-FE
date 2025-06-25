@@ -1,0 +1,24 @@
+/* src/components/Skeletons/SkeletonTable.module.css */
+.skeletonTable {
+  width: 100%;
+  border-collapse: collapse;
+  opacity: 0.6;
+}
+.skeletonCell {
+  background-color: #e0e0e0;
+  height: 20px;
+  border-radius: 4px;
+  margin: 4px;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}

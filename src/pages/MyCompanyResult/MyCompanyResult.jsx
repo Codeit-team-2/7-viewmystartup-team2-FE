@@ -26,6 +26,7 @@ const topCompanies = [...invInitialData]
   .slice(0, 5);
 
 function MyCompanyResult() {
+  const [isInvestSuccess, SetIsInvestSuccess] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState("form");
   const [modalMessage, setModalMessage] = useState("투자가 완료되었어요!");
@@ -94,7 +95,11 @@ function MyCompanyResult() {
   const navigate = useNavigate();
   const handleOpenModal = () => setIsModalOpen(true);
 
-  const handleConfirm = (isSuccess = true, message = "투자가 완료되었어요!") => {
+  const handleConfirm = (
+    isSuccess = true,
+    message = "투자가 완료되었어요!"
+  ) => {
+    SetIsInvestSuccess(isSuccess);
     setModalMessage(message);
     setModalStep("confirm");
   };
@@ -102,11 +107,17 @@ function MyCompanyResult() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setModalStep("form");
+    if (isInvestSuccess) {
+      // 투자성공시 localStorage 초기화
+      localStorage.removeItem("myCompany");
+      localStorage.removeItem("compareCompany");
+      navigate("/investmentoverview"); // 투자성공시 투자현황페이지로
+    }
   };
-  //우진수정 확인용
-  useEffect(() => {
-    console.log("변경된 myCompany", myCompany);
-  }, [myCompany]);
+
+  // useEffect(() => {
+  //   console.log("변경된 myCompany", myCompany);
+  // }, [myCompany]);
 
   return (
     <CompareCompanyProvider defaultValue={[]}>
