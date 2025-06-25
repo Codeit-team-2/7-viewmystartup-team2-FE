@@ -5,7 +5,6 @@
 
 import IcMinus from "../assets/ic_minus.svg";
 import { useSetCompareCompany } from "./CompareCompanySection/CompareCompanyContext";
-import comIcon from "../assets/main_logo.svg";
 import React from "react";
 import styles from "./CompanyCard.module.css";
 
@@ -27,7 +26,7 @@ function CompanyCard({ name, data, button = false }) {
         />
       ) : null}
       <div className={styles.content}>
-        <img className={styles.img} src={comIcon} alt="회사 로고 이미지" />
+        <img className={styles.img} src={data.imgUrl} alt="회사 로고 이미지" />
         <div>
           <span className={styles.name}>{data.companyName}</span>
           <span className={styles.category}>{data.category}</span>

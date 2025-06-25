@@ -7,7 +7,6 @@ import {
   useSetCompareCompany,
 } from "../CompareCompanySection/CompareCompanyContext";
 import React from "react";
-import comIcon from "../../assets/main_logo.svg";
 import styles from "./ModalCompanyListItem.module.css";
 
 function ModalCompanyListItem({ company, type }) {
@@ -45,7 +44,7 @@ function ModalCompanyListItem({ company, type }) {
   return (
     <li className={styles.item}>
       <div className={styles.info}>
-        <img className={styles.img} src={comIcon} />
+        <img className={styles.img} src={company.imgUrl} />
         <p className={styles.companyName}>{company.companyName}</p>
         <p className={styles.category}>{company.category}</p>
       </div>

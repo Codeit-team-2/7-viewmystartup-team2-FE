@@ -59,7 +59,7 @@
   width: 80px;
   height: 80px;
   border-radius: 50px;
-  padding: 5px;
+  object-fit: cover;
 }
 
 .name {

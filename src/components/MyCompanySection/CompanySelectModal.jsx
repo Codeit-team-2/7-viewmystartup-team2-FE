@@ -14,6 +14,7 @@ import styles from "./CompanySelectModal.module.css";
 import pageButton from "../DetailCompany/PaginationBtn.module.css";
 
 function CompanySelectModal({ type, onModal, id }) {
+  const [loading, setLoading] = useState(false);
   const [companies, setCompanies] = useState([]);
   const { keyword, search } = useSearchFilter();
 
@@ -21,8 +22,15 @@ function CompanySelectModal({ type, onModal, id }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchFilteredData(query);
-      setCompanies(data);
+      setLoading(true);
+      try {
+        const data = await fetchFilteredData(query);
+        setCompanies(data);
+      } catch (e) {
+        console.error(`검색 결과 fetch 오류: ${e}`);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
@@ -68,6 +76,7 @@ function CompanySelectModal({ type, onModal, id }) {
           type={type}
           page={page}
           pageSize={pageSize}
+          loading={loading}
         />
 
         <PaginationBtn
