@@ -10,6 +10,9 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import Toast from "../ToastMessage/Toast";
 
 export default function AuthStatus({ onLogoutSuccess }) {
+  const handleNameClick = () => setShowInfo(v => !v);
+  const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
   const { isFetchLoading, startFetchLoading, endFetchLoading } =
     useFetchLoading();
   const {
@@ -41,10 +44,6 @@ export default function AuthStatus({ onLogoutSuccess }) {
     logout();
     if (onLogoutSuccess) onLogoutSuccess();
   };
-
-  const handleNameClick = () => setShowInfo(v => !v);
-  const [toastMessage, setToastMessage] = useState("");
-  const [showToast, setShowToast] = useState(false);
 
   const handleRefresh = async () => {
     startFetchLoading();
