@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { refreshUserInfo } from "../../api/auth";
 import { useFetchLoading } from "../../hooks/useFetchLoading";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import Toast from "../ToastMessage/Toast";
 
 export default function AuthStatus({ onLogoutSuccess }) {
   const { isFetchLoading, startFetchLoading, endFetchLoading } =
@@ -41,16 +42,20 @@ export default function AuthStatus({ onLogoutSuccess }) {
     if (onLogoutSuccess) onLogoutSuccess();
   };
 
-  const handleNameClick = () => setShowInfo((v) => !v);
+  const handleNameClick = () => setShowInfo(v => !v);
+  const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
 
   const handleRefresh = async () => {
     startFetchLoading();
     try {
       const data = await refreshUserInfo(nickname);
       refresh(data); // context 업데이트
-      alert("✅ 정보가 최신화되었습니다!");
+      setToastMessage("유저 정보 업데이트!");
+      setShowToast(true);
     } catch (err) {
-      alert("❌ 정보 최신화에 실패했습니다.");
+      setToastMessage("정보 업데이트 실패!");
+      setShowToast(true);
     } finally {
       endFetchLoading();
     }
@@ -67,7 +72,22 @@ export default function AuthStatus({ onLogoutSuccess }) {
       </span>
       {showInfo && (
         <div className={styles.infoBox} ref={infoBoxRef}>
-          <div className={styles.infoName}>{nickname}</div>
+          <div className={styles.title}>
+            <div className={styles.infoName}>{nickname}</div>
+            {isFetchLoading ? (
+              <LoadingSpinner />
+            ) : (
+              <button
+                className={styles.refresh}
+                onClick={handleRefresh}
+              ></button>
+            )}
+            <Toast
+              message={toastMessage}
+              visible={showToast}
+              onClose={() => setShowToast(false)}
+            />
+          </div>
           <div className={styles.textBox}>
             <div className={styles.infoText}>
               이메일<span className={styles.spanText}>{email}</span>
@@ -87,13 +107,6 @@ export default function AuthStatus({ onLogoutSuccess }) {
               </span>
             </div>
           </div>
-          {isFetchLoading ? (
-            <LoadingSpinner />
-          ) : (
-            <button className={styles.btn} onClick={handleRefresh}>
-              내 정보 최신화하기
-            </button>
-          )}
 
           <Link
             to="/investmentoverview"
