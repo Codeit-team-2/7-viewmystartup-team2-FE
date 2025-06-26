@@ -23,7 +23,7 @@
   margin-top: 20px;
   padding: 15px;
   width: 310px;
-  height: 350px;
+  height: 370px;
   background-color: var(--black-200);
   border: 1px solid var(--brand-orange);
   border-radius: 10px;
@@ -31,16 +31,33 @@
   top: 100%;
   z-index: 1000;
 }
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--black-200);
+}
 .infoName {
+  margin-left: 10px;
   font-size: 25px;
   font-style: normal;
   font-weight: 600;
-  padding: 5px 15px 20px;
   background-color: var(--black-200);
-  border-bottom: 1px solid var(--brand-orange);
+}
+.refresh {
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  border: none;
+  border-radius: 50px;
+  background-color: var(--black-200);
+  background-image: url("../../assets/refresh.svg");
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .textBox {
   background-color: var(--black-200);
+  border-top: 1px solid var(--brand-orange);
   border-bottom: 1px solid var(--brand-orange);
 }
 .infoText {
