@@ -92,3 +92,9 @@
 .btn:hover {
   background-color: var(--brand-orange);
 }
+
+@media (min-width: 744px) and (max-width: 1199px) {
+  .infoBox {
+    right: 0%;
+  }
+}
