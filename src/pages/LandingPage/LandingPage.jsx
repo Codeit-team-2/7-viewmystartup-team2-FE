@@ -71,7 +71,7 @@ export default function LandingPage() {
             : "-",
           imgUrl: item.imgUrl,
         }));
-        console.log("포맷팅된 회사 데이터:", formattedData); //우진수정
+        // console.log("포맷팅된 회사 데이터:", formattedData); //우진수정
         setCompanies(formattedData);
       } catch (error) {
         console.error("데이터 불러오기 실패", error);
