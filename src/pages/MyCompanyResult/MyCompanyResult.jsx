@@ -19,7 +19,9 @@ import MyCompanySection from "../../components/MyCompanySection/MyCompanySection
 import btnStyle from "../../components/customTag/customButton/customButton.module.css";
 import { formatFromTrillionFloat } from "../../utils/formatCurrency.js";
 
-const parseRevenue = (revenueStr) => {
+const apiUrl = import.meta.env.VITE_API_URL;
+
+const parseRevenue = revenueStr => {
   if (!revenueStr) return 0;
   return parseFloat(revenueStr.replace("억", ""));
 };
@@ -51,7 +53,7 @@ function MyCompanyResult() {
 
     // 이미 compareCompany에 포함된 경우 중복 제거
     const filteredCompare = savedCompareCompany.filter(
-      (comp) => comp.companyName !== lastMyCompany?.companyName
+      comp => comp.companyName !== lastMyCompany?.companyName
     );
 
     const companyarray = [lastMyCompany, ...filteredCompare];
@@ -65,8 +67,8 @@ function MyCompanyResult() {
     addCompareResult(compareCompany);
   }, [compareCompany]);
 
-  const addCompareResult = (newItems) => {
-    const formattedItems = newItems.map((item) => ({
+  const addCompareResult = newItems => {
+    const formattedItems = newItems.map(item => ({
       ...item,
       totalInvestment: formatFromTrillionFloat(item.totalInvestment),
       revenue: formatFromTrillionFloat(item.revenue),
@@ -80,10 +82,10 @@ function MyCompanyResult() {
   const [sortedCompanyList, setSortedCompanyList] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/companies")
-      .then((res) => res.json())
-      .then((data) => {
-        const formatted = data.map((item) => ({
+    fetch(`${apiUrl}/companies`)
+      .then(res => res.json())
+      .then(data => {
+        const formatted = data.map(item => ({
           ...item,
           totalInvestment: formatFromTrillionFloat(item.totalInvestment),
           revenue: formatFromTrillionFloat(item.revenue),
@@ -94,20 +96,20 @@ function MyCompanyResult() {
         setCompanyList(formatted);
         setSortedCompanyList(formatted);
       })
-      .catch((err) => console.error("데이터 불러오기 실패", err));
+      .catch(err => console.error("데이터 불러오기 실패", err));
   }, []);
 
-  const handleCompanySortChange = (e) => {
+  const handleCompanySortChange = e => {
     const sortKey = e.target.value;
     const sortFunc = sortFunctions[sortKey];
 
-    setSortedCompanyList((prevData) => {
+    setSortedCompanyList(prevData => {
       if (!sortFunc) return prevData;
       return [...prevData].sort(sortFunc);
     });
   };
 
-  const handleSortChange = (e) => {
+  const handleSortChange = e => {
     const sortKey = e.target.value;
     const sortFunc = sortFunctions[sortKey];
 

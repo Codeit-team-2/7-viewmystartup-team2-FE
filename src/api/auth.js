@@ -1,7 +1,9 @@
 // src/api/auth.js
+const apiUrl = import.meta.env.VITE_API_URL;
+
 export const loginUser = async ({ nickname, password }) => {
   try {
-    const response = await fetch("http://localhost:3000/auth/login", {
+    const response = await fetch(`${apiUrl}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nickname, password }),
@@ -40,9 +42,9 @@ export const getStoredUser = () => {
   return localStorage.getItem("nickname");
 };
 
-export const refreshUserInfo = async (nickname) => {
+export const refreshUserInfo = async nickname => {
   try {
-    const res = await fetch(`http://localhost:3000/auth/refresh/${nickname}`);
+    const res = await fetch(`${apiUrl}/auth/refresh/${nickname}`);
     const data = await res.json();
 
     if (!res.ok) throw new Error(data.error || "정보 갱신 실패");

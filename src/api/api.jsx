@@ -1,9 +1,11 @@
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 // keyword를 받아서 데이터 fetch
-export const fetchFilteredData = async (query) => {
+export const fetchFilteredData = async query => {
   try {
-    const res = await axios.get("http://localhost:3000/companies/filtered", {
+    const res = await axios.get(`${apiUrl}/companies/filtered`, {
       params: query,
     });
     return res.data;
@@ -19,9 +21,9 @@ export const fetchFilteredData = async (query) => {
   }
 };
 
-export const fetchRecentSelectedCompanies = async (userId) => {
+export const fetchRecentSelectedCompanies = async userId => {
   try {
-    const res = await axios.get("http://localhost:3000/companies/recent", {
+    const res = await axios.get(`${apiUrl}/companies/recent`, {
       params: { userId },
     });
     return res.data;
@@ -38,9 +40,9 @@ export const fetchRecentSelectedCompanies = async (userId) => {
 };
 
 // 기업 상세
-export const fetchCompanyDetailData = async (companyId) => {
+export const fetchCompanyDetailData = async companyId => {
   try {
-    const res = await axios.get(`http://localhost:3000/company/${companyId}`);
+    const res = await axios.get(`${apiUrl}/company/${companyId}`);
     return res.data;
   } catch (e) {
     if (e.response) {
@@ -55,11 +57,9 @@ export const fetchCompanyDetailData = async (companyId) => {
 };
 
 // 기업 투자자 목록
-export const fetchCompanyInvestorsData = async (companyId) => {
+export const fetchCompanyInvestorsData = async companyId => {
   try {
-    const res = await axios.get(
-      `http://localhost:3000/company/${companyId}/investments`
-    );
+    const res = await axios.get(`${apiUrl}/company/${companyId}/investments`);
     return res.data;
   } catch (e) {
     if (e.response) {
@@ -75,13 +75,10 @@ export const fetchCompanyInvestorsData = async (companyId) => {
 
 export const createMyCompanySelection = async (userId, companyId) => {
   try {
-    const res = await axios.post(
-      "http://localhost:3000/my-company-selections",
-      {
-        userId,
-        companyId,
-      }
-    );
+    const res = await axios.post(`${apiUrl}/my-company-selections`, {
+      userId,
+      companyId,
+    });
     return res.data;
   } catch (e) {
     if (e.response) {
@@ -97,13 +94,10 @@ export const createMyCompanySelection = async (userId, companyId) => {
 
 export const createCompareCompanySelection = async (userId, companyIds) => {
   try {
-    const res = await axios.post(
-      "http://localhost:3000/compare-company-selections",
-      {
-        userId,
-        companyIds,
-      }
-    );
+    const res = await axios.post(`${apiUrl}/compare-company-selections`, {
+      userId,
+      companyIds,
+    });
   } catch (e) {
     if (e.response) {
       // 리퀘스트는 성공했지만 상태 코드가 실패(4XX, 5XX)를 나타냄
@@ -118,7 +112,7 @@ export const createCompareCompanySelection = async (userId, companyIds) => {
 // 비밀번호 검증
 export async function postPasswordCheck(userId, password) {
   const response = await fetch(
-    `http://localhost:3000/company/users/${userId}/passwordcheck`,
+    `${apiUrl}/company/users/${userId}/passwordcheck`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -132,7 +126,7 @@ export async function postPasswordCheck(userId, password) {
 export async function updateInvestment(investmentId, userId, password, data) {
   try {
     const response = await fetch(
-      `http://localhost:3000/company/investments/${investmentId}`,
+      `${apiUrl}/company/investments/${investmentId}`,
       {
         method: "PATCH",
         headers: {
@@ -159,7 +153,7 @@ export async function updateInvestment(investmentId, userId, password, data) {
 // 투자 정보 삭제
 export async function deleteInvestment(investmentId, userId, password) {
   const response = await fetch(
-    `http://localhost:3000/company/investments/${investmentId}`,
+    `${apiUrl}/company/investments/${investmentId}`,
     {
       method: "DELETE",
       headers: {

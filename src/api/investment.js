@@ -1,6 +1,7 @@
 // src/api/investment.js
+const apiUrl = import.meta.env.VITE_API_URL;
 export async function postInvestment(formData) {
-  const response = await fetch("http://localhost:3000/investments", {
+  const response = await fetch(`${apiUrl}/investments`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),
