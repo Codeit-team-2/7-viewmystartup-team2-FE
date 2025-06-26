@@ -46,8 +46,11 @@ function MyCompanyResult() {
     const savedCompareCompany = JSON.parse(
       localStorage.getItem("compareCompany") || "[]"
     );
-    const companyarray = [savedMyCompany[0], ...savedCompareCompany];
-    setMyCompany(savedMyCompany[0] || {});
+    const companyarray = [
+      savedMyCompany[savedMyCompany.length - 1],
+      ...savedCompareCompany,
+    ];
+    setMyCompany(savedMyCompany[savedMyCompany.length - 1] || {});
     setCompareCompany(companyarray);
   }, []);
 
