@@ -52,7 +52,7 @@ const AnimatedPopup = () => {
     setPosition(pos);
 
     const timerIn = setTimeout(() => setShow(true), 500);
-    const timerOut = setTimeout(() => setShow(false), 5000);
+    const timerOut = setTimeout(() => setShow(false), 3900);
 
     return () => {
       clearTimeout(timerIn);
