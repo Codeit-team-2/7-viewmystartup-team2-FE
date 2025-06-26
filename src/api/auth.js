@@ -39,3 +39,23 @@ export const logoutUser = () => {
 export const getStoredUser = () => {
   return localStorage.getItem("nickname");
 };
+
+export const refreshUserInfo = async (nickname) => {
+  try {
+    const res = await fetch(`http://localhost:3000/auth/refresh/${nickname}`);
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.error || "정보 갱신 실패");
+
+    return {
+      nickname: data.nickname,
+      userId: data.userId,
+      email: data.email,
+      balance: data.balance,
+      investmentsCount: data.investmentsCount,
+    };
+  } catch (err) {
+    console.error("❌ refreshUserInfo error:", err);
+    throw err;
+  }
+};
