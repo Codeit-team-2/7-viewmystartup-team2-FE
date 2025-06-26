@@ -6,9 +6,7 @@ export default function SkeletonTable({ rows = 5 }) {
   return (
     <table className={styles.skeletonTable}>
       <thead>
-        <tr>
-          <th colSpan="7">로딩 중...</th>
-        </tr>
+        <tr>{/* <th colSpan="7">로딩 중...</th> */}</tr>
       </thead>
       <tbody>
         {[...Array(rows)].map((_, i) => (
