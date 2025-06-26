@@ -4,6 +4,7 @@ import React from "react";
 import { getCompanyName } from "../../api/company";
 import { useNavigate } from "react-router-dom";
 import defaultImg from "../../assets/panda_question.svg";
+import ToolTip from "../../components/ToolTip/ToolTip";
 
 // FetchTable 사용방법 프롭스에  tableType 이걸 아무값을 넣으면 기업명에서 Link to 기능비활성화, 기본값은 상세페이지이동
 // <FetchTable 예시 비활성화
@@ -86,6 +87,16 @@ export default function FetchTable({
                     ) : (
                       content
                     )}
+                  </td>
+                );
+              } else if (col.key === "description") {
+                const shortText = cellValue
+                  ? `${cellValue.slice(0, 60)}...`
+                  : "";
+
+                return (
+                  <td key={col.key}>
+                    <ToolTip text={shortText} tooltip={cellValue} />
                   </td>
                 );
               } else {

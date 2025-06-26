@@ -17,6 +17,7 @@ import { MyCompanyProvider } from "../../components/MyCompanySection/MyCompanyCo
 import { CompareCompanyProvider } from "../../components/CompareCompanySection/CompareCompanyContext.jsx";
 import MyCompanySection from "../../components/MyCompanySection/MyCompanySection.jsx";
 import btnStyle from "../../components/customTag/customButton/customButton.module.css";
+import { formatFromTrillionFloat } from "../../utils/formatCurrency.js";
 
 const parseRevenue = (revenueStr) => {
   if (!revenueStr) return 0;
@@ -45,8 +46,11 @@ function MyCompanyResult() {
     const savedCompareCompany = JSON.parse(
       localStorage.getItem("compareCompany") || "[]"
     );
-    const companyarray = [savedMyCompany[0], ...savedCompareCompany];
-    setMyCompany(savedMyCompany[0] || {});
+    const companyarray = [
+      savedMyCompany[savedMyCompany.length - 1],
+      ...savedCompareCompany,
+    ];
+    setMyCompany(savedMyCompany[savedMyCompany.length - 1] || {});
     setCompareCompany(companyarray);
   }, []);
 
@@ -56,9 +60,14 @@ function MyCompanyResult() {
   }, [compareCompany]);
 
   const addCompareResult = (newItems) => {
-    setTestData((prevData) => {
-      return [...prevData, ...newItems];
-    });
+    const formattedItems = newItems.map((item) => ({
+      ...item,
+      totalInvestment: formatFromTrillionFloat(item.totalInvestment),
+      revenue: formatFromTrillionFloat(item.revenue),
+      employees: item.employees ? `${item.employees.toLocaleString()}명` : "-",
+    }));
+
+    setTestData((prevData) => [...prevData, ...formattedItems]);
   };
 
   const [companyList, setCompanyList] = useState([]);
@@ -68,8 +77,16 @@ function MyCompanyResult() {
     fetch("http://localhost:3000/companies")
       .then((res) => res.json())
       .then((data) => {
-        setCompanyList(data);
-        setSortedCompanyList(data);
+        const formatted = data.map((item) => ({
+          ...item,
+          totalInvestment: formatFromTrillionFloat(item.totalInvestment),
+          revenue: formatFromTrillionFloat(item.revenue),
+          employees: item.employees
+            ? `${item.employees.toLocaleString()}명`
+            : "-",
+        }));
+        setCompanyList(formatted);
+        setSortedCompanyList(formatted);
       })
       .catch((err) => console.error("데이터 불러오기 실패", err));
   }, []);

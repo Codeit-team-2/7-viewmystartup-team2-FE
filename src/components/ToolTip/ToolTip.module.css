@@ -1,0 +1,42 @@
+.tooltipwrapper {
+  position: relative;
+  display: inline-block;
+  /* ✅ 툴팁은 나와야 하므로 overflow 제거 */
+}
+
+.text {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: top;
+  background-color: var(--black-100);
+}
+
+.tooltiptext {
+  visibility: hidden;
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-width: 600px; /* 너무 길지 않게 제한 */
+  width: max-content; /* 내용만큼 너비 설정 */
+  min-width: unset;
+  white-space: normal;
+  background-color: var(--black-100) !important;
+}
+
+.tooltipwrapper:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}

@@ -43,6 +43,10 @@
   background-color: var(--gray-300);
   cursor: pointer;
 }
+.table tbody tr:hover td div span {
+  background-color: var(--gray-300);
+  cursor: pointer;
+}
 
 .table tbody tr:hover td div {
   background-color: var(--gray-300);
@@ -72,3 +76,17 @@
 .imgbox {
   background-color: var(--black-100);
 }
+
+tbody tr:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+/* tbody tr:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+} */
