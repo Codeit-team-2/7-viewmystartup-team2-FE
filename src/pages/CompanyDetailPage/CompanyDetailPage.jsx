@@ -16,6 +16,8 @@ import CustomButton from "../../components/customTag/customButton/customButton.j
 import Modal from "../../components/Modal/Modal.jsx";
 import styles from "./CompanyDetailPage.module.css";
 import btnStyle from "../../components/customTag/customButton/customButton.module.css";
+import cat from "../../assets/cat.json";
+import Lottie from "lottie-react";
 
 function CompanyDetailPage() {
   const { companyId } = useParams();
@@ -41,8 +43,8 @@ function CompanyDetailPage() {
     page * pageSize
   );
 
-  const handleDeleteInvestor = investor => {
-    setInvestors(prev => prev.filter(inv => inv.id !== investor.id));
+  const handleDeleteInvestor = (investor) => {
+    setInvestors((prev) => prev.filter((inv) => inv.id !== investor.id));
   };
 
   const handleEditInvestor = async (investor, updated, password) => {
@@ -51,8 +53,10 @@ function CompanyDetailPage() {
         howMuch: Number(updated.howMuch),
         comment: updated.comment,
       });
-      setInvestors(prev =>
-        prev.map(inv => (inv.id === investor.id ? { ...inv, ...updated } : inv))
+      setInvestors((prev) =>
+        prev.map((inv) =>
+          inv.id === investor.id ? { ...inv, ...updated } : inv
+        )
       );
     } catch (e) {
       console.error("수정실패 error:", e);
@@ -84,7 +88,26 @@ function CompanyDetailPage() {
     (acc, cur) => acc + (cur.howMuch || 0),
     0
   );
-  if (!company) return <div>Loading...</div>;
+  if (!company)
+    return (
+      <div
+        style={{
+          width: 300,
+          height: 300,
+          margin: "0 auto",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Lottie
+          style={{ marginTop: "20px", width: 150, height: 150 }}
+          animationData={cat}
+          loop={true}
+          autoplay={true}
+        />
+      </div>
+    );
 
   return (
     <div className={styles.area}>
