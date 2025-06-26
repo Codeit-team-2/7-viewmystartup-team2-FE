@@ -17,7 +17,7 @@ select,
 textarea {
   font-family: inherit;
 }
-* {
+*:not(svg):not(path) {
   box-sizing: border-box;
   background-color: var(--black-400);
   color: var(--white-text);
@@ -36,4 +36,17 @@ textarea {
   --blue: #eb5230;
   --red-error: #c41013;
   --white-text: #ffffff;
+}
+
+.forceTransparent {
+  background-color: transparent !important;
+}
+
+.yourAnimationClass_hipor,
+.yourAnimationClass_hipor *,
+.forceTransparent,
+.forceTransparent *,
+.lf-player-container,
+.lf-player-container * {
+  background-color: transparent !important;
 }

@@ -8,6 +8,7 @@ import MyCompanyResult from "./pages/MyCompanyResult/MyCompanyResult.jsx";
 import CompanyDetailPage from "./pages/CompanyDetailPage/CompanyDetailPage.jsx";
 import InvestmentOverviewPage from "./pages/InvestmentOverviewPage/InvestmentOverviewPage.jsx";
 import SelectedOverviewPage from "./pages/SelectedOverviewPage/SelectedOverviewPage.jsx";
+import AnimatedPopup from "./components/animatepopup/AnimatePopup.jsx";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/company/:companyId" element={<CompanyDetailPage />} />
         <Route path="/selectedoverview" element={<SelectedOverviewPage />} />
       </Routes>
+      <AnimatedPopup />
     </div>
   );
 }
