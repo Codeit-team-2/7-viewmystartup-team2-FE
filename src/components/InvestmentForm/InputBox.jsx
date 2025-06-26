@@ -15,7 +15,7 @@ export function InputBox({
       {/* {console.log("comment 값:", value)} */}
       {label === "투자 코멘트" ? (
         <textarea
-          className={styles.def}
+          className={`${styles.def} ${error ? styles.errorInput : ""}`}
           value={value}
           onChange={onChange}
           id={id}
@@ -23,7 +23,7 @@ export function InputBox({
         />
       ) : (
         <input
-          className={styles.example}
+          className={`${styles.example}  ${error ? styles.errorInput : ""}`}
           type={type}
           value={value}
           onChange={onChange}
@@ -31,7 +31,7 @@ export function InputBox({
           placeholder={placeholder}
         />
       )}
-      <div className={styles.backgroundColor}>{error}</div>
+      <div className={styles.error}>{error}</div>
     </div>
   );
 }

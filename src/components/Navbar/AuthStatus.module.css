@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  position: relative;
 }
 
 .text {
@@ -16,20 +17,78 @@
   color: var(--brand-orange);
   font-size: 17px;
   font-weight: 600;
+  cursor: pointer;
+}
+.infoBox {
+  margin-top: 20px;
+  padding: 15px;
+  width: 310px;
+  height: 350px;
+  background-color: var(--black-200);
+  border: 1px solid var(--brand-orange);
+  border-radius: 10px;
+  position: absolute;
+  top: 100%;
+  z-index: 1000;
+}
+.infoName {
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 600;
+  padding: 5px 15px 20px;
+  background-color: var(--black-200);
+  border-bottom: 1px solid var(--brand-orange);
+}
+.textBox {
+  background-color: var(--black-200);
+  border-bottom: 1px solid var(--brand-orange);
+}
+.infoText {
+  display: flex;
+  justify-content: space-between;
+  color: var(--gray-200);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 25px 0;
+  padding-left: 10px;
+  background-color: var(--black-200);
+}
+.spanText {
+  padding-right: 10px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  background-color: var(--black-200);
+}
+.lastText {
+  color: var(--gray-200);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  background-color: var(--black-200);
 }
 .btn {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 90px;
+  margin-top: 15px;
+  width: 100%;
   height: 35px;
-  border: none;
+  border: 1px solid var(--brand-orange);
   border-radius: 20px;
-  background-color: var(--brand-orange);
+  background-color: var(--black-200);
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   cursor: pointer;
+  text-decoration: none;
+}
+.btn:hover {
+  background-color: var(--brand-orange);
 }
