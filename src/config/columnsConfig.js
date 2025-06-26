@@ -16,3 +16,10 @@ export const resultColumnsRank = [
   { label: "매출액", key: "revenue" },
   { label: "고용 인원", key: "employees" },
 ];
+
+export const myCompanyColumns = [
+  { label: "기업 소개", key: "description" },
+  { label: "누적 투자 금액", key: "totalInvestment" },
+  { label: "매출액", key: "revenue" },
+  { label: "고용 인원", key: "employees" },
+];
