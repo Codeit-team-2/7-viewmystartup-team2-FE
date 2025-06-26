@@ -101,7 +101,7 @@ function CompanyDetailPage() {
         }}
       >
         <Lottie
-          style={{ marginTop: "20px", width: 150, height: 150 }}
+          style={{ marginTop: "500px", width: 150, height: 150 }}
           animationData={cat}
           loop={true}
           autoplay={true}
