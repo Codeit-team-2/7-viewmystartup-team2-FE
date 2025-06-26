@@ -39,19 +39,13 @@ function CompareButtonSection() {
     try {
       let prevMyCompany = JSON.parse(localStorage.getItem("myCompany"));
 
-      // 배열이 아닐 경우 초기화
       if (!Array.isArray(prevMyCompany)) {
         prevMyCompany = [];
       }
 
-      const isDuplicate = prevMyCompany.some(
-        company => company.id === MyCompany.id
-      );
-
-      if (!isDuplicate) {
-        const updatedMyCompany = [...prevMyCompany, MyCompany];
-        localStorage.setItem("myCompany", JSON.stringify(updatedMyCompany));
-      }
+      // 중복 검사 제거하고 무조건 추가
+      const updatedMyCompany = [...prevMyCompany, MyCompany];
+      localStorage.setItem("myCompany", JSON.stringify(updatedMyCompany));
 
       localStorage.setItem("compareCompany", JSON.stringify(CompareCompany));
       setToastMessage("기업 정보가 저장되었습니다!");
@@ -68,7 +62,7 @@ function CompareButtonSection() {
     // 버튼 클릭하면 선택한 내역 백엔드에 post
     try {
       const companyId = MyCompany.id;
-      const companyIds = CompareCompany.map(c => c.id);
+      const companyIds = CompareCompany.map((c) => c.id);
 
       const newMySelectionResult = await createMyCompanySelection(
         userId,
