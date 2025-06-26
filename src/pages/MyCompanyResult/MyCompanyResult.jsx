@@ -46,11 +46,17 @@ function MyCompanyResult() {
     const savedCompareCompany = JSON.parse(
       localStorage.getItem("compareCompany") || "[]"
     );
-    const companyarray = [
-      savedMyCompany[savedMyCompany.length - 1],
-      ...savedCompareCompany,
-    ];
-    setMyCompany(savedMyCompany[savedMyCompany.length - 1] || {});
+
+    const lastMyCompany = savedMyCompany[savedMyCompany.length - 1];
+
+    // 이미 compareCompany에 포함된 경우 중복 제거
+    const filteredCompare = savedCompareCompany.filter(
+      (comp) => comp.companyName !== lastMyCompany?.companyName
+    );
+
+    const companyarray = [lastMyCompany, ...filteredCompare];
+
+    setMyCompany(lastMyCompany || {});
     setCompareCompany(companyarray);
   }, []);
 
@@ -67,7 +73,7 @@ function MyCompanyResult() {
       employees: item.employees ? `${item.employees.toLocaleString()}명` : "-",
     }));
 
-    setTestData((prevData) => [...prevData, ...formattedItems]);
+    setTestData(formattedItems);
   };
 
   const [companyList, setCompanyList] = useState([]);
@@ -105,10 +111,10 @@ function MyCompanyResult() {
     const sortKey = e.target.value;
     const sortFunc = sortFunctions[sortKey];
 
-    setTestData((prevData) => {
-      if (!sortFunc) return prevData;
-      return [...prevData].sort(sortFunc);
-    });
+    if (!sortFunc) return;
+
+    const sorted = [...testData].sort(sortFunc);
+    setTestData(sorted);
   };
 
   const navigate = useNavigate();

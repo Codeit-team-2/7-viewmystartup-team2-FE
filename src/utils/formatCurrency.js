@@ -1,8 +1,8 @@
 export function formatFromTrillionFloat(num) {
-  if (!num || typeof num !== "number") return "0원";
+  if (typeof num !== "number" || num <= 0) return "0원";
 
-  const trillion = Math.floor(num);
-  const billion = Math.floor((num - trillion) * 10000);
+  const trillion = Math.floor(num / 10000); // 1조 = 10000억
+  const billion = num % 10000; // 억 단위 나머지
 
   let result = "";
   if (trillion > 0) result += `${trillion}조 `;
