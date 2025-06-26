@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import {
   resultColumns,
   resultColumnsRank,
+  myCompanyColumns,
 } from "../../config/columnsConfig.js";
 import { resultOptionsData, sortFunctions } from "../../config/filterConfig.js";
 import InvestmentForm from "../../components/InvestmentForm/InvestmentForm.jsx";
@@ -17,7 +18,7 @@ import { CompareCompanyProvider } from "../../components/CompareCompanySection/C
 import MyCompanySection from "../../components/MyCompanySection/MyCompanySection.jsx";
 import btnStyle from "../../components/customTag/customButton/customButton.module.css";
 
-const parseRevenue = revenueStr => {
+const parseRevenue = (revenueStr) => {
   if (!revenueStr) return 0;
   return parseFloat(revenueStr.replace("억", ""));
 };
@@ -44,9 +45,9 @@ function MyCompanyResult() {
     const savedCompareCompany = JSON.parse(
       localStorage.getItem("compareCompany") || "[]"
     );
-
+    const companyarray = [savedMyCompany[0], ...savedCompareCompany];
     setMyCompany(savedMyCompany[0] || {});
-    setCompareCompany(savedCompareCompany);
+    setCompareCompany(companyarray);
   }, []);
 
   useEffect(() => {
@@ -54,8 +55,8 @@ function MyCompanyResult() {
     addCompareResult(compareCompany);
   }, [compareCompany]);
 
-  const addCompareResult = newItems => {
-    setTestData(prevData => {
+  const addCompareResult = (newItems) => {
+    setTestData((prevData) => {
       return [...prevData, ...newItems];
     });
   };
@@ -65,29 +66,29 @@ function MyCompanyResult() {
 
   useEffect(() => {
     fetch("http://localhost:3000/companies")
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setCompanyList(data);
         setSortedCompanyList(data);
       })
-      .catch(err => console.error("데이터 불러오기 실패", err));
+      .catch((err) => console.error("데이터 불러오기 실패", err));
   }, []);
 
-  const handleCompanySortChange = e => {
+  const handleCompanySortChange = (e) => {
     const sortKey = e.target.value;
     const sortFunc = sortFunctions[sortKey];
 
-    setSortedCompanyList(prevData => {
+    setSortedCompanyList((prevData) => {
       if (!sortFunc) return prevData;
       return [...prevData].sort(sortFunc);
     });
   };
 
-  const handleSortChange = e => {
+  const handleSortChange = (e) => {
     const sortKey = e.target.value;
     const sortFunc = sortFunctions[sortKey];
 
-    setTestData(prevData => {
+    setTestData((prevData) => {
       if (!sortFunc) return prevData;
       return [...prevData].sort(sortFunc);
     });
@@ -142,7 +143,6 @@ function MyCompanyResult() {
               </CustomButton>
             </MyCompanySection>
           </div>
-
           <div className={style.tableContainer}>
             <div className={style.spaceBetween}>
               <span className={style.titleStyle}>비교 결과 확인하기</span>
