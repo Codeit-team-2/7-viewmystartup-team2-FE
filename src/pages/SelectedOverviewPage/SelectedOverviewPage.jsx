@@ -14,6 +14,9 @@ import PageSizeSelector from "../../components/PageSizeSelector/PageSizeSelector
 import { fetchSelectedOverviewData } from "../../api/company.js";
 import { SelectedOverviewPageOptionsData } from "../../config/filterConfig.js";
 import styles from "./SelectedOverviewPage.module.css";
+import { useFetchLoading } from "../../hooks/useFetchLoading.js";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
+import SkeletonTable from "../../components/Skeletons/SkeletonTable.jsx";
 
 //나중에 config로 뺍시당
 const SelectedOverviewPageColumns = [
@@ -26,6 +29,8 @@ const SelectedOverviewPageColumns = [
 ];
 
 export default function SelectedOverviewPage() {
+  const { isFetchLoading, startFetchLoading, endFetchLoading } =
+    useFetchLoading();
   const [sortOption, setSortOption] = useState("myCompanySelectedCount_desc");
   const [sortBy, order] = sortOption.split("_");
   const { keyword, search } = useSearchFilter();
@@ -49,11 +54,14 @@ export default function SelectedOverviewPage() {
   }, [pageSize, keyword, sortOption]);
   useEffect(() => {
     const fetchData = async () => {
+      startFetchLoading();
       try {
         const data = await fetchSelectedOverviewData(keyword, sortBy, order);
         setCompanies(data);
       } catch (error) {
         console.error("❌ 데이터 불러오기 실패:", error);
+      } finally {
+        endFetchLoading();
       }
     };
 
@@ -89,7 +97,12 @@ export default function SelectedOverviewPage() {
           </div>
         </div>
         <div className={styles.tableSize}>
-          {currentPageData.length > 0 ? (
+          {isFetchLoading ? (
+            <>
+              <LoadingSpinner />
+              <SkeletonTable />
+            </>
+          ) : currentPageData.length > 0 ? (
             <>
               {/* <FetchTable data={filteredData} columns={LandingPageColumns} /> */}
               <FetchTable

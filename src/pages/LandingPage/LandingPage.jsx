@@ -112,7 +112,10 @@ export default function LandingPage() {
         </div>
         <div className={styles.tableSize}>
           {loading ? (
-            <SkeletonTable rows={pageSize} />
+            <>
+              <LoadingSpinner />
+              <SkeletonTable rows={pageSize} />
+            </>
           ) : // <LoadingSpinner />
           currentPageData.length > 0 ? (
             <>

@@ -17,6 +17,10 @@ import {
   formatFromBillion,
   formatFromTrillionFloat,
 } from "../../utils/formatCurrency.js";
+import { useFetchLoading } from "../../hooks/useFetchLoading.js";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
+import SkeletonTable from "../../components/Skeletons/SkeletonTable.jsx";
+import { useAuth } from "../../components/Contexts/AuthContext";
 
 //나중에 config로 뺍시당
 const InvestmentOverviewPageColumns = [
@@ -29,6 +33,9 @@ const InvestmentOverviewPageColumns = [
 ];
 
 export default function InvestmentOverviewPage() {
+  const { userId, nickname } = useAuth();
+  const { isFetchLoading, startFetchLoading, endFetchLoading } =
+    useFetchLoading();
   const [sortOption, setSortOption] = useState("vmsInvestment_desc");
   const [sortBy, order] = sortOption.split("_");
   const { keyword, search } = useSearchFilter();
@@ -51,46 +58,36 @@ export default function InvestmentOverviewPage() {
     setPage(1);
   }, [pageSize, keyword, sortOption]);
 
-  //
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await fetchInvestmentOverviewData(keyword, sortBy, order);
-  //     setCompanies(data);
-  //   };
-  //   fetchData();
-  // }, [keyword, sortBy, order]);
-  //
-  // 위에 있는 useEffect가 현재 대충 sort기능있으면서 백엔드불러오는거같음 내가 원하는건 내api로 새로가져와야됨
-  //
-
-  //우진요청사항
-  //아래 로컬스토리지에서 나온 userId, nickname context에 저장된 userId, nickname으로 바꾸면 좋을거같아요
-  //말씀주시면 제가 바꿈
   useEffect(() => {
     const fetchData = async () => {
-      const userId = localStorage.getItem("userId");
-      const nickname = localStorage.getItem("nickname");
-
-      const data = await matchingInvestmentUserList({
-        userId,
-        nickname,
-        sortBy,
-        order,
-        keyword,
-      });
-      console.log("🔥 raw API data:", data);
-      const formattedData = data.map((item, idx) => ({
-        rank: idx + 1,
-        companyName: item.company?.companyName || "-",
-        description: item.comment || "-",
-        category: item.company?.category || "-",
-        vmsInvestment: formatFromBillion(item.howMuch || 0),
-        totalInvestment: formatFromTrillionFloat(
-          item.company.totalInvestment || 0
-        ),
-        imgUrl: item.company?.imgUrl,
-      }));
-      setCompanies(formattedData);
+      //우진 - userId, nickname Context에서 가져옵니다
+      startFetchLoading();
+      try {
+        const data = await matchingInvestmentUserList({
+          userId,
+          nickname,
+          sortBy,
+          order,
+          keyword,
+        });
+        console.log("🔥 raw API data:", data);
+        const formattedData = data.map((item, idx) => ({
+          rank: idx + 1,
+          companyName: item.company?.companyName || "-",
+          description: item.comment || "-",
+          category: item.company?.category || "-",
+          vmsInvestment: formatFromBillion(item.howMuch || 0),
+          totalInvestment: formatFromTrillionFloat(
+            item.company.totalInvestment || 0
+          ),
+          imgUrl: item.company?.imgUrl,
+        }));
+        setCompanies(formattedData);
+      } catch (error) {
+        console.error("투자 현황 데이터 불러오기 실패", error);
+      } finally {
+        endFetchLoading();
+      }
     };
 
     fetchData();
@@ -127,7 +124,12 @@ export default function InvestmentOverviewPage() {
           </div>
         </div>
         <div className={styles.tableSize}>
-          {currentPageData.length > 0 ? (
+          {isFetchLoading ? (
+            <>
+              <LoadingSpinner />
+              <SkeletonTable />
+            </>
+          ) : currentPageData.length > 0 ? (
             <>
               <FetchTable
                 data={currentPageData}
