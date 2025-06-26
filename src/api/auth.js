@@ -12,8 +12,16 @@ export const loginUser = async ({ nickname, password }) => {
     if (!response.ok) {
       throw new Error(data.error || "로그인 실패");
     }
+    // 👉 예상 응답 구조
+    // data: { nickname, userId, email, balance, investmentsCount }
 
-    return data;
+    return {
+      nickname: data.nickname,
+      userId: data.userId,
+      email: data.email,
+      balance: data.balance,
+      investmentsCount: data.investmentsCount,
+    };
   } catch (err) {
     console.error("❌ loginUser API error:", err);
     throw err;
@@ -23,7 +31,9 @@ export const loginUser = async ({ nickname, password }) => {
 export const logoutUser = () => {
   localStorage.removeItem("nickname");
   localStorage.removeItem("userId");
-  // 필요 시 redirect or 상태 초기화도 가능
+  localStorage.removeItem("email");
+  localStorage.removeItem("balance");
+  localStorage.removeItem("investmentsCount");
 };
 
 export const getStoredUser = () => {

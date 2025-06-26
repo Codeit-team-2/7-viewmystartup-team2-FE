@@ -20,7 +20,7 @@ export default function Navbar() {
   const handleLogin = async (nickname, password) => {
     try {
       const data = await loginUser({ nickname, password }); //api/auth.js로 가져오기
-      login(data.nickname, data.id); // ✅ Context의 login 함수로 상태 업데이트
+      login(data); // ✅ Context의 login 함수로 상태 업데이트
       setOpenModal(false); //모달닫기
       setToastMessage("로그인 성공");
       setShowToast(true);
