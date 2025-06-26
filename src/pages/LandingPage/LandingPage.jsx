@@ -66,7 +66,9 @@ export default function LandingPage() {
           category: item.category,
           totalInvestment: formatFromTrillionFloat(item.totalInvestment), // 변환 적용
           revenue: formatFromTrillionFloat(item.revenue), // 변환 적용
-          employees: item.employees,
+          employees: item.employees
+            ? `${item.employees.toLocaleString()}명`
+            : "-",
           imgUrl: item.imgUrl,
         }));
         console.log("포맷팅된 회사 데이터:", formattedData); //우진수정
