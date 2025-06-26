@@ -24,7 +24,9 @@ export default function Navbar() {
       setOpenModal(false); //모달닫기
       setToastMessage("로그인 성공");
       setShowToast(true);
-      // window.location.reload();// ✅ reload 없이 상태 반영
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (err) {
       setToastMessage(err.message || "로그인에 실패했습니다.");
       setShowToast(true);
@@ -85,6 +87,9 @@ export default function Navbar() {
           onLogoutSuccess={() => {
             setToastMessage("로그아웃 되었습니다");
             setShowToast(true);
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
           }}
         />
       </div>

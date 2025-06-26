@@ -163,7 +163,10 @@ function InvestorTable({
             <div className={styles.text}>수정이 완료되었습니다</div>
             <CustomButton
               buttonClass={btnStyle.buttonLarge}
-              onClick={handleSuccessModalClose}
+              onClick={() => {
+                handleSuccessModalClose;
+                window.location.reload();
+              }}
             >
               확인
             </CustomButton>
@@ -176,7 +179,10 @@ function InvestorTable({
             <div className={styles.text}>삭제가 완료되었습니다</div>
             <CustomButton
               buttonClass={btnStyle.buttonLarge}
-              onClick={handleDeleteModalClose}
+              onClick={() => {
+                handleDeleteModalClose;
+                window.location.reload();
+              }}
             >
               확인
             </CustomButton>
