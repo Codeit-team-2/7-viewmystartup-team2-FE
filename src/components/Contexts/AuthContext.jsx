@@ -1,5 +1,6 @@
 //src/components/Contexts/AuthContext.jsx
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { refreshUserInfo } from "../../api/auth";
 
 const AuthContext = createContext();
 
@@ -54,6 +55,10 @@ export function AuthProvider({ children }) {
     setBalance(balance);
     setInvestmentsCount(investmentsCount);
   };
+  const refreshFromServer = async () => {
+    const updated = await refreshUserInfo(nickname);
+    refresh(updated);
+  };
 
   return (
     <AuthContext.Provider
@@ -67,6 +72,7 @@ export function AuthProvider({ children }) {
         login,
         logout,
         refresh,
+        refreshFromServer,
       }}
     >
       {children}

@@ -1,3 +1,4 @@
+//삭제예정
 export const useAuth = () => {
   const nickname = localStorage.getItem("nickname");
   const userId = localStorage.getItem("userId");

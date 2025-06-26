@@ -15,7 +15,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
   const { isFetchLoading, startFetchLoading, endFetchLoading } =
     useFetchLoading();
 
-  const { nickname, userId } = useAuth(); // ✅ context로부터 사용자 정보 받기//우진수정
+  const { nickname, userId, refreshFromServer } = useAuth(); // ✅ context로부터 사용자 정보 받기//우진수정
 
   useEffect(() => {
     if (nickname) handleChange("investorName", nickname);
@@ -56,6 +56,9 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
         comment: form.comment,
         password: form.password,
       });
+
+      // ✅ 투자 후 사용자 정보 로컬스토리지 최신화
+      await refreshFromServer();
 
       resetForm(); //모달비우기
       onConfirm?.(true, "투자가 완료되었어요!");
