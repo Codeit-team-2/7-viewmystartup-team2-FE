@@ -45,6 +45,15 @@ export function AuthProvider({ children }) {
     setBalance(0);
     setInvestmentsCount(0);
   };
+  const refresh = ({ email, balance, investmentsCount }) => {
+    localStorage.setItem("email", email);
+    localStorage.setItem("balance", balance.toString());
+    localStorage.setItem("investmentsCount", investmentsCount.toString());
+
+    setEmail(email);
+    setBalance(balance);
+    setInvestmentsCount(investmentsCount);
+  };
 
   return (
     <AuthContext.Provider
@@ -57,6 +66,7 @@ export function AuthProvider({ children }) {
         isLoggedIn,
         login,
         logout,
+        refresh,
       }}
     >
       {children}

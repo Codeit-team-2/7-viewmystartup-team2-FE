@@ -4,10 +4,22 @@ import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../Contexts/AuthContext";
 import styles from "./AuthStatus.module.css";
 import { Link } from "react-router-dom";
+import { refreshUserInfo } from "../../api/auth";
+import { useFetchLoading } from "../../hooks/useFetchLoading";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 export default function AuthStatus({ onLogoutSuccess }) {
-  const { nickname, email, balance, investmentsCount, logout, isLoggedIn } =
-    useAuth();
+  const { isFetchLoading, startFetchLoading, endFetchLoading } =
+    useFetchLoading();
+  const {
+    nickname,
+    email,
+    balance,
+    investmentsCount,
+    logout,
+    isLoggedIn,
+    refresh,
+  } = useAuth();
   const [showInfo, setShowInfo] = useState(false);
   const infoBoxRef = useRef();
 
@@ -29,7 +41,20 @@ export default function AuthStatus({ onLogoutSuccess }) {
     if (onLogoutSuccess) onLogoutSuccess();
   };
 
-  const handleNameClick = () => setShowInfo(v => !v);
+  const handleNameClick = () => setShowInfo((v) => !v);
+
+  const handleRefresh = async () => {
+    startFetchLoading();
+    try {
+      const data = await refreshUserInfo(nickname);
+      refresh(data); // context 업데이트
+      alert("✅ 정보가 최신화되었습니다!");
+    } catch (err) {
+      alert("❌ 정보 최신화에 실패했습니다.");
+    } finally {
+      endFetchLoading();
+    }
+  };
 
   return (
     <div className={styles.box}>
@@ -62,6 +87,14 @@ export default function AuthStatus({ onLogoutSuccess }) {
               </span>
             </div>
           </div>
+          {isFetchLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <button className={styles.btn} onClick={handleRefresh}>
+              내 정보 최신화하기
+            </button>
+          )}
+
           <Link
             to="/investmentoverview"
             className={styles.btn}
