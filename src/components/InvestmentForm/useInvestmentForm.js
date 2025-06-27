@@ -9,9 +9,9 @@ export function useInvestmentForm() {
       .slice(4, 14)}`;
   //익명사용자+현재시간초단위(MMDDHHmmss) 익명사용자 0622184547
   const userId = localStorage.getItem("userId") || "UnidentifiedID";
-//useContext 래퍼로 감ㅏㅓ 로컬스토리지 쓰ㄴㅣ 안ㅡㅡㄴ지 모게
-// 유저id 를 body가 아니라 header 
-// //autorization이라는 키로 담아라 - 안전위해서
+  //useContext 래퍼로 감ㅏㅓ 로컬스토리지 쓰ㄴㅣ 안ㅡㅡㄴ지 모게
+  // 유저id 를 body가 아니라 header
+  // //autorization이라는 키로 담아라 - 안전위해서
 
   //우진수정
   const [form, setForm] = useState({
@@ -51,8 +51,8 @@ export function useInvestmentForm() {
     else if (isNaN(form.amount)) newErrors.amount = "숫자로 입력해주세요";
 
     if (!form.comment.trim()) newErrors.comment = "필수 입력 항목입니다.";
-    else if (form.comment.length > 20)
-      newErrors.comment = "20자 이내로 입력해주세요";
+    else if (form.comment.length > 40)
+      newErrors.comment = "40자 이내로 입력해주세요";
 
     if (!form.password) newErrors.password = "비밀번호를 입력해주세요.";
     if (form.password !== form.checkPassword)
@@ -64,7 +64,7 @@ export function useInvestmentForm() {
 
   //우진수정
   const resetForm = () => {
-    setForm((prev) => ({
+    setForm(prev => ({
       ...prev,
       amount: "",
       comment: "",

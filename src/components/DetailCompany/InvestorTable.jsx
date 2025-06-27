@@ -12,6 +12,7 @@ import {
   postPasswordCheck,
   updateInvestment,
 } from "../../api/api.jsx";
+import { useAuth } from "../Contexts/AuthContext.jsx";
 
 function InvestorTable({
   investors,
@@ -29,8 +30,14 @@ function InvestorTable({
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [editStep, setEditStep] = useState("password");
+  const [loginCheckModal, setLoginCheckModal] = useState(false);
+  const { userId: currentUserId, isLoggedIn } = useAuth();
 
   const handleAction = (action, investor) => {
+    if (!isLoggedIn) {
+      setLoginCheckModal(true);
+      return;
+    }
     setModalAction(action);
     setSelectedInvestor(investor);
     setModalOpen(true);
@@ -114,19 +121,40 @@ function InvestorTable({
           </tr>
         </thead>
         <tbody>
-          {(investors || []).map(inv => (
-            <tr className={styles.content} key={inv.rank}>
-              <td className={styles.contentBox}>{inv.user?.nickname}</td>
-              <td className={styles.contentBox}>{inv.rank}위</td>
-              <td className={styles.contentBox}>{inv.howMuch} 억</td>
-              <td className={styles.commentBox}>{inv.comment}</td>
-              <td className={styles.optionBox}>
-                <InvestorSelectBtn investor={inv} onAction={handleAction} />
-              </td>
-            </tr>
-          ))}
+          {(investors || []).map(inv => {
+            const isMyInvestment = inv.user?.id === currentUserId;
+            return (
+              <tr
+                className={`${styles.content} ${
+                  isMyInvestment ? styles.myInv : ""
+                }`}
+                key={inv.rank}
+              >
+                <td className={styles.contentBox}>{inv.user?.nickname}</td>
+                <td className={styles.contentBox}>{inv.rank}위</td>
+                <td className={styles.contentBox}>{inv.howMuch} 억</td>
+                <td className={styles.commentBox}>{inv.comment}</td>
+                <td className={styles.optionBox}>
+                  <InvestorSelectBtn investor={inv} onAction={handleAction} />
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
+      {loginCheckModal && (
+        <Modal onClose={() => setLoginCheckModal(false)} size="small">
+          <div className={styles.loginModal}>
+            <p className={styles.loginText}>로그인 후 이용 가능합니다</p>
+            <CustomButton
+              buttonClass={btnStyle.buttonLarge}
+              onClick={() => setLoginCheckModal(false)}
+            >
+              확인
+            </CustomButton>
+          </div>
+        </Modal>
+      )}
       {modalOpen && (
         <Modal onClose={handleModalClose} size="small">
           {modalAction === "delete" ? (

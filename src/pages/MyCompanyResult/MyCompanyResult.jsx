@@ -18,6 +18,7 @@ import { CompareCompanyProvider } from "../../components/CompareCompanySection/C
 import MyCompanySection from "../../components/MyCompanySection/MyCompanySection.jsx";
 import btnStyle from "../../components/customTag/customButton/customButton.module.css";
 import { formatFromTrillionFloat } from "../../utils/formatCurrency.js";
+import { useAuth } from "../../components/Contexts/AuthContext.jsx";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -35,7 +36,8 @@ function MyCompanyResult() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState("form");
   const [modalMessage, setModalMessage] = useState("투자가 완료되었어요!");
-
+  const [loginCheckModal, setLoginCheckModal] = useState(false); //로그인 체크
+  const { isLoggedIn } = useAuth(); //로그인 체크
   const [testData, setTestData] = useState([]);
 
   const [myCompany, setMyCompany] = useState({});
@@ -120,8 +122,13 @@ function MyCompanyResult() {
   };
 
   const navigate = useNavigate();
-  const handleOpenModal = () => setIsModalOpen(true);
-
+  const handleOpenModal = () => {
+    if (!isLoggedIn) {
+      setLoginCheckModal(true);
+      return;
+    }
+    setIsModalOpen(true);
+  };
   const handleConfirm = (
     isSuccess = true,
     message = "투자가 완료되었어요!"
@@ -208,7 +215,19 @@ function MyCompanyResult() {
               </CustomButton>
             </div>
           </div>
-
+          {loginCheckModal && (
+            <Modal onClose={() => setLoginCheckModal(false)} size="small">
+              <div className={style.loginModal}>
+                <p className={style.loginText}>로그인 후 이용 가능합니다</p>
+                <CustomButton
+                  buttonClass={btnStyle.buttonLarge}
+                  onClick={() => setLoginCheckModal(false)}
+                >
+                  확인
+                </CustomButton>
+              </div>
+            </Modal>
+          )}
           {isModalOpen && (
             <Modal
               onClose={handleCloseModal}

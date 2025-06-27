@@ -55,6 +55,24 @@
   background-color: var(--black-300);
 }
 
+.loginModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 30px;
+  background-color: var(--black-300);
+}
+.loginText {
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: center;
+  background-color: var(--black-300);
+}
+
 @media (min-width: 744px) and (max-width: 1199px) {
   .area {
     max-width: 744px;

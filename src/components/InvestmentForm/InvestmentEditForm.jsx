@@ -24,8 +24,8 @@ const amountErrorText = v =>
 const commentErrorText = v =>
   v.trim() === ""
     ? "필수 입력 항목입니다."
-    : v.length > 20
-    ? "20자 이내로 입력해주세요"
+    : v.length > 40
+    ? "40자 이내로 입력해주세요"
     : "";
 
 function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
@@ -79,7 +79,12 @@ function InvestmentEditForm({ investor, company, onConfirm, onCancel }) {
           error={howMuchError}
         />
         <InputBox
-          label="투자 코멘트"
+          label={
+            <>
+              투자 코멘트
+              <span className={styles.commentCount}>{comment.length}/40자</span>
+            </>
+          }
           value={comment}
           onChange={commentChange}
           type={"text"}

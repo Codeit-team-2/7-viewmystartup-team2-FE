@@ -18,6 +18,7 @@ import styles from "./CompanyDetailPage.module.css";
 import btnStyle from "../../components/customTag/customButton/customButton.module.css";
 import cat from "../../assets/cat.json";
 import Lottie from "lottie-react";
+import { useAuth } from "../../components/Contexts/AuthContext.jsx";
 
 function CompanyDetailPage() {
   const { companyId } = useParams();
@@ -43,8 +44,8 @@ function CompanyDetailPage() {
     page * pageSize
   );
 
-  const handleDeleteInvestor = (investor) => {
-    setInvestors((prev) => prev.filter((inv) => inv.id !== investor.id));
+  const handleDeleteInvestor = investor => {
+    setInvestors(prev => prev.filter(inv => inv.id !== investor.id));
   };
 
   const handleEditInvestor = async (investor, updated, password) => {
@@ -53,10 +54,8 @@ function CompanyDetailPage() {
         howMuch: Number(updated.howMuch),
         comment: updated.comment,
       });
-      setInvestors((prev) =>
-        prev.map((inv) =>
-          inv.id === investor.id ? { ...inv, ...updated } : inv
-        )
+      setInvestors(prev =>
+        prev.map(inv => (inv.id === investor.id ? { ...inv, ...updated } : inv))
       );
     } catch (e) {
       console.error("수정실패 error:", e);
@@ -67,8 +66,14 @@ function CompanyDetailPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState("form");
   const [modalMessage, setModalMessage] = useState("투자가 완료되었어요!");
+  const [loginCheckModal, setLoginCheckModal] = useState(false); //로그인 체크
+  const { isLoggedIn } = useAuth(); //로그인 체크
 
   const handleOpenModal = () => {
+    if (!isLoggedIn) {
+      setLoginCheckModal(true);
+      return;
+    }
     setModalOpen(true);
   };
   const handleCloseModal = () => {
@@ -139,6 +144,19 @@ function CompanyDetailPage() {
         hasNext={hasNext}
         handlePageChange={handlePageChange}
       />
+      {loginCheckModal && (
+        <Modal onClose={() => setLoginCheckModal(false)} size="small">
+          <div className={styles.loginModal}>
+            <p className={styles.loginText}>로그인 후 이용 가능합니다</p>
+            <CustomButton
+              buttonClass={btnStyle.buttonLarge}
+              onClick={() => setLoginCheckModal(false)}
+            >
+              확인
+            </CustomButton>
+          </div>
+        </Modal>
+      )}
       {modalOpen && (
         <Modal
           onClose={handleCloseModal}
