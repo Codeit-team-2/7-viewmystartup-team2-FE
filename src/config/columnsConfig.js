@@ -48,6 +48,6 @@ export const InvestmentOverviewPageColumns = [
   { label: "기업명", key: "companyName" },
   { label: "투자 코멘트", key: "description" },
   { label: "카테고리", key: "category" },
-  { label: "View My Startup 투자금액", key: "vmsInvestment" },
+  { label: "나의 투자금액", key: "vmsInvestment" },
   { label: "누적 투자 금액", key: "totalInvestment" },
 ];
