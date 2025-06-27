@@ -111,7 +111,7 @@ export default function MultiKeyMovableRainbowCat() {
         moved = true;
       }
       if (keys.has("ArrowDown")) {
-        pos.y = pos.y + speed;
+        pos.y = Math.min(containerHeight - lottieHeight, pos.y + speed);
         moved = true;
       }
       if (keys.has("ArrowLeft")) {
@@ -119,7 +119,7 @@ export default function MultiKeyMovableRainbowCat() {
         moved = true;
       }
       if (keys.has("ArrowRight")) {
-        pos.x = pos.x + speed;
+        pos.x = Math.min(containerWidth - lottieWidth, pos.x + speed);
         moved = true;
       }
 
