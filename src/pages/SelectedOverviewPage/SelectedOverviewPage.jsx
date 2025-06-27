@@ -9,7 +9,7 @@ import { usePagination } from "../../hooks/usePagination.js";
 import { usePageSize } from "../../hooks/usePageSize.js";
 
 import SelectOption from "../../components/SelectOption/selectOption.jsx";
-import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
+import PaginationBtn from "../../components/PaginationBtn/PaginationBtn.jsx";
 import PageSizeSelector from "../../components/PageSizeSelector/PageSizeSelector.jsx";
 import { fetchSelectedOverviewData } from "../../api/company.js";
 import { SelectedOverviewPageOptionsData } from "../../config/filterConfig.js";

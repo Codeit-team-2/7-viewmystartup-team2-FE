@@ -7,7 +7,7 @@ import PageSizeSelector from "../../components/PageSizeSelector/PageSizeSelector
 import { useSearchFilter } from "../../hooks/useSearchFilter.js";
 import { usePagination } from "../../hooks/usePagination.js";
 import { usePageSize } from "../../hooks/usePageSize";
-import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
+import PaginationBtn from "../../components/PaginationBtn/PaginationBtn.jsx";
 // import { useCompanies } from "../../hooks/useCompanies.js";
 import SelectOption from "../../components/SelectOption/selectOption.jsx";
 import { LandingPageOptionsData } from "../../config/filterConfig.js";

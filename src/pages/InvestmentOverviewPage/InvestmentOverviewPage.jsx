@@ -4,7 +4,7 @@ import FetchTable from "../../components/FetchTable/FetchTable.jsx";
 import NoResult from "../../components/SearchBar/NoResult.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import PageSizeSelector from "../../components/PageSizeSelector/PageSizeSelector.jsx";
-import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
+import PaginationBtn from "../../components/PaginationBtn/PaginationBtn.jsx";
 import SelectOption from "../../components/SelectOption/selectOption.jsx";
 import { useSearchFilter } from "../../hooks/useSearchFilter.js";
 import { usePagination } from "../../hooks/usePagination.js";

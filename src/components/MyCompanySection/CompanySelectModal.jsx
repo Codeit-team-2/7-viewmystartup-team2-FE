@@ -3,7 +3,7 @@ import IcDelete from "../../assets/ic_delete.svg";
 import ModalCompanyList from "./ModalCompanyList";
 import React from "react";
 import SearchBar from "../SearchBar/SearchBar";
-import PaginationBtn from "../DetailCompany/PaginationBtn";
+import PaginationBtn from "../PaginationBtn/PaginationBtn";
 import { useSearchFilter } from "../../hooks/useSearchFilter";
 import { data } from "react-router-dom";
 import { usePagination } from "../../hooks/usePagination";
@@ -11,7 +11,7 @@ import { fetchFilteredData } from "../../api/api";
 import ModalCompanyListRecent from "./ModalCompanyListRecent";
 import ModalCompanyListSelected from "./ModalCompanyListSelected";
 import styles from "./CompanySelectModal.module.css";
-import pageButton from "../DetailCompany/PaginationBtn.module.css";
+import pageButton from "../PaginationBtn/PaginationBtn.module.css";
 
 function CompanySelectModal({ type, onModal, id }) {
   const [loading, setLoading] = useState(false);
@@ -56,7 +56,7 @@ function CompanySelectModal({ type, onModal, id }) {
 
   return (
     <div className={styles.modalOutside} onClick={onClickModalClose}>
-      <div className={styles.selectModal} onClick={(e) => e.stopPropagation()}>
+      <div className={styles.selectModal} onClick={e => e.stopPropagation()}>
         <div className={styles.modalHeader}>
           <p className={styles.modalHeaderText}>{modalTitle}</p>
           <img
