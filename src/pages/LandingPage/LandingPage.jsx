@@ -100,7 +100,7 @@ export default function LandingPage() {
             <h2 className={styles.tableTitle}>전체 스타트업 목록</h2>
           </div>
           <div className={styles.tableNavRight}>
-            <SearchBar onSubmit={search} />
+            <SearchBar inputClassName={styles.customInput} onSubmit={search} />
             <PageSizeSelector
               pageSize={pageSize}
               pageSizeOptions={pageSizeOptions}

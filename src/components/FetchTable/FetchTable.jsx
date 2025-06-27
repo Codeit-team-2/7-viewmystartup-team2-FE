@@ -24,7 +24,7 @@ export default function FetchTable({
   tableType = "default",
 }) {
   const navigate = useNavigate();
-  const handleCompanyClick = async companyName => {
+  const handleCompanyClick = async (companyName) => {
     console.log("getCompanyName 호출, companyName:", companyName);
     const companyId = await getCompanyName(companyName);
     if (companyId) {
@@ -35,10 +35,10 @@ export default function FetchTable({
     }
   };
   return (
-    <table className={styles.table}>
+    <table className={`${styles.table} ${styles.landingTable}`}>
       <thead>
         <tr>
-          {columns.map(col => (
+          {columns.map((col) => (
             <th key={col.key}>{col.label}</th>
           ))}
         </tr>

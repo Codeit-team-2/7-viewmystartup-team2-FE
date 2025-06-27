@@ -84,7 +84,7 @@ export default function SelectedOverviewPage() {
             <h2 className={styles.tableTitle}>비교 현황</h2>
           </div>
           <div className={styles.tableNavRight}>
-            <SearchBar onSubmit={search} />
+            <SearchBar inputClassName={styles.customInput} onSubmit={search} />
             <PageSizeSelector
               pageSize={pageSize}
               pageSizeOptions={pageSizeOptions}

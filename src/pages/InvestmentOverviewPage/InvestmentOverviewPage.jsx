@@ -133,7 +133,10 @@ export default function InvestmentOverviewPage() {
                   <h2 className={styles.tableTitle}>투자 현황</h2>
                 </div>
                 <div className={styles.tableNavRight}>
-                  <SearchBar onSubmit={search} />
+                  <SearchBar
+                    inputClassName={styles.customInput}
+                    onSubmit={search}
+                  />
                   <PageSizeSelector
                     pageSize={pageSize}
                     pageSizeOptions={pageSizeOptions}
