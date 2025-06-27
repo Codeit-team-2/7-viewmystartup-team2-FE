@@ -60,7 +60,7 @@ export default function Navbar() {
               `${styles.navbarPage} ${isActive ? styles.active : ""}`
             }
           >
-            투자 현황
+            투자 내역
           </NavLink>
         </div>
       </div>

@@ -18,6 +18,7 @@ import { useFetchLoading } from "../../hooks/useFetchLoading.js";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
 import SkeletonTable from "../../components/Skeletons/SkeletonTable.jsx";
 import { SelectedOverviewPageColumns } from "../../config/columnsConfig.js";
+import { getCurrentPageData } from "../../utils/getCurrentPageData.js";
 
 export default function SelectedOverviewPage() {
   const { isFetchLoading, startFetchLoading, endFetchLoading } =
@@ -26,10 +27,8 @@ export default function SelectedOverviewPage() {
   const [sortBy, order] = sortOption.split("_");
   const { keyword, search } = useSearchFilter();
   const [companies, setCompanies] = useState([]);
-
   const totalCount = companies.length;
   const [page, setPage] = useState(1);
-
   const { pageSize, pageSizeOptions, handlePageSizeChange } = usePageSize(5);
   const { pageNumbers, hasPrev, hasNext, totalPages, handlePageChange } =
     usePagination({
@@ -39,10 +38,16 @@ export default function SelectedOverviewPage() {
       pageSize,
     });
 
-  // pageSize, keyword 바뀌면 page를 1로 초기화
+  const { currentPageData, startIndex } = getCurrentPageData(
+    companies,
+    page,
+    pageSize
+  );
+
   useEffect(() => {
     setPage(1);
   }, [pageSize, keyword, sortOption]);
+
   useEffect(() => {
     const fetchData = async () => {
       startFetchLoading();
@@ -55,17 +60,12 @@ export default function SelectedOverviewPage() {
         endFetchLoading();
       }
     };
-
     fetchData();
   }, [keyword, sortBy, order]);
 
-  const handleCompanySortChange = e => {
+  const handleCompanySortChange = (e) => {
     setSortOption(e.target.value);
   };
-  //현재 페이지의 데이터만 자르기 //요부분은 calculatePageIndex 함수로 따로 빼도될듯
-  const startIndex = (page - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const currentPageData = companies.slice(startIndex, endIndex);
 
   return (
     <div className={styles.startupPage}>

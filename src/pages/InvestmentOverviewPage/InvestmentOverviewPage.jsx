@@ -23,6 +23,7 @@ import { InvestmentOverviewPageColumns } from "../../config/columnsConfig.js";
 import { formatCompanyList } from "../../utils/formatCompanyData.js";
 import rainbowcat from "../../assets/catcursor.json";
 import Rain from "../../components/animatepopup/Rainbowcat.jsx";
+import { getCurrentPageData } from "../../utils/getCurrentPageData.js";
 
 export default function InvestmentOverviewPage() {
   const { userId, nickname, isLoggedIn } = useAuth();
@@ -45,6 +46,12 @@ export default function InvestmentOverviewPage() {
       pageSize,
     });
 
+  const { currentPageData, startIndex } = getCurrentPageData(
+    companies,
+    page,
+    pageSize
+  );
+
   useEffect(() => {
     setPage(1);
   }, [pageSize, keyword, sortOption]);
@@ -61,7 +68,7 @@ export default function InvestmentOverviewPage() {
           order,
           keyword,
         });
-        console.log("🔥 raw API data:", data);
+        // console.log("🔥 raw API data:", data);
         const formattedData = formatCompanyList(data, {
           includeVmsInvestment: true,
           isNestedCompany: true,
@@ -79,14 +86,11 @@ export default function InvestmentOverviewPage() {
   //
 
   const handleCompanySortChange = (e) => {
-    setSortOption(e.target.value); // 예: vmsInvestment_asc
-    console.log(e.target.value);
+    setSortOption(e.target.value);
+    // console.log(e.target.value);
   };
 
-  //현재 페이지의 데이터만 자르기 //요부분은 calculatePageIndex 함수로 따로 빼도될듯
-  const startIndex = (page - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const currentPageData = companies.slice(startIndex, endIndex);
+
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -137,7 +141,9 @@ export default function InvestmentOverviewPage() {
             <>
               <div className={styles.tableNav}>
                 <div className={styles.tableNavLeft}>
-                  <h2 className={styles.tableTitle}>투자 현황</h2>
+                  <h2 className={styles.tableTitle}>
+                    {nickname}님의 투자 내역
+                  </h2>
                 </div>
                 <div className={styles.tableNavRight}>
                   <SearchBar

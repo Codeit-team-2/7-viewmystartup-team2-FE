@@ -19,8 +19,8 @@ export const LandingPageOptionsData = [
 
 //InvestmentOverviewPage 투자현황페이지 필터
 export const InvestmentOverviewPageOptionsData = [
-  { value: "vmsInvestment_desc", label: "VMS 투자금액 높은순" },
-  { value: "vmsInvestment_asc", label: "VMS 투자금액 낮은순" },
+  { value: "vmsInvestment_desc", label: "나의 투자금액 높은순" },
+  { value: "vmsInvestment_asc", label: "나의 투자금액 낮은순" },
   { value: "totalInvestment_desc", label: "실제 누적 투자금액 높은순" },
   { value: "totalInvestment_asc", label: "실제 누적 투자금액 낮은순" },
 ];

@@ -16,6 +16,7 @@ import SkeletonTable from "../../components/Skeletons/SkeletonTable.jsx";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
 import { LandingPageColumns } from "../../config/columnsConfig.js";
 import { formatCompanyList } from "../../utils/formatCompanyData.js";
+import { getCurrentPageData } from "../../utils/getCurrentPageData.js";
 
 export default function LandingPage() {
   const [loading, setLoading] = useState(true);
@@ -35,6 +36,12 @@ export default function LandingPage() {
       pageSize,
     });
 
+  const { currentPageData, startIndex } = getCurrentPageData(
+    companies,
+    page,
+    pageSize
+  );
+
   // pageSize, keyword 바뀌면 page를 1로 초기화
   useEffect(() => {
     setPage(1);
@@ -45,7 +52,7 @@ export default function LandingPage() {
       setLoading(true);
       try {
         const data = await fetchFilteredDataWJ(keyword, sortBy, order);
-        const formattedData = formatCompanyList(data);//테이블 내 데이터 단위 포매팅
+        const formattedData = formatCompanyList(data); //테이블 내 데이터 단위 포매팅
         setCompanies(formattedData);
       } catch (error) {
         console.error("데이터 불러오기 실패", error);
@@ -56,15 +63,15 @@ export default function LandingPage() {
     fetchData();
   }, [keyword, sortBy, order]);
 
-  const handleCompanySortChange = e => {
+  const handleCompanySortChange = (e) => {
     setSortOption(e.target.value);
     // console.log(e.target.value);
   };
 
   //현재 페이지의 데이터만 자르기 //요부분은 calculatePageIndex 함수로 따로 빼도될듯
-  const startIndex = (page - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const currentPageData = companies.slice(startIndex, endIndex);
+  // const startIndex = (page - 1) * pageSize;
+  // const endIndex = startIndex + pageSize;
+  // const currentPageData = companies.slice(startIndex, endIndex);
 
   return (
     <div className={styles.startupPage}>
