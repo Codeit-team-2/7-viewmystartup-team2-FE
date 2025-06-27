@@ -114,7 +114,7 @@ function InvestorTable({
         <thead className={styles.title}>
           <tr className={styles.trArea}>
             <th className={styles.sBox}>이름</th>
-            <th className={styles.sBox}>순위</th>
+            <th className={styles.rankBox}>순위</th>
             <th className={styles.sBox}>투자금액</th>
             <th className={styles.comment}>투자 코멘트</th>
             <th className={styles.option} />
@@ -131,7 +131,7 @@ function InvestorTable({
                 key={inv.rank}
               >
                 <td className={styles.contentBox}>{inv.user?.nickname}</td>
-                <td className={styles.contentBox}>{inv.rank}위</td>
+                <td className={styles.contentRankBox}>{inv.rank}위</td>
                 <td className={styles.contentBox}>{inv.howMuch} 억</td>
                 <td className={styles.commentBox}>{inv.comment}</td>
                 <td className={styles.optionBox}>

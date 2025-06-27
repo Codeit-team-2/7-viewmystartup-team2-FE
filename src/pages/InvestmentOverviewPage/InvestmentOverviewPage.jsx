@@ -123,7 +123,7 @@ export default function InvestmentOverviewPage() {
           ) : companies.length === 0 ? (
             <div className={styles.catArea}>
               <Lottie
-                style={{ width: 200, height: 200 }}
+                style={{ width: 400, height: 400 }}
                 animationData={cat}
                 loop={true}
                 autoplay={true}

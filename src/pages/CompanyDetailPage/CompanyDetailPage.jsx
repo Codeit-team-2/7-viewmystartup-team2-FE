@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  fetchCompanyDetailData,
-  fetchCompanyInvestorsData,
-  updateInvestment,
-} from "../../api/api.js";
+import { useState } from "react";
+import { updateInvestment } from "../../api/api.js";
 import { useParams } from "react-router-dom";
 import { DetailCompanyTitle } from "../../components/DetailCompany/DetailCompanyTitle.jsx";
 import { DetailCompanyList } from "../../components/DetailCompany/DetailCompanyList.jsx";
@@ -19,35 +15,29 @@ import btnStyle from "../../components/CustomButton/customButton.module.css";
 import cat from "../../assets/cat.json";
 import Lottie from "lottie-react";
 import { useAuth } from "../../components/Contexts/AuthContext.jsx";
+import { useCompanyDetail } from "../../hooks/useCompanyDetail.js";
+
+const PAGE_SIZE = 5;
 
 function CompanyDetailPage() {
   const { companyId } = useParams();
-  const [company, setCompany] = useState(null);
-  const [investors, setInvestors] = useState([]);
-  const pageSize = 5;
+  const { company, investors, setInvestors } = useCompanyDetail(companyId);
   const [page, setPage] = useState(1);
-  const totalCount = investors.length;
-
-  useEffect(() => {
-    fetchCompanyDetailData(companyId).then(setCompany);
-    fetchCompanyInvestorsData(companyId).then(setInvestors);
-  }, [companyId]);
-
   const { pageNumbers, hasPrev, hasNext, handlePageChange } = usePagination({
     page,
     setPage,
-    totalCount,
-    pageSize,
+    totalCount: investors.length,
+    pageSize: PAGE_SIZE,
   });
   const paginatedInvestors = investors.slice(
-    (page - 1) * pageSize,
-    page * pageSize
+    (page - 1) * PAGE_SIZE,
+    page * PAGE_SIZE
   );
 
+  // 투자자 삭제&수정
   const handleDeleteInvestor = investor => {
     setInvestors(prev => prev.filter(inv => inv.id !== investor.id));
   };
-
   const handleEditInvestor = async (investor, updated, password) => {
     try {
       await updateInvestment(investor.id, investor.user.id, password, {
@@ -59,10 +49,10 @@ function CompanyDetailPage() {
       );
     } catch (e) {
       console.error("수정실패 error:", e);
-      alert("수정실패");
     }
   };
 
+  // 모달 관리
   const [modalOpen, setModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState("form");
   const [modalMessage, setModalMessage] = useState("투자가 완료되었어요!");
@@ -97,7 +87,7 @@ function CompanyDetailPage() {
     return (
       <div className={styles.catArea}>
         <Lottie
-          style={{ width: 200, height: 200 }}
+          style={{ width: 500, height: 500 }}
           animationData={cat}
           loop={true}
           autoplay={true}
@@ -126,7 +116,7 @@ function CompanyDetailPage() {
         onDelete={handleDeleteInvestor}
         onEdit={handleEditInvestor}
         page={page}
-        pageSize={pageSize}
+        pageSize={PAGE_SIZE}
       />
       <PaginationBtn
         page={page}
