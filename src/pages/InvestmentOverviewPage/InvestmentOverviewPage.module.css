@@ -30,6 +30,16 @@
   align-items: center; /* 가운데 정렬하려면 */
 }
 
+.noDataMessage {
+  display: flex;
+  height: auto;
+  padding: 0 auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 400px;
+}
+
 @media (min-width: 744px) and (max-width: 1199px) {
   .tableNav {
     width: min(824px, 100%);

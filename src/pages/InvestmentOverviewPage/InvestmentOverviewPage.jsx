@@ -106,31 +106,33 @@ export default function InvestmentOverviewPage() {
   return (
     <div className={styles.startupPage}>
       <div className={styles.tablebox}>
-        <div className={styles.tableNav}>
-          <div className={styles.tableNavLeft}>
-            <h2 className={styles.tableTitle}>투자 현황</h2>
-          </div>
-          <div className={styles.tableNavRight}>
-            <SearchBar onSubmit={search} />
-            <PageSizeSelector
-              pageSize={pageSize}
-              pageSizeOptions={pageSizeOptions}
-              onChange={handlePageSizeChange}
-            />
-            <SelectOption
-              options={InvestmentOverviewPageOptionsData}
-              onChange={handleCompanySortChange}
-            />
-          </div>
-        </div>
         <div className={styles.tableSize}>
           {isFetchLoading ? (
             <>
               <LoadingSpinner />
               <SkeletonTable />
             </>
+          ) : companies.length === 0 ? (
+            <div className={styles.noDataMessage}>로그인해주세요</div>
           ) : currentPageData.length > 0 ? (
             <>
+              <div className={styles.tableNav}>
+                <div className={styles.tableNavLeft}>
+                  <h2 className={styles.tableTitle}>투자 현황</h2>
+                </div>
+                <div className={styles.tableNavRight}>
+                  <SearchBar onSubmit={search} />
+                  <PageSizeSelector
+                    pageSize={pageSize}
+                    pageSizeOptions={pageSizeOptions}
+                    onChange={handlePageSizeChange}
+                  />
+                  <SelectOption
+                    options={InvestmentOverviewPageOptionsData}
+                    onChange={handleCompanySortChange}
+                  />
+                </div>
+              </div>
               <FetchTable
                 data={currentPageData}
                 columns={InvestmentOverviewPageColumns}
