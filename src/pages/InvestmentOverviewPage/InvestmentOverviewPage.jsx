@@ -85,17 +85,16 @@ export default function InvestmentOverviewPage() {
   }, [isLoggedIn, sortOption, pageSize, keyword]);
   //
 
-  const handleCompanySortChange = (e) => {
+  const handleCompanySortChange = e => {
     setSortOption(e.target.value);
     // console.log(e.target.value);
   };
 
-
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      setPosition((prev) => {
+    const handleKeyDown = e => {
+      setPosition(prev => {
         const step = 20; // 움직이는 거리(px)
         switch (e.key) {
           case "ArrowUp":
@@ -127,7 +126,7 @@ export default function InvestmentOverviewPage() {
           ) : companies.length === 0 ? (
             <div className={styles.catArea}>
               <Lottie
-                style={{ width: 400, height: 400 }}
+                style={{ width: 200, height: 200 }}
                 animationData={cat}
                 loop={true}
                 autoplay={true}

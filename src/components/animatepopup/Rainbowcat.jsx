@@ -1,12 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import Lottie from "lottie-react";
 import rainbowcat from "../../assets/catcursor.json";
+import styles from "./Rainbowcat.module.css";
 
-const CELL_SIZE = 30;
-const MAX_CELLS = 200;
+const CELL_SIZE = 20;
+const MAX_CELLS = 1800;
+const containerWidth = 1200; // 원하는 크기로 설정(400~1000px 등)
+const containerHeight = 600;
+const lottieWidth = 100;
+const lottieHeight = 100;
 
 const ColorCell = React.memo(({ left, top, size, color }) => (
   <div
+    className={styles.area}
     style={{
       position: "absolute",
       left,
@@ -27,7 +33,6 @@ export default function MultiKeyMovableRainbowCat() {
   const pressedKeysRef = useRef(new Set());
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // Map: key = "cellX,cellY", value = {cellX, cellY, color}
   const [coloredCellsMap, setColoredCellsMap] = useState(new Map());
 
   const markCell = (x, y) => {
@@ -35,25 +40,21 @@ export default function MultiKeyMovableRainbowCat() {
     const cellY = Math.floor(y / CELL_SIZE);
     const key = `${cellX},${cellY}`;
 
-    setColoredCellsMap((prev) => {
-      if (prev.has(key)) return prev; // 이미 있음, 추가 안함
-
+    setColoredCellsMap(prev => {
+      if (prev.has(key)) return prev;
       const newMap = new Map(prev);
       const color = `hsl(${Math.floor(Math.random() * 360)}, 100%, 70%)`;
       newMap.set(key, { cellX, cellY, color });
-
-      // 최대 셀 개수 제한
       if (newMap.size > MAX_CELLS) {
-        const firstKey = newMap.keys().next().value; // 가장 오래된 셀
+        const firstKey = newMap.keys().next().value;
         newMap.delete(firstKey);
       }
-
       return newMap;
     });
   };
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = e => {
       if (
         e.key === "ArrowUp" ||
         e.key === "ArrowDown" ||
@@ -68,7 +69,7 @@ export default function MultiKeyMovableRainbowCat() {
       }
     };
 
-    const handleKeyUp = (e) => {
+    const handleKeyUp = e => {
       if (
         e.key === "ArrowUp" ||
         e.key === "ArrowDown" ||
@@ -96,8 +97,6 @@ export default function MultiKeyMovableRainbowCat() {
 
   useEffect(() => {
     const speed = 5;
-    const lottieWidth = 200;
-    const lottieHeight = 200;
 
     let animationFrameId;
 
@@ -106,26 +105,32 @@ export default function MultiKeyMovableRainbowCat() {
       const pos = posRef.current;
       let moved = false;
 
+      let nextX = pos.x;
+      let nextY = pos.y;
+
       if (keys.has("ArrowUp")) {
-        pos.y = pos.y - speed;
+        nextY = Math.max(0, pos.y - speed);
         moved = true;
       }
       if (keys.has("ArrowDown")) {
-        pos.y = pos.y + speed;
+        nextY = Math.min(containerHeight - lottieHeight, pos.y + speed);
         moved = true;
       }
       if (keys.has("ArrowLeft")) {
-        pos.x = pos.x - speed;
+        nextX = Math.max(0, pos.x - speed);
         moved = true;
       }
       if (keys.has("ArrowRight")) {
-        pos.x = pos.x + speed;
+        nextX = Math.min(containerWidth - lottieWidth, pos.x + speed);
         moved = true;
       }
 
+      // posRef를 직접 수정
       if (moved) {
+        pos.x = nextX;
+        pos.y = nextY;
         markCell(pos.x + lottieWidth / 2, pos.y + lottieHeight / 2);
-        setRenderTick((v) => v + 1);
+        setRenderTick(v => v + 1);
       }
 
       animationFrameId = requestAnimationFrame(animate);
@@ -137,41 +142,36 @@ export default function MultiKeyMovableRainbowCat() {
   }, []);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: 400,
-        border: "1px solid #ddd",
-        overflow: "hidden",
-      }}
-      tabIndex={0}
-    >
-      <button
-        onClick={() => {
-          posRef.current = { x: 0, y: 0 };
-          setColoredCellsMap(new Map());
-          setRenderTick((v) => v + 1);
-        }}
-      >
-        초기화
-      </button>
-      <button
-        onClick={() => {
-          document.querySelector("._loginBtn_fepkq_81")?.click();
-        }}
-      >
-        슈퍼고양이모드
-      </button>
-      {[...coloredCellsMap.values()].map(({ cellX, cellY, color }) => (
-        <ColorCell
-          key={`${cellX}-${cellY}`}
-          left={cellX * CELL_SIZE}
-          top={cellY * CELL_SIZE}
-          size={CELL_SIZE}
-          color={color}
-        />
-      ))}
+    <div className={styles.box} tabIndex={0}>
+      <div className={styles.btnArea}>
+        <button
+          className={styles.btn}
+          onClick={() => {
+            posRef.current = { x: 0, y: 0 };
+            setColoredCellsMap(new Map());
+            setRenderTick(v => v + 1);
+          }}
+        >
+          초기화
+        </button>
+        <button
+          className={styles.btn}
+          onClick={() => {
+            document.querySelector("._loginBtn_fepkq_81")?.click();
+          }}
+        >
+          슈퍼고양이모드
+        </button>
+        {[...coloredCellsMap.values()].map(({ cellX, cellY, color }) => (
+          <ColorCell
+            key={`${cellX}-${cellY}`}
+            left={cellX * CELL_SIZE}
+            top={cellY * CELL_SIZE}
+            size={CELL_SIZE}
+            color={color}
+          />
+        ))}
+      </div>
 
       <Lottie
         animationData={rainbowcat}
@@ -180,8 +180,8 @@ export default function MultiKeyMovableRainbowCat() {
         style={{
           position: "absolute",
           background: "transparent",
-          width: 200,
-          height: 200,
+          width: lottieWidth,
+          height: lottieHeight,
           left: posRef.current.x,
           top: posRef.current.y,
           cursor: "grab",
