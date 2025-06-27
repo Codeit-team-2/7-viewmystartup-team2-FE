@@ -1,8 +1,8 @@
 import React from "react";
-import CustomButton from "../customTag/customButton/customButton";
+import CustomButton from "../CustomButton/customButton";
 import { InputBox } from "../InvestmentForm/InputBox";
 import styles from "./InvestorInput.module.css";
-import btnStyle from "../customTag/customButton/customButton.module.css";
+import btnStyle from "../CustomButton/customButton.module.css";
 
 function InvestorDeleteInput({
   password,

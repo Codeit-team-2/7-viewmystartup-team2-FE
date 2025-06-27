@@ -2,11 +2,11 @@
 import React, { useState, useEffect, useId } from "react";
 import { DetailCompanyTitle } from "../DetailCompany/DetailCompanyTitle";
 import { InputBox } from "./InputBox";
-import CustomButton from "../customTag/customButton/customButton";
+import CustomButton from "../CustomButton/customButton";
 import { useInvestmentForm } from "./useInvestmentForm";
 import styles from "./InvestmentForm.module.css";
 import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
-import btnStyle from "../customTag/customButton/customButton.module.css";
+import btnStyle from "../CustomButton/customButton.module.css";
 import { useAuth } from "../Contexts/AuthContext";
 import { postInvestment } from "../../api/investment";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";

@@ -3,7 +3,7 @@ import {
   fetchCompanyDetailData,
   fetchCompanyInvestorsData,
   updateInvestment,
-} from "../../api/api.jsx";
+} from "../../api/api.js";
 import { useParams } from "react-router-dom";
 import { DetailCompanyTitle } from "../../components/DetailCompany/DetailCompanyTitle.jsx";
 import { DetailCompanyList } from "../../components/DetailCompany/DetailCompanyList.jsx";
@@ -12,10 +12,10 @@ import InvestmentForm from "../../components/InvestmentForm/InvestmentForm.jsx";
 import InvestorTable from "../../components/DetailCompany/InvestorTable.jsx";
 import { usePagination } from "../../hooks/usePagination.js";
 import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
-import CustomButton from "../../components/customTag/customButton/customButton.jsx";
+import CustomButton from "../../components/CustomButton/customButton.jsx";
 import Modal from "../../components/Modal/Modal.jsx";
 import styles from "./CompanyDetailPage.module.css";
-import btnStyle from "../../components/customTag/customButton/customButton.module.css";
+import btnStyle from "../../components/CustomButton/customButton.module.css";
 import cat from "../../assets/cat.json";
 import Lottie from "lottie-react";
 import { useAuth } from "../../components/Contexts/AuthContext.jsx";

@@ -68,7 +68,7 @@ export default function SelectedOverviewPage() {
     fetchData();
   }, [keyword, sortBy, order]);
 
-  const handleCompanySortChange = (e) => {
+  const handleCompanySortChange = e => {
     setSortOption(e.target.value);
   };
   //현재 페이지의 데이터만 자르기 //요부분은 calculatePageIndex 함수로 따로 빼도될듯

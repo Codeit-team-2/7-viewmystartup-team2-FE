@@ -30,14 +30,38 @@
   align-items: center; /* 가운데 정렬하려면 */
 }
 
-.noDataMessage {
+.catArea {
   display: flex;
-  height: auto;
-  padding: 0 auto;
-  text-align: center;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 400px;
+  margin: 200px auto;
+}
+
+.noDataMessage {
+  margin-top: 30px;
+  font-size: 30px;
+  animation: colorChange 0.66s infinite linear;
+}
+@keyframes colorChange {
+  0% {
+    color: #fc0018;
+  }
+  20% {
+    color: #fcee02;
+  }
+  40% {
+    color: #53fe00;
+  }
+  60% {
+    color: #017aff;
+  }
+  80% {
+    color: #9901fb;
+  }
+  100% {
+    color: #ff05aa;
+  }
 }
 
 @media (min-width: 744px) and (max-width: 1199px) {

@@ -21,6 +21,8 @@ import { useFetchLoading } from "../../hooks/useFetchLoading.js";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
 import SkeletonTable from "../../components/Skeletons/SkeletonTable.jsx";
 import { useAuth } from "../../components/Contexts/AuthContext";
+import cat from "../../assets/cat.json";
+import Lottie from "lottie-react";
 
 //나중에 config로 뺍시당
 const InvestmentOverviewPageColumns = [
@@ -94,7 +96,7 @@ export default function InvestmentOverviewPage() {
   }, [sortOption, pageSize, keyword]);
   //
 
-  const handleCompanySortChange = (e) => {
+  const handleCompanySortChange = e => {
     setSortOption(e.target.value); // 예: vmsInvestment_asc
     console.log(e.target.value);
   };
@@ -113,7 +115,17 @@ export default function InvestmentOverviewPage() {
               <SkeletonTable />
             </>
           ) : companies.length === 0 ? (
-            <div className={styles.noDataMessage}>로그인해주세요</div>
+            <div className={styles.catArea}>
+              <Lottie
+                style={{ width: 200, height: 200 }}
+                animationData={cat}
+                loop={true}
+                autoplay={true}
+              />
+              <span className={styles.noDataMessage}>
+                로그인이 필요한 페이지입니다
+              </span>
+            </div>
           ) : currentPageData.length > 0 ? (
             <>
               <div className={styles.tableNav}>

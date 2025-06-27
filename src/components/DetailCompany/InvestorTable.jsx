@@ -5,13 +5,13 @@ import InvestorDeleteInput from "./InvestorDeleteInput.jsx";
 import InvestorEditInput from "./InvestorEditInput.jsx";
 import InvestmentEditForm from "../InvestmentForm/InvestmentEditForm.jsx";
 import styles from "./InvestorTable.module.css";
-import CustomButton from "../customTag/customButton/customButton.jsx";
-import btnStyle from "../customTag/customButton/customButton.module.css";
+import CustomButton from "../CustomButton/customButton.jsx";
+import btnStyle from "../CustomButton/customButton.module.css";
 import {
   deleteInvestment,
   postPasswordCheck,
   updateInvestment,
-} from "../../api/api.jsx";
+} from "../../api/api.js";
 import { useAuth } from "../Contexts/AuthContext.jsx";
 
 function InvestorTable({

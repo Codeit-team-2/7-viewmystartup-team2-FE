@@ -8,7 +8,7 @@ import { loginUser } from "../../api/auth";
 import { useAuth } from "../Contexts/AuthContext";
 import Modal from "../Modal/Modal";
 import Toast from "../ToastMessage/Toast";
-import { useToast } from "../ToastMessage/useToast.js";
+import { useToast } from "../../hooks/useToast";
 
 export default function Navbar() {
   const { isLoggedIn, login } = useAuth();
