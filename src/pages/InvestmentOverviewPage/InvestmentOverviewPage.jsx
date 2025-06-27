@@ -21,6 +21,8 @@ import cat from "../../assets/cat.json";
 import Lottie from "lottie-react";
 import { InvestmentOverviewPageColumns } from "../../config/columnsConfig.js";
 import { formatCompanyList } from "../../utils/formatCompanyData.js";
+import rainbowcat from "../../assets/catcursor.json";
+import Rain from "../../components/animatepopup/Rainbowcat.jsx";
 
 export default function InvestmentOverviewPage() {
   const { userId, nickname, isLoggedIn } = useAuth();
@@ -76,7 +78,7 @@ export default function InvestmentOverviewPage() {
   }, [isLoggedIn, sortOption, pageSize, keyword]);
   //
 
-  const handleCompanySortChange = e => {
+  const handleCompanySortChange = (e) => {
     setSortOption(e.target.value); // 예: vmsInvestment_asc
     console.log(e.target.value);
   };
@@ -85,6 +87,30 @@ export default function InvestmentOverviewPage() {
   const startIndex = (page - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const currentPageData = companies.slice(startIndex, endIndex);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      setPosition((prev) => {
+        const step = 20; // 움직이는 거리(px)
+        switch (e.key) {
+          case "ArrowUp":
+            return { x: prev.x, y: Math.max(prev.y - step, 0) };
+          case "ArrowDown":
+            return { x: prev.x, y: prev.y + step };
+          case "ArrowLeft":
+            return { x: Math.max(prev.x - step, 0), y: prev.y };
+          case "ArrowRight":
+            return { x: prev.x + step, y: prev.y };
+          default:
+            return prev;
+        }
+      });
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
   return (
     <div className={styles.startupPage}>
       <div className={styles.tablebox}>
@@ -105,6 +131,7 @@ export default function InvestmentOverviewPage() {
               <span className={styles.noDataMessage}>
                 로그인이 필요한 페이지입니다
               </span>
+              <Rain></Rain>
             </div>
           ) : currentPageData.length > 0 ? (
             <>
