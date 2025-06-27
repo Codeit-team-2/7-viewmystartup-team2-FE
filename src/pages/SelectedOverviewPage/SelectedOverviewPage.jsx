@@ -17,16 +17,7 @@ import styles from "./SelectedOverviewPage.module.css";
 import { useFetchLoading } from "../../hooks/useFetchLoading.js";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
 import SkeletonTable from "../../components/Skeletons/SkeletonTable.jsx";
-
-//나중에 config로 뺍시당
-const SelectedOverviewPageColumns = [
-  { label: "순위", key: "rank" },
-  { label: "기업명", key: "companyName" },
-  { label: "기업 소개", key: "description" },
-  { label: "카테고리", key: "category" },
-  { label: "나의 기업 선택 횟수", key: "myCompanySelectedCount" },
-  { label: "비교 기업 선택 횟수", key: "compareSelectedCount" },
-];
+import { SelectedOverviewPageColumns } from "../../config/columnsConfig.js";
 
 export default function SelectedOverviewPage() {
   const { isFetchLoading, startFetchLoading, endFetchLoading } =

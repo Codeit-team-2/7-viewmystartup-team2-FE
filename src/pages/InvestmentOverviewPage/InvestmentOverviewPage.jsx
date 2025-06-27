@@ -23,19 +23,11 @@ import SkeletonTable from "../../components/Skeletons/SkeletonTable.jsx";
 import { useAuth } from "../../components/Contexts/AuthContext";
 import cat from "../../assets/cat.json";
 import Lottie from "lottie-react";
-
-//나중에 config로 뺍시당
-const InvestmentOverviewPageColumns = [
-  { label: "순위", key: "rank" },
-  { label: "기업명", key: "companyName" },
-  { label: "투자 코멘트", key: "description" },
-  { label: "카테고리", key: "category" },
-  { label: "View My Startup 투자금액", key: "vmsInvestment" },
-  { label: "누적 투자 금액", key: "totalInvestment" },
-];
+import { InvestmentOverviewPageColumns } from "../../config/columnsConfig.js";
+import { formatCompanyList } from "../../utils/formatCompanyData.js";
 
 export default function InvestmentOverviewPage() {
-  const { userId, nickname } = useAuth();
+  const { userId, nickname, isLoggedIn } = useAuth();
   const { isFetchLoading, startFetchLoading, endFetchLoading } =
     useFetchLoading();
   const [sortOption, setSortOption] = useState("vmsInvestment_desc");
@@ -61,6 +53,7 @@ export default function InvestmentOverviewPage() {
   }, [pageSize, keyword, sortOption]);
 
   useEffect(() => {
+    if (!isLoggedIn) return;
     const fetchData = async () => {
       //우진 - userId, nickname Context에서 가져옵니다
       startFetchLoading();
@@ -73,17 +66,10 @@ export default function InvestmentOverviewPage() {
           keyword,
         });
         console.log("🔥 raw API data:", data);
-        const formattedData = data.map((item, idx) => ({
-          rank: idx + 1,
-          companyName: item.company?.companyName || "-",
-          description: item.comment || "-",
-          category: item.company?.category || "-",
-          vmsInvestment: formatFromBillion(item.howMuch || 0),
-          totalInvestment: formatFromTrillionFloat(
-            item.company.totalInvestment || 0
-          ),
-          imgUrl: item.company?.imgUrl,
-        }));
+        const formattedData = formatCompanyList(data, {
+          includeVmsInvestment: true,
+          isNestedCompany: true,
+        });
         setCompanies(formattedData);
       } catch (error) {
         console.error("투자 현황 데이터 불러오기 실패", error);
@@ -93,7 +79,7 @@ export default function InvestmentOverviewPage() {
     };
 
     fetchData();
-  }, [sortOption, pageSize, keyword]);
+  }, [isLoggedIn, sortOption, pageSize, keyword]);
   //
 
   const handleCompanySortChange = e => {
