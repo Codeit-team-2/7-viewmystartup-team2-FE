@@ -8,12 +8,12 @@ import { loginUser } from "../../api/auth";
 import { useAuth } from "../Contexts/AuthContext";
 import Modal from "../Modal/Modal";
 import Toast from "../ToastMessage/Toast";
+import { useToast } from "../ToastMessage/useToast.js";
 
 export default function Navbar() {
   const { isLoggedIn, login } = useAuth();
   const [openModal, setOpenModal] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [showToast, setShowToast] = useState(false);
+  const { toastMessage, setToastMessage, showToast, setShowToast } = useToast();
 
   useEffect(() => {}, [isLoggedIn]);
 

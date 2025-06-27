@@ -8,11 +8,11 @@ import { refreshUserInfo } from "../../api/auth";
 import { useFetchLoading } from "../../hooks/useFetchLoading";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import Toast from "../ToastMessage/Toast";
+import { useToast } from "../ToastMessage/useToast";
 
 export default function AuthStatus({ onLogoutSuccess }) {
+  const { toastMessage, setToastMessage, showToast, setShowToast } = useToast();
   const handleNameClick = () => setShowInfo(v => !v);
-  const [toastMessage, setToastMessage] = useState("");
-  const [showToast, setShowToast] = useState(false);
   const { isFetchLoading, startFetchLoading, endFetchLoading } =
     useFetchLoading();
   const {
