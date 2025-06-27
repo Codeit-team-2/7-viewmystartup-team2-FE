@@ -19,15 +19,21 @@
 }
 
 .sBox,
-.contentBox {
-  width: 84px;
+.rankBox,
+.contentBox,
+.contentRankBox {
+  width: 114px;
   text-align: center;
   vertical-align: middle;
   background-color: var(--black-100);
 }
+.rankBox,
+.contentRankBox {
+  width: 74px;
+}
 .comment,
 .commentBox {
-  width: 884px;
+  width: 854px;
   text-align: center;
   vertical-align: middle;
   background-color: var(--black-100);
@@ -110,6 +116,6 @@ tbody tr:last-child td {
 @media (min-width: 744px) and (max-width: 1199px) {
   .comment,
   .commentBox {
-    width: 420px;
+    width: 390px;
   }
 }
