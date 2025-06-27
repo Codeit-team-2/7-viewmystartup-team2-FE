@@ -8,7 +8,7 @@ export const fetchAllCompanies = (sortBy = "revenue", order = "desc") => {
     .get(`${apiUrl}/companies`, {
       params: { sortBy, order },
     })
-    .then(res => res.data);
+    .then((res) => res.data);
 };
 
 export const fetchFilteredDataWJ = (
@@ -20,7 +20,7 @@ export const fetchFilteredDataWJ = (
     .get(`${apiUrl}/companies`, {
       params: { keyword, sortBy, order },
     })
-    .then(res => res.data);
+    .then((res) => res.data);
 };
 
 export const fetchInvestmentOverviewData = (
@@ -32,7 +32,7 @@ export const fetchInvestmentOverviewData = (
     .get(`${apiUrl}/companies/investment-overview`, {
       params: { keyword, sortBy, order },
     })
-    .then(res => res.data);
+    .then((res) => res.data);
 };
 
 export const fetchSelectedOverviewData = (keyword, sortBy, order) => {
@@ -40,7 +40,7 @@ export const fetchSelectedOverviewData = (keyword, sortBy, order) => {
     .get(`${apiUrl}/companies/selected-overview`, {
       params: { keyword, sortBy, order },
     })
-    .then(res => res.data);
+    .then((res) => res.data);
 };
 
 //내 투자현황 목록
@@ -72,7 +72,7 @@ export const matchingInvestmentUserList = async ({
 
 // 기업명 클릭했을때 기업 id 가져오는 api
 
-export const getCompanyName = async companyName => {
+export const getCompanyName = async (companyName) => {
   try {
     const res = await axios.get(
       `${apiUrl}/companies/companyName?companyName=${encodeURIComponent(
@@ -81,7 +81,7 @@ export const getCompanyName = async companyName => {
     );
 
     // axios는 자동으로 JSON 파싱되므로 .json() 필요 없음
-    console.log("qtqtqt응답 데이터:", res.data);
+    console.log("응답 데이터:", res.data);
     return res.data.id; // ← 응답 구조에 맞게 수정 필요
   } catch (error) {
     console.error("회사 ID 요청 실패:", error);
