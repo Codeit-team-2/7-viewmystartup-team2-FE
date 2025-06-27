@@ -61,7 +61,7 @@ export default function InvestmentOverviewPage() {
           order,
           keyword,
         });
-        console.log("🔥 raw API data:", data);
+        // console.log("🔥 raw API data:", data);
         const formattedData = formatCompanyList(data, {
           includeVmsInvestment: true,
           isNestedCompany: true,
@@ -79,8 +79,8 @@ export default function InvestmentOverviewPage() {
   //
 
   const handleCompanySortChange = (e) => {
-    setSortOption(e.target.value); // 예: vmsInvestment_asc
-    console.log(e.target.value);
+    setSortOption(e.target.value);
+    // console.log(e.target.value);
   };
 
   //현재 페이지의 데이터만 자르기 //요부분은 calculatePageIndex 함수로 따로 빼도될듯
