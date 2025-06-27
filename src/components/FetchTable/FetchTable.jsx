@@ -6,17 +6,6 @@ import { useNavigate } from "react-router-dom";
 import defaultImg from "../../assets/panda_question.svg";
 import ToolTip from "../../components/ToolTip/ToolTip";
 
-// FetchTable 사용방법 프롭스에  tableType 이걸 아무값을 넣으면 기업명에서 Link to 기능비활성화, 기본값은 상세페이지이동
-// <FetchTable 예시 비활성화
-//     data={currentPageData}
-//     columns={LandingPageColumns}
-//     startIndex={startIndex}
-//     tableType="asd" // 여기서 아무값을
-//   />
-
-// 여기서 기업명을 클릭했을때 api요청으로 기업아이디와 일치하는 기업 id값을 받아야함
-
-//
 export default function FetchTable({
   data = [],
   columns,
