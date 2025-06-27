@@ -74,6 +74,11 @@
   .tablebox {
     width: 824px;
   }
+  .customInput {
+    font-size: 15px;
+    padding: 8px 50px;
+    width: 220px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -93,5 +98,10 @@
   .tablebox {
     width: 100%;
     padding: 0 16px;
+  }
+  .customInput {
+    font-size: 15px;
+    padding: 8px 50px;
+    width: 220px;
   }
 }

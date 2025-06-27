@@ -37,12 +37,23 @@
 @media (min-width: 744px) and (max-width: 1199px) {
   .tableNav {
     width: 885px;
+    justify-content: flex-start;
+    padding-left: 29px;
+    gap: 15px;
   }
   .tableSize {
     width: min(824px, 100%);
   }
   .tablebox {
     width: 824px;
+  }
+  .tableTitle {
+    word-break: keep-all;
+  }
+  .customInput {
+    font-size: 15px;
+    padding: 8px 50px;
+    width: 220px;
   }
 }
 
@@ -63,5 +74,10 @@
   .tablebox {
     width: 100%;
     padding: 0 16px;
+  }
+  .customInput {
+    font-size: 15px;
+    padding: 8px 50px;
+    width: 220px;
   }
 }

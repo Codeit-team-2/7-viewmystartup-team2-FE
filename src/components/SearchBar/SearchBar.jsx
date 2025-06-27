@@ -3,7 +3,11 @@ import styles from "./SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
 import React from "react";
 
-export default function SearchBar({ onSubmit }) {
+export default function SearchBar({
+  onSubmit,
+  className = "",
+  inputClassName = "",
+}) {
   const [input, setInput] = useState("");
 
   const handleSubmit = () => {
@@ -28,7 +32,7 @@ export default function SearchBar({ onSubmit }) {
           if (value === "") onSubmit("");
         }}
         onKeyDown={handleKeyDown}
-        className={styles.input}
+        className={`${styles.input} ${inputClassName}`}
       />
       {/* 클릭 가능한 아이콘 */}
       <span className={styles.searchIcon} onClick={handleSubmit}>
