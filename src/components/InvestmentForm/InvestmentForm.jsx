@@ -1,3 +1,4 @@
+//src/components/InvestmentForm/InvestmentForm.jsx
 import React, { useState, useEffect, useId } from "react";
 import { DetailCompanyTitle } from "../DetailCompany/DetailCompanyTitle";
 import { InputBox } from "./InputBox";
@@ -6,8 +7,8 @@ import { useInvestmentForm } from "./useInvestmentForm";
 import styles from "./InvestmentForm.module.css";
 import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
 import btnStyle from "../customTag/customButton/customButton.module.css";
-import { useAuth } from "../Contexts/AuthContext"; //우진수정
-import { postInvestment } from "../../api/investment"; //우진수정
+import { useAuth } from "../Contexts/AuthContext";
+import { postInvestment } from "../../api/investment";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import { useFetchLoading } from "../../hooks/useFetchLoading";
 
@@ -69,6 +70,15 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
       endFetchLoading();
     }
   };
+
+  // 🧹 unmount 시 로컬스토리지 정리용 useEffect
+  // useEffect(() => {
+  //   return () => {
+  //     localStorage.removeItem("myCompany");
+  //     localStorage.removeItem("compareCompany");
+  //     console.log("myCompany, compareCompany 로컬스토리지 초기화 완료");
+  //   };
+  // }, []);
 
   return (
     <form className={styles.backgroundColor} onSubmit={handleSubmit}>

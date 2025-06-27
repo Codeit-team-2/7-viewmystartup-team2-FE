@@ -1,3 +1,4 @@
+//src/pages/MyCompanyResult/MyCompanyResult.jsx
 import React, { useState, useEffect } from "react";
 import FetchTable from "../../components/FetchTable/FetchTable";
 import { invInitialData } from "../../config/invInitialData_v2";
@@ -22,7 +23,7 @@ import { useAuth } from "../../components/Contexts/AuthContext.jsx";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const parseRevenue = revenueStr => {
+const parseRevenue = (revenueStr) => {
   if (!revenueStr) return 0;
   return parseFloat(revenueStr.replace("억", ""));
 };
@@ -50,18 +51,27 @@ function MyCompanyResult() {
     const savedCompareCompany = JSON.parse(
       localStorage.getItem("compareCompany") || "[]"
     );
-
+    //myCompany 여러개 있어도 맨끝에 온거로 적용
     const lastMyCompany = savedMyCompany[savedMyCompany.length - 1];
+    if (!lastMyCompany) return;
 
     // 이미 compareCompany에 포함된 경우 중복 제거
     const filteredCompare = savedCompareCompany.filter(
-      comp => comp.companyName !== lastMyCompany?.companyName
+      (comp) => comp.companyName !== lastMyCompany?.companyName
     );
 
     const companyarray = [lastMyCompany, ...filteredCompare];
 
     setMyCompany(lastMyCompany || {});
     setCompareCompany(companyarray);
+
+    return () => {
+      //Strict모드라서 두번 마운트되면서
+      //페이지 들어가자마자 다 사라져버림
+      localStorage.removeItem("myCompany");
+      localStorage.removeItem("compareCompany");
+      // console.log("페이지 이탈로 myCompany compareCompany localStorage 삭제");
+    };
   }, []);
 
   useEffect(() => {
@@ -69,14 +79,33 @@ function MyCompanyResult() {
     addCompareResult(compareCompany);
   }, [compareCompany]);
 
-  const addCompareResult = newItems => {
-    const formattedItems = newItems.map(item => ({
+  //우진수정
+  // const addCompareResult = (newItems) => {
+  //   const filtered = newItems.filter(
+  //     (item) =>
+  //       item &&
+  //       typeof item.totalInvestment !== "undefined" &&
+  //       typeof item.revenue !== "undefined"
+  //   );
+
+  //   const formattedItems = filtered.map((item) => ({
+  //     ...item,
+  //     totalInvestment: formatFromTrillionFloat(item.totalInvestment),
+  //     revenue: formatFromTrillionFloat(item.revenue),
+  //     employees: item.employees ? `${item.employees.toLocaleString()}명` : "-",
+  //   }));
+
+  //   setTestData(formattedItems);
+  // };
+
+  //기존코드
+  const addCompareResult = (newItems) => {
+    const formattedItems = newItems.map((item) => ({
       ...item,
       totalInvestment: formatFromTrillionFloat(item.totalInvestment),
       revenue: formatFromTrillionFloat(item.revenue),
       employees: item.employees ? `${item.employees.toLocaleString()}명` : "-",
     }));
-
     setTestData(formattedItems);
   };
 
@@ -85,9 +114,9 @@ function MyCompanyResult() {
 
   useEffect(() => {
     fetch(`${apiUrl}/companies`)
-      .then(res => res.json())
-      .then(data => {
-        const formatted = data.map(item => ({
+      .then((res) => res.json())
+      .then((data) => {
+        const formatted = data.map((item) => ({
           ...item,
           totalInvestment: formatFromTrillionFloat(item.totalInvestment),
           revenue: formatFromTrillionFloat(item.revenue),
@@ -98,20 +127,20 @@ function MyCompanyResult() {
         setCompanyList(formatted);
         setSortedCompanyList(formatted);
       })
-      .catch(err => console.error("데이터 불러오기 실패", err));
+      .catch((err) => console.error("데이터 불러오기 실패", err));
   }, []);
 
-  const handleCompanySortChange = e => {
+  const handleCompanySortChange = (e) => {
     const sortKey = e.target.value;
     const sortFunc = sortFunctions[sortKey];
 
-    setSortedCompanyList(prevData => {
+    setSortedCompanyList((prevData) => {
       if (!sortFunc) return prevData;
       return [...prevData].sort(sortFunc);
     });
   };
 
-  const handleSortChange = e => {
+  const handleSortChange = (e) => {
     const sortKey = e.target.value;
     const sortFunc = sortFunctions[sortKey];
 
@@ -152,6 +181,41 @@ function MyCompanyResult() {
   // useEffect(() => {
   //   console.log("변경된 myCompany", myCompany);
   // }, [myCompany]);
+
+  // useEffect(() => {
+  //   // mount 시: 로컬스토리지 값 읽어서 상태에 반영
+  //   const savedMyCompany = JSON.parse(
+  //     localStorage.getItem("myCompany") || "[]"
+  //   );
+  //   const savedCompareCompany = JSON.parse(
+  //     localStorage.getItem("compareCompany") || "[]"
+  //   );
+
+  //   //혹시 여러개 쌓여있어도 마지막 myCompany만 저장
+  //   const lastMyCompany = savedMyCompany[savedMyCompany.length - 1];
+
+  //   //이거 반대로해보자
+  //   // if (!lastMyCompany || typeof lastMyCompany !== "object") {
+  //   //   setMyCompany(null); // 또는 {}
+  //   //   setCompareCompany([]);
+  //   //   return;
+  //   // }
+
+  //   const filteredCompare = savedCompareCompany.filter(
+  //     (comp) => comp.companyName !== lastMyCompany?.companyName
+  //   );
+
+  //   const companyarray = [lastMyCompany, ...filteredCompare];
+
+  //   setMyCompany(lastMyCompany || {});
+  //   setCompareCompany(companyarray);
+
+  //   return () => {
+  //     localStorage.removeItem("myCompany");
+  //     localStorage.removeItem("compareCompany");
+  //     console.log("페이지 이탈로 myCompany compareCompany localStorage 삭제");
+  //   };
+  // }, []);
 
   return (
     <CompareCompanyProvider defaultValue={[]}>
