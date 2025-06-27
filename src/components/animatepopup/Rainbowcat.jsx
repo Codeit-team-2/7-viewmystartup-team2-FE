@@ -107,7 +107,7 @@ export default function MultiKeyMovableRainbowCat() {
       let moved = false;
 
       if (keys.has("ArrowUp")) {
-        pos.y = Math.max(0, pos.y - speed);
+        pos.y = pos.y - speed;
         moved = true;
       }
       if (keys.has("ArrowDown")) {
@@ -115,7 +115,7 @@ export default function MultiKeyMovableRainbowCat() {
         moved = true;
       }
       if (keys.has("ArrowLeft")) {
-        pos.x = Math.max(0, pos.x - speed);
+        pos.x = pos.x - speed;
         moved = true;
       }
       if (keys.has("ArrowRight")) {
@@ -147,6 +147,22 @@ export default function MultiKeyMovableRainbowCat() {
       }}
       tabIndex={0}
     >
+      <button
+        onClick={() => {
+          posRef.current = { x: 0, y: 0 };
+          setColoredCellsMap(new Map());
+          setRenderTick((v) => v + 1);
+        }}
+      >
+        초기화
+      </button>
+      <button
+        onClick={() => {
+          document.querySelector("._loginBtn_fepkq_81")?.click();
+        }}
+      >
+        슈퍼고양이모드
+      </button>
       {[...coloredCellsMap.values()].map(({ cellX, cellY, color }) => (
         <ColorCell
           key={`${cellX}-${cellY}`}
@@ -173,6 +189,7 @@ export default function MultiKeyMovableRainbowCat() {
           transform: isFlipped ? "scaleX(-1)" : "scaleX(1)",
           transition: "transform 0.2s ease",
           zIndex: 10,
+          pointerEvents: "none",
         }}
       />
     </div>
