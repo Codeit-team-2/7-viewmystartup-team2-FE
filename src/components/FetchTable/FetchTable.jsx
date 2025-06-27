@@ -81,7 +81,7 @@ export default function FetchTable({
                           alt="기업 로고"
                         />
                       </div>
-                      {value}
+                      <a className={styles.comNameText}>{value}</a>
                     </div>
                   );
 
