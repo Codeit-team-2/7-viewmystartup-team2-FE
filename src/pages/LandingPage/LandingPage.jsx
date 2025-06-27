@@ -58,7 +58,7 @@ export default function LandingPage() {
 
   const handleCompanySortChange = e => {
     setSortOption(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   //현재 페이지의 데이터만 자르기 //요부분은 calculatePageIndex 함수로 따로 빼도될듯

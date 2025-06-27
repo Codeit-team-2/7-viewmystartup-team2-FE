@@ -9,14 +9,10 @@ import SelectOption from "../../components/SelectOption/selectOption.jsx";
 import { useSearchFilter } from "../../hooks/useSearchFilter.js";
 import { usePagination } from "../../hooks/usePagination.js";
 import { usePageSize } from "../../hooks/usePageSize.js";
-import { fetchInvestmentOverviewData } from "../../api/company.js";
+// import { fetchInvestmentOverviewData } from "../../api/company.js";
 import { InvestmentOverviewPageOptionsData } from "../../config/filterConfig.js"; // 정렬 옵션
 import styles from "./InvestmentOverviewPage.module.css";
 import { matchingInvestmentUserList } from "../../api/company.js";
-import {
-  formatFromBillion,
-  formatFromTrillionFloat,
-} from "../../utils/formatCurrency.js";
 import { useFetchLoading } from "../../hooks/useFetchLoading.js";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
 import SkeletonTable from "../../components/Skeletons/SkeletonTable.jsx";
@@ -47,7 +43,6 @@ export default function InvestmentOverviewPage() {
       pageSize,
     });
 
-  // pageSize, keyword 바뀌면 page를 1로 초기화
   useEffect(() => {
     setPage(1);
   }, [pageSize, keyword, sortOption]);
@@ -55,7 +50,6 @@ export default function InvestmentOverviewPage() {
   useEffect(() => {
     if (!isLoggedIn) return;
     const fetchData = async () => {
-      //우진 - userId, nickname Context에서 가져옵니다
       startFetchLoading();
       try {
         const data = await matchingInvestmentUserList({
