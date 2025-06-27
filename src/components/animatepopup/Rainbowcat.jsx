@@ -2,14 +2,55 @@ import React, { useState, useEffect, useRef } from "react";
 import Lottie from "lottie-react";
 import rainbowcat from "../../assets/catcursor.json";
 
+const CELL_SIZE = 30;
+const MAX_CELLS = 200;
+
+const ColorCell = React.memo(({ left, top, size, color }) => (
+  <div
+    style={{
+      position: "absolute",
+      left,
+      top,
+      width: size,
+      height: size,
+      backgroundColor: color,
+      pointerEvents: "none",
+      opacity: 0.7,
+      transition: "background-color 0.3s ease",
+    }}
+  />
+));
+
 export default function MultiKeyMovableRainbowCat() {
   const posRef = useRef({ x: 0, y: 0 });
   const [renderTick, setRenderTick] = useState(0);
-
   const pressedKeysRef = useRef(new Set());
-
-  // 방향 뒤집기 여부를 상태로 관리
   const [isFlipped, setIsFlipped] = useState(false);
+
+  // Map: key = "cellX,cellY", value = {cellX, cellY, color}
+  const [coloredCellsMap, setColoredCellsMap] = useState(new Map());
+
+  const markCell = (x, y) => {
+    const cellX = Math.floor(x / CELL_SIZE);
+    const cellY = Math.floor(y / CELL_SIZE);
+    const key = `${cellX},${cellY}`;
+
+    setColoredCellsMap((prev) => {
+      if (prev.has(key)) return prev; // 이미 있음, 추가 안함
+
+      const newMap = new Map(prev);
+      const color = `hsl(${Math.floor(Math.random() * 360)}, 100%, 70%)`;
+      newMap.set(key, { cellX, cellY, color });
+
+      // 최대 셀 개수 제한
+      if (newMap.size > MAX_CELLS) {
+        const firstKey = newMap.keys().next().value; // 가장 오래된 셀
+        newMap.delete(firstKey);
+      }
+
+      return newMap;
+    });
+  };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -22,12 +63,8 @@ export default function MultiKeyMovableRainbowCat() {
         pressedKeysRef.current.add(e.key);
         e.preventDefault();
 
-        // 방향 바뀌었을 때 상태 업데이트
-        if (e.key === "ArrowLeft") {
-          setIsFlipped(true);
-        } else if (e.key === "ArrowRight") {
-          setIsFlipped(false);
-        }
+        if (e.key === "ArrowLeft") setIsFlipped(true);
+        else if (e.key === "ArrowRight") setIsFlipped(false);
       }
     };
 
@@ -41,14 +78,10 @@ export default function MultiKeyMovableRainbowCat() {
         pressedKeysRef.current.delete(e.key);
         e.preventDefault();
 
-        // 왼쪽/오른쪽 키 뗐을 때 현재 눌린 키 중 방향 결정
         if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
           const keys = pressedKeysRef.current;
-          if (keys.has("ArrowLeft")) {
-            setIsFlipped(true);
-          } else if (keys.has("ArrowRight")) {
-            setIsFlipped(false);
-          }
+          if (keys.has("ArrowLeft")) setIsFlipped(true);
+          else if (keys.has("ArrowRight")) setIsFlipped(false);
         }
       }
     };
@@ -63,6 +96,8 @@ export default function MultiKeyMovableRainbowCat() {
 
   useEffect(() => {
     const speed = 5;
+    const lottieWidth = 200;
+    const lottieHeight = 200;
 
     let animationFrameId;
 
@@ -89,6 +124,7 @@ export default function MultiKeyMovableRainbowCat() {
       }
 
       if (moved) {
+        markCell(pos.x + lottieWidth / 2, pos.y + lottieHeight / 2);
         setRenderTick((v) => v + 1);
       }
 
@@ -105,18 +141,29 @@ export default function MultiKeyMovableRainbowCat() {
       style={{
         position: "relative",
         width: "100%",
-        height: "400px",
+        height: 400,
         border: "1px solid #ddd",
         overflow: "hidden",
       }}
       tabIndex={0}
     >
+      {[...coloredCellsMap.values()].map(({ cellX, cellY, color }) => (
+        <ColorCell
+          key={`${cellX}-${cellY}`}
+          left={cellX * CELL_SIZE}
+          top={cellY * CELL_SIZE}
+          size={CELL_SIZE}
+          color={color}
+        />
+      ))}
+
       <Lottie
         animationData={rainbowcat}
         loop
         autoplay
         style={{
           position: "absolute",
+          background: "transparent",
           width: 200,
           height: 200,
           left: posRef.current.x,
@@ -125,6 +172,7 @@ export default function MultiKeyMovableRainbowCat() {
           userSelect: "none",
           transform: isFlipped ? "scaleX(-1)" : "scaleX(1)",
           transition: "transform 0.2s ease",
+          zIndex: 10,
         }}
       />
     </div>
