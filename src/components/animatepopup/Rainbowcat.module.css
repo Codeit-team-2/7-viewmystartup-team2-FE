@@ -1,0 +1,21 @@
+.box {
+  position: relative;
+  width: 1200px;
+  height: 600px;
+  border: 1px solid var(--brand-orange);
+  overflow: hidden;
+  user-select: none;
+}
+.btnArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn {
+  width: 150px;
+  height: 30px;
+  border: 1px solid var(--brand-orange);
+  background-color: var(--black-300);
+  cursor: pointer;
+}

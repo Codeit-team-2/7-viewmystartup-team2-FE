@@ -42,6 +42,7 @@
   margin-top: 30px;
   font-size: 30px;
   animation: colorChange 0.66s infinite linear;
+  margin-bottom: 50px;
 }
 @keyframes colorChange {
   0% {
