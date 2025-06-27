@@ -8,39 +8,25 @@ import { useSearchFilter } from "../../hooks/useSearchFilter.js";
 import { usePagination } from "../../hooks/usePagination.js";
 import { usePageSize } from "../../hooks/usePageSize";
 import PaginationBtn from "../../components/PaginationBtn/PaginationBtn.jsx";
-// import { useCompanies } from "../../hooks/useCompanies.js";
 import SelectOption from "../../components/SelectOption/selectOption.jsx";
 import { LandingPageOptionsData } from "../../config/filterConfig.js";
-// import { fetchFilteredData } from "../../api/api.js";
 import { fetchFilteredDataWJ } from "../../api/company.js";
 import styles from "./LandingPage.module.css";
-import { formatFromTrillionFloat } from "../../utils/formatCurrency.js";
 import SkeletonTable from "../../components/Skeletons/SkeletonTable.jsx";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
-
-//나중에 config로 뺍시당
-const LandingPageColumns = [
-  { label: "순위", key: "rank" },
-  { label: "기업명", key: "companyName" },
-  { label: "기업 소개", key: "description" },
-  { label: "카테고리", key: "category" },
-  { label: "누적 투자 금액", key: "totalInvestment" },
-  { label: "매출액", key: "revenue" },
-  { label: "고용 인원", key: "employees" },
-];
+import { LandingPageColumns } from "../../config/columnsConfig.js";
+import { formatCompanyList } from "../../utils/formatCompanyData.js";
 
 export default function LandingPage() {
   const [loading, setLoading] = useState(true);
   const [sortOption, setSortOption] = useState("totalInvestment_desc");
   const [sortBy, order] = sortOption.split("_");
-  // const { data, loading } = useCompanies({ sortBy, order });
   const { keyword, search } = useSearchFilter();
   const [companies, setCompanies] = useState([]);
 
   const totalCount = companies.length;
   const [page, setPage] = useState(1);
-  // const pageSize = 5; // 한 페이지에 보여줄 항목 수
-  const { pageSize, pageSizeOptions, handlePageSizeChange } = usePageSize(5);
+  const { pageSize, pageSizeOptions, handlePageSizeChange } = usePageSize(5); //pageSize : 한페이지에 보일 항목 수
   const { pageNumbers, hasPrev, hasNext, totalPages, handlePageChange } =
     usePagination({
       page,
@@ -56,27 +42,15 @@ export default function LandingPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // 로딩 시작
+      setLoading(true);
       try {
         const data = await fetchFilteredDataWJ(keyword, sortBy, order);
-        const formattedData = data.map((item, idx) => ({
-          rank: idx + 1,
-          companyName: item.companyName,
-          description: item.description,
-          category: item.category,
-          totalInvestment: formatFromTrillionFloat(item.totalInvestment), // 변환 적용
-          revenue: formatFromTrillionFloat(item.revenue), // 변환 적용
-          employees: item.employees
-            ? `${item.employees.toLocaleString()}명`
-            : "-",
-          imgUrl: item.imgUrl,
-        }));
-        // console.log("포맷팅된 회사 데이터:", formattedData); //우진수정
+        const formattedData = formatCompanyList(data);//테이블 내 데이터 단위 포매팅
         setCompanies(formattedData);
       } catch (error) {
         console.error("데이터 불러오기 실패", error);
       } finally {
-        setLoading(false); // 로딩 종료
+        setLoading(false);
       }
     };
     fetchData();
@@ -84,7 +58,7 @@ export default function LandingPage() {
 
   const handleCompanySortChange = e => {
     setSortOption(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   //현재 페이지의 데이터만 자르기 //요부분은 calculatePageIndex 함수로 따로 빼도될듯
