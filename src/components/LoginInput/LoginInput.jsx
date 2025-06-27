@@ -1,8 +1,8 @@
 // src/components/Modal/LoginModal.jsx
 import React, { useState } from "react";
 import styles from "./LoginInput.module.css";
-import CustomButton from "../customTag/customButton/customButton";
-import btnStyle from "../customTag/customButton/customButton.module.css";
+import CustomButton from "../CustomButton/customButton";
+import btnStyle from "../CustomButton/customButton.module.css";
 import { useFetchLoading } from "../../hooks/useFetchLoading";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
@@ -12,7 +12,7 @@ export default function LoginModal({ onLogin }) {
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     startFetchLoading();
     try {
@@ -33,7 +33,7 @@ export default function LoginModal({ onLogin }) {
           type="text"
           placeholder="닉네임"
           value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
+          onChange={e => setNickname(e.target.value)}
           required
         />
         <input
@@ -41,7 +41,7 @@ export default function LoginModal({ onLogin }) {
           type="password"
           placeholder="비밀번호"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
           required
         />
         {isFetchLoading ? (

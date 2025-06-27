@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import FetchTable from "../../components/FetchTable/FetchTable";
 import { invInitialData } from "../../config/invInitialData_v2";
 import SelectOption from "../../components/SelectOption/selectOption";
-import CustomButton from "../../components/customTag/customButton/customButton";
+import CustomButton from "../../components/CustomButton/customButton";
 import style from "./MyCompanyResult.module.css";
 import Modal from "../../components/Modal/Modal.jsx";
 import { useNavigate } from "react-router-dom";
@@ -17,13 +17,13 @@ import InvestmentForm from "../../components/InvestmentForm/InvestmentForm.jsx";
 import { MyCompanyProvider } from "../../components/MyCompanySection/MyCompanyContext.jsx";
 import { CompareCompanyProvider } from "../../components/CompareCompanySection/CompareCompanyContext.jsx";
 import MyCompanySection from "../../components/MyCompanySection/MyCompanySection.jsx";
-import btnStyle from "../../components/customTag/customButton/customButton.module.css";
+import btnStyle from "../../components/CustomButton/customButton.module.css";
 import { formatFromTrillionFloat } from "../../utils/formatCurrency.js";
 import { useAuth } from "../../components/Contexts/AuthContext.jsx";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const parseRevenue = (revenueStr) => {
+const parseRevenue = revenueStr => {
   if (!revenueStr) return 0;
   return parseFloat(revenueStr.replace("억", ""));
 };
@@ -57,7 +57,7 @@ function MyCompanyResult() {
 
     // 이미 compareCompany에 포함된 경우 중복 제거
     const filteredCompare = savedCompareCompany.filter(
-      (comp) => comp.companyName !== lastMyCompany?.companyName
+      comp => comp.companyName !== lastMyCompany?.companyName
     );
 
     const companyarray = [lastMyCompany, ...filteredCompare];
@@ -99,8 +99,8 @@ function MyCompanyResult() {
   // };
 
   //기존코드
-  const addCompareResult = (newItems) => {
-    const formattedItems = newItems.map((item) => ({
+  const addCompareResult = newItems => {
+    const formattedItems = newItems.map(item => ({
       ...item,
       totalInvestment: formatFromTrillionFloat(item.totalInvestment),
       revenue: formatFromTrillionFloat(item.revenue),
@@ -114,9 +114,9 @@ function MyCompanyResult() {
 
   useEffect(() => {
     fetch(`${apiUrl}/companies`)
-      .then((res) => res.json())
-      .then((data) => {
-        const formatted = data.map((item) => ({
+      .then(res => res.json())
+      .then(data => {
+        const formatted = data.map(item => ({
           ...item,
           totalInvestment: formatFromTrillionFloat(item.totalInvestment),
           revenue: formatFromTrillionFloat(item.revenue),
@@ -127,20 +127,20 @@ function MyCompanyResult() {
         setCompanyList(formatted);
         setSortedCompanyList(formatted);
       })
-      .catch((err) => console.error("데이터 불러오기 실패", err));
+      .catch(err => console.error("데이터 불러오기 실패", err));
   }, []);
 
-  const handleCompanySortChange = (e) => {
+  const handleCompanySortChange = e => {
     const sortKey = e.target.value;
     const sortFunc = sortFunctions[sortKey];
 
-    setSortedCompanyList((prevData) => {
+    setSortedCompanyList(prevData => {
       if (!sortFunc) return prevData;
       return [...prevData].sort(sortFunc);
     });
   };
 
-  const handleSortChange = (e) => {
+  const handleSortChange = e => {
     const sortKey = e.target.value;
     const sortFunc = sortFunctions[sortKey];
 

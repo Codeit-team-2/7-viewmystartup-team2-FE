@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./CompanySelectBtn.module.css";
 import { useCompareCompany } from "../CompareCompanySection/CompareCompanyContext";
 import Toast from "../ToastMessage/Toast";
-import { useToast } from "../ToastMessage/useToast";
+import { useToast } from "../../hooks/useToast";
 
 function CompanySelectBtn({ isSelected, onSwitch }) {
   const [text, setText] = useState("");

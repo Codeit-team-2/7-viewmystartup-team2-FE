@@ -15,7 +15,7 @@ import {
 import { useAuth } from "../Contexts/AuthContext";
 import styles from "./CompareButtonSection.module.css";
 import Toast from "../ToastMessage/Toast";
-import { useToast } from "../ToastMessage/useToast";
+import { useToast } from "../../hooks/useToast";
 
 function CompareButtonSection() {
   const { userId } = useAuth();

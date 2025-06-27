@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { DetailCompanyTitle } from "../DetailCompany/DetailCompanyTitle";
-import { useErrorCheck } from "./useErrorCheck";
+import { useErrorCheck } from "../../hooks/useErrorCheck.js";
 import { InputBox } from "./InputBox";
-import CustomButton from "../customTag/customButton/customButton";
+import CustomButton from "../CustomButton/customButton.jsx";
 import titleStyle from "../DetailCompany//DetailCompanyTitle.module.css";
 import styles from "./InvestmentEditForm.module.css";
-import btnStyle from "../customTag/customButton/customButton.module.css";
+import btnStyle from "../CustomButton/customButton.module.css";
 import { updateInvestment } from "../../api/api.js";
 // const nameErrorText = v =>
 //   v.trim() === ""
