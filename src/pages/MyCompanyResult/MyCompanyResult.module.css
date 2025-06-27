@@ -90,3 +90,31 @@
   text-align: center;
   background-color: var(--black-300);
 }
+@media (min-width: 744px) and (max-width: 1199px) {
+  .selectCompanydiv {
+    width: 740px;
+  }
+  .tableContainer {
+    width: 880px;
+    height: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .selectCompanydiv {
+    width: 663px;
+  }
+  .tableContainer {
+    width: 678px;
+    height: auto;
+  }
+
+  .spaceBetween {
+    justify-content: center;
+    gap: 171px;
+  }
+  .tableSize {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+}

@@ -36,12 +36,32 @@
 
 @media (min-width: 744px) and (max-width: 1199px) {
   .tableNav {
-    width: min(824px, 100%);
+    width: 885px;
   }
   .tableSize {
     width: min(824px, 100%);
   }
   .tablebox {
     width: 824px;
+  }
+}
+
+@media (max-width: 767px) {
+  .tableTitle {
+    min-width: 100px;
+  }
+  .tableNav {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .tableSize {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .tablebox {
+    width: 100%;
+    padding: 0 16px;
   }
 }

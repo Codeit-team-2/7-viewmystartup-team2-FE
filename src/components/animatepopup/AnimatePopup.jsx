@@ -94,7 +94,7 @@ const AnimatedPopup = () => {
           <Player
             className="forceTransparent"
             autoplay
-            loop
+            loop={false}
             src={animationData}
             style={{
               height: "100px",

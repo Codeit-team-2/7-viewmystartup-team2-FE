@@ -43,68 +43,82 @@ export default function FetchTable({
           ))}
         </tr>
       </thead>
-      <tbody className={styles.tbody}>
-        {data.map((item, index) => (
-          <tr key={item.id || index}>
-            {columns.map(col => {
-              const cellValue = item[col.key];
+      <tbody>
+        {data.map((item, index) => {
+          const handleRowClick = () => {
+            if (tableType === "default") {
+              handleCompanyClick(item.companyName);
+            }
+          };
 
-              const value =
-                col.key === "rank"
-                  ? `${startIndex + index + 1}위`
-                  : col.key === "description"
-                  ? cellValue
-                    ? `${cellValue.slice(0, 60)}...`
-                    : ""
-                  : cellValue;
+          return (
+            <tr
+              key={item.id || index}
+              onClick={handleRowClick}
+              style={{
+                cursor: tableType === "default" ? "pointer" : "default",
+              }}
+            >
+              {columns.map((col) => {
+                const cellValue = item[col.key];
 
-              if (col.key === "companyName") {
-                const content = (
-                  <div className={styles.namebox}>
-                    <div className={styles.imgbox}>
-                      <img
-                        className={styles.imgbackground}
-                        src={item.imgUrl || defaultImg}
-                        alt="기업 로고"
-                      />
+                const value =
+                  col.key === "rank"
+                    ? `${startIndex + index + 1}위`
+                    : col.key === "description"
+                    ? cellValue
+                      ? `${cellValue.slice(0, 60)}...`
+                      : ""
+                    : cellValue;
+
+                if (col.key === "companyName") {
+                  const content = (
+                    <div className={styles.namebox}>
+                      <div className={styles.imgbox}>
+                        <img
+                          className={styles.imgbackground}
+                          src={item.imgUrl || defaultImg}
+                          alt="기업 로고"
+                        />
+                      </div>
+                      <a className={styles.comNameText}>{value}</a>
                     </div>
-                    {value}
-                  </div>
-                );
+                  );
 
-                return (
-                  <td key={col.key}>
-                    {tableType === "default" ? (
-                      <span
-                        className={styles.linkLikeText}
-                        onClick={() => {
-                          console.log("지금 오류난곳값제대로들어감?", value);
-                          handleCompanyClick(value);
-                        }}
-                      >
-                        {content}
-                      </span>
-                    ) : (
-                      content
-                    )}
-                  </td>
-                );
-              } else if (col.key === "description") {
-                const shortText = cellValue
-                  ? `${cellValue.slice(0, 60)}...`
-                  : "";
+                  return (
+                    <td key={col.key}>
+                      {tableType === "default" ? (
+                        <span
+                          className={styles.linkLikeText}
+                          onClick={(e) => {
+                            e.stopPropagation(); // tr 클릭 중복 방지
+                            handleCompanyClick(value);
+                          }}
+                        >
+                          {content}
+                        </span>
+                      ) : (
+                        content
+                      )}
+                    </td>
+                  );
+                } else if (col.key === "description") {
+                  const shortText = cellValue
+                    ? `${cellValue.slice(0, 60)}...`
+                    : "";
 
-                return (
-                  <td key={col.key}>
-                    <ToolTip text={shortText} tooltip={cellValue} />
-                  </td>
-                );
-              } else {
-                return <td key={col.key}>{value}</td>;
-              }
-            })}
-          </tr>
-        ))}
+                  return (
+                    <td key={col.key}>
+                      <ToolTip text={shortText} tooltip={cellValue} />
+                    </td>
+                  );
+                } else {
+                  return <td key={col.key}>{value}</td>;
+                }
+              })}
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

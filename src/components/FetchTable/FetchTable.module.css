@@ -84,9 +84,26 @@
   cursor: pointer;
 }
 
+.comNameText {
+  white-space: nowrap;
+  background-color: var(--gray-400);
+}
+
+.table tbody tr:hover td span div a {
+  background-color: var(--gray-300);
+  cursor: pointer;
+}
+
 /* tbody tr:hover {
   transform: scale(1.05);
   transition: transform 0.3s ease;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 } */
+
+@media (max-width: 767px) {
+  .namebox {
+    display: flex;
+    justify-content: center;
+  }
+}
