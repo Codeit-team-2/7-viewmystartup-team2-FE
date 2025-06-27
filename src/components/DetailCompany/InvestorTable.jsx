@@ -11,7 +11,7 @@ import {
   deleteInvestment,
   postPasswordCheck,
   updateInvestment,
-} from "../../api/api.jsx";
+} from "../../api/api.js";
 import { useAuth } from "../Contexts/AuthContext.jsx";
 
 function InvestorTable({

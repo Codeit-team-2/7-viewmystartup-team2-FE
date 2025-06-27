@@ -3,7 +3,7 @@ import {
   fetchCompanyDetailData,
   fetchCompanyInvestorsData,
   updateInvestment,
-} from "../../api/api.jsx";
+} from "../../api/api.js";
 import { useParams } from "react-router-dom";
 import { DetailCompanyTitle } from "../../components/DetailCompany/DetailCompanyTitle.jsx";
 import { DetailCompanyList } from "../../components/DetailCompany/DetailCompanyList.jsx";

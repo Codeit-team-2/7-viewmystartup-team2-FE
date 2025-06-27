@@ -14,7 +14,7 @@ function ModalCompanyListItem({ company, type }) {
   const compareCompany = useCompareCompany();
   const initBoolean =
     type === "compareCompany"
-      ? compareCompany.map((c) => c.id).includes(company.id)
+      ? compareCompany.map(c => c.id).includes(company.id)
       : myCompany === company;
 
   const [isSelected, switchIsSelected] = useBoolean(initBoolean);
@@ -25,12 +25,10 @@ function ModalCompanyListItem({ company, type }) {
   useEffect(() => {
     if (type === "compareCompany") {
       if (isSelected) {
-        if (!compareCompany.map((c) => c.id).includes(company.id))
-          setCompareCompany((prev) => [...prev, company]);
+        if (!compareCompany.map(c => c.id).includes(company.id))
+          setCompareCompany(prev => [...prev, company]);
       } else {
-        setCompareCompany((prev) =>
-          prev.filter((item) => item.id !== company.id)
-        );
+        setCompareCompany(prev => prev.filter(item => item.id !== company.id));
       }
     } else {
       if (isSelected) {

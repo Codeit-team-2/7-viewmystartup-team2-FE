@@ -11,7 +11,7 @@ import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
 // import { useCompanies } from "../../hooks/useCompanies.js";
 import SelectOption from "../../components/SelectOption/selectOption.jsx";
 import { LandingPageOptionsData } from "../../config/filterConfig.js";
-// import { fetchFilteredData } from "../../api/api.jsx";
+// import { fetchFilteredData } from "../../api/api.js";
 import { fetchFilteredDataWJ } from "../../api/company.js";
 import styles from "./LandingPage.module.css";
 import { formatFromTrillionFloat } from "../../utils/formatCurrency.js";
@@ -82,7 +82,7 @@ export default function LandingPage() {
     fetchData();
   }, [keyword, sortBy, order]);
 
-  const handleCompanySortChange = (e) => {
+  const handleCompanySortChange = e => {
     setSortOption(e.target.value);
     console.log(e.target.value);
   };
