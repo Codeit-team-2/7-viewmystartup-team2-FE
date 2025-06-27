@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "./CompanySelectBtn.module.css";
 import { useCompareCompany } from "../CompareCompanySection/CompareCompanyContext";
 import Toast from "../ToastMessage/Toast";
+import { useToast } from "../ToastMessage/useToast";
 
 function CompanySelectBtn({ isSelected, onSwitch }) {
   const [text, setText] = useState("");
   const compareCompany = useCompareCompany();
-  const [toastMessage, setToastMessage] = useState("");
-  const [showToast, setShowToast] = useState(false);
+  const { toastMessage, setToastMessage, showToast, setShowToast } = useToast();
 
   const onBtnClick = () => {
     if (compareCompany.length >= 5 && !isSelected) {

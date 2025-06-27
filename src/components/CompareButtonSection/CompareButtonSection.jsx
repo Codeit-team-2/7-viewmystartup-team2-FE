@@ -15,6 +15,7 @@ import {
 import { useAuth } from "../Contexts/AuthContext";
 import styles from "./CompareButtonSection.module.css";
 import Toast from "../ToastMessage/Toast";
+import { useToast } from "../ToastMessage/useToast";
 
 function CompareButtonSection() {
   const { userId } = useAuth();
@@ -26,8 +27,7 @@ function CompareButtonSection() {
   const MyCompany = useMyCompany(); // 객체
   const CompareCompany = useCompareCompany(); //리스트
   // alert 대신 toast
-  const [toastMessage, setToastMessage] = useState("");
-  const [showToast, setShowToast] = useState(false);
+  const { toastMessage, setToastMessage, showToast, setShowToast } = useToast();
 
   const handleCompareBtn = async () => {
     if (!cond) {
@@ -62,7 +62,7 @@ function CompareButtonSection() {
     // 버튼 클릭하면 선택한 내역 백엔드에 post
     try {
       const companyId = MyCompany.id;
-      const companyIds = CompareCompany.map((c) => c.id);
+      const companyIds = CompareCompany.map(c => c.id);
 
       const newMySelectionResult = await createMyCompanySelection(
         userId,
