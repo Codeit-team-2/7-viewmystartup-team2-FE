@@ -11,7 +11,7 @@ import { DetailCompanyInfor } from "../../components/DetailCompany/DetailCompany
 import InvestmentForm from "../../components/InvestmentForm/InvestmentForm.jsx";
 import InvestorTable from "../../components/DetailCompany/InvestorTable.jsx";
 import { usePagination } from "../../hooks/usePagination.js";
-import PaginationBtn from "../../components/DetailCompany/PaginationBtn.jsx";
+import PaginationBtn from "../../components/PaginationBtn/PaginationBtn.jsx";
 import CustomButton from "../../components/CustomButton/customButton.jsx";
 import Modal from "../../components/Modal/Modal.jsx";
 import styles from "./CompanyDetailPage.module.css";
