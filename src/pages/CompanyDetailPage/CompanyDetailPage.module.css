@@ -73,6 +73,14 @@
   background-color: var(--black-300);
 }
 
+.catArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 200px auto;
+}
+
 @media (min-width: 744px) and (max-width: 1199px) {
   .area {
     max-width: 744px;

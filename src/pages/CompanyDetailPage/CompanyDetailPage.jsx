@@ -95,18 +95,9 @@ function CompanyDetailPage() {
   );
   if (!company)
     return (
-      <div
-        style={{
-          width: 300,
-          height: 300,
-          margin: "0 auto",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <div className={styles.catArea}>
         <Lottie
-          style={{ marginTop: "500px", width: 150, height: 150 }}
+          style={{ width: 200, height: 200 }}
           animationData={cat}
           loop={true}
           autoplay={true}
