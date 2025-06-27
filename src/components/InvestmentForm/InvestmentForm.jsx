@@ -30,7 +30,7 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
     resetForm, // 초기화
   } = useInvestmentForm();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     //비로그인 상태 투자하기 불가
@@ -91,28 +91,35 @@ function InvestmentForm({ company = {}, onCancel, onConfirm }) {
       <InputBox
         label="투자 금액"
         value={form.amount}
-        onChange={(e) => handleChange("amount", e.target.value)}
+        onChange={e => handleChange("amount", e.target.value)}
         type="number"
         error={errors.amount}
       />
       <InputBox
-        label="투자 코멘트"
+        label={
+          <>
+            투자 코멘트
+            <span className={styles.commentCount}>
+              {form.comment.length}/40자
+            </span>
+          </>
+        }
         value={form.comment}
-        onChange={(e) => handleChange("comment", e.target.value)}
+        onChange={e => handleChange("comment", e.target.value)}
         type="text"
         error={errors.comment}
       />
       <InputBox
         label="비밀번호"
         value={form.password}
-        onChange={(e) => handleChange("password", e.target.value)}
+        onChange={e => handleChange("password", e.target.value)}
         type="password"
         error={errors.password}
       />
       <InputBox
         label="비밀번호 확인"
         value={form.checkPassword}
-        onChange={(e) => handleChange("checkPassword", e.target.value)}
+        onChange={e => handleChange("checkPassword", e.target.value)}
         type="password"
         error={errors.checkPassword}
       />

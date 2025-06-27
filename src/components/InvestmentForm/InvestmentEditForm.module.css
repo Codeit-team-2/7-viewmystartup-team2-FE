@@ -1,6 +1,6 @@
 .area {
   width: 400px;
-  height: 400px;
+  height: 350px;
   background-color: var(--black-300);
 }
 .titleBox {
@@ -22,5 +22,13 @@
 .btnArea {
   display: flex;
   justify-content: space-around;
+  background-color: var(--black-300);
+}
+
+.commentCount {
+  padding-left: 10px;
+  color: var(--gray-200);
+  font-size: 12px;
+  font-weight: 500;
   background-color: var(--black-300);
 }
