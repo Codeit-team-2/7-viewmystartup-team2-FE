@@ -37,7 +37,6 @@
   margin-right: 8px;
   background-color: transparent;
   word-break: break-all;
-  flex-shrink: 1;
 }
 
 .category {
@@ -49,4 +48,5 @@
   line-height: normal;
   background-color: transparent;
   margin-right: 50px;
+  word-break: break-all;
 }

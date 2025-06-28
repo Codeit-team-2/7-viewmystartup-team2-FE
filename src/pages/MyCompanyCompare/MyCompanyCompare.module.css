@@ -1,6 +1,5 @@
 .window {
   display: flex;
-  width: 1920px;
   padding-top: 40px;
   padding-bottom: 156px;
   flex-direction: column;
@@ -14,4 +13,10 @@
   flex-direction: column;
   gap: 24px;
   align-items: center;
+}
+
+@media (min-width: 1px) and (max-width: 1199px) {
+  .main {
+    width: 696px;
+  }
 }

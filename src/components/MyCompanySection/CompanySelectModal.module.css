@@ -9,7 +9,8 @@
 
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
+  overflow: auto;
 }
 
 .selectModal {
@@ -20,6 +21,10 @@
   border-radius: 16px;
   background-color: var(--black-black_300, #212121);
   padding: 24px;
+
+  height: fit-content;
+
+  margin: auto;
 }
 
 .modalHeader {
