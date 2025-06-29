@@ -2,10 +2,33 @@
   position: relative;
   width: 1200px;
   height: 600px;
-  border: 1px solid var(--brand-orange);
+  border: 1px solid #fc0018;
+  animation: borderColorChange 0.66s infinite linear;
   overflow: hidden;
   user-select: none;
 }
+
+@keyframes borderColorChange {
+  0% {
+    border-color: #fc0018;
+  }
+  20% {
+    border-color: #fcee02;
+  }
+  40% {
+    border-color: #53fe00;
+  }
+  60% {
+    border-color: #017aff;
+  }
+  80% {
+    border-color: #9901fb;
+  }
+  100% {
+    border-color: #ff05aa;
+  }
+}
+
 .btnArea {
   display: flex;
   justify-content: space-between;
@@ -15,7 +38,9 @@
 .btn {
   width: 150px;
   height: 30px;
-  border: 1px solid var(--brand-orange);
-  background-color: var(--black-300);
+  border: 1px solid #fc0018;
+  animation: borderColorChange 0.66s infinite linear;
+  overflow: hidden;
+  user-select: none;
   cursor: pointer;
 }
