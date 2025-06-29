@@ -36,6 +36,7 @@ export default function InvestmentOverviewPage() {
 
   const totalCount = companies.length;
   const [page, setPage] = useState(1);
+  const [userIdCheck, serUserIdCheck] = useState(false);
 
   const { pageSize, pageSizeOptions, handlePageSizeChange } = usePageSize(5);
   const { pageNumbers, hasPrev, hasNext, totalPages, handlePageChange } =
@@ -53,6 +54,11 @@ export default function InvestmentOverviewPage() {
   );
 
   useEffect(() => {
+    const storegeUserId = localStorage.getItem("userId");
+    serUserIdCheck(!!storegeUserId);
+  }, []);
+
+  useEffect(() => {
     setPage(1);
   }, [pageSize, keyword, sortOption]);
 
@@ -68,7 +74,6 @@ export default function InvestmentOverviewPage() {
           order,
           keyword,
         });
-        // console.log("🔥 raw API data:", data);
         const formattedData = formatCompanyList(data, {
           includeVmsInvestment: true,
           isNestedCompany: true,
@@ -85,17 +90,16 @@ export default function InvestmentOverviewPage() {
   }, [isLoggedIn, sortOption, pageSize, keyword]);
   //
 
-  const handleCompanySortChange = e => {
+  const handleCompanySortChange = (e) => {
     setSortOption(e.target.value);
-    // console.log(e.target.value);
   };
 
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleKeyDown = e => {
-      setPosition(prev => {
-        const step = 20; // 움직이는 거리(px)
+    const handleKeyDown = (e) => {
+      setPosition((prev) => {
+        const step = 20;
         switch (e.key) {
           case "ArrowUp":
             return { x: prev.x, y: Math.max(prev.y - step, 0) };
@@ -123,7 +127,7 @@ export default function InvestmentOverviewPage() {
               <LoadingSpinner />
               <SkeletonTable />
             </>
-          ) : companies.length === 0 ? (
+          ) : !userIdCheck ? (
             <div className={styles.catArea}>
               <Lottie
                 style={{ width: 200, height: 200 }}
@@ -134,9 +138,9 @@ export default function InvestmentOverviewPage() {
               <span className={styles.noDataMessage}>
                 로그인이 필요한 페이지입니다
               </span>
-              <Rain></Rain>
+              <Rain />
             </div>
-          ) : currentPageData.length > 0 ? (
+          ) : (
             <>
               <div className={styles.tableNav}>
                 <div className={styles.tableNavLeft}>
@@ -160,21 +164,25 @@ export default function InvestmentOverviewPage() {
                   />
                 </div>
               </div>
-              <FetchTable
-                data={currentPageData}
-                columns={InvestmentOverviewPageColumns}
-                startIndex={startIndex}
-              />
-              <PaginationBtn
-                page={page}
-                pageNumbers={pageNumbers}
-                hasPrev={hasPrev}
-                hasNext={hasNext}
-                handlePageChange={handlePageChange}
-              />
+              {currentPageData.length > 0 ? (
+                <>
+                  <FetchTable
+                    data={currentPageData}
+                    columns={InvestmentOverviewPageColumns}
+                    startIndex={startIndex}
+                  />
+                  <PaginationBtn
+                    page={page}
+                    pageNumbers={pageNumbers}
+                    hasPrev={hasPrev}
+                    hasNext={hasNext}
+                    handlePageChange={handlePageChange}
+                  />
+                </>
+              ) : (
+                <NoResult keyword={keyword} />
+              )}
             </>
-          ) : (
-            <NoResult keyword={keyword} />
           )}
         </div>
       </div>
