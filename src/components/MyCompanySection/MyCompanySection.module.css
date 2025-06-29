@@ -31,8 +31,8 @@
 }
 
 .plusBtnBackground {
-  width: 1200px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   border-radius: 4px;
   background: var(--black-black_300, #212121);
   display: flex;
@@ -83,4 +83,10 @@
   text-underline-offset: auto;
   text-underline-position: from-font;
   background: transparent;
+}
+
+@media (min-width: 1px) and (max-width: 1199px) {
+  .myCompanyBox {
+    height: 208px;
+  }
 }

@@ -3,7 +3,7 @@ import axios from "axios";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 // keyword를 받아서 데이터 fetch
-export const fetchFilteredData = async query => {
+export const fetchFilteredData = async (query) => {
   try {
     const res = await axios.get(`${apiUrl}/companies/filtered`, {
       params: query,
@@ -21,7 +21,7 @@ export const fetchFilteredData = async query => {
   }
 };
 
-export const fetchRecentSelectedCompanies = async userId => {
+export const fetchRecentSelectedCompanies = async (userId) => {
   try {
     const res = await axios.get(`${apiUrl}/companies/recent`, {
       params: { userId },
@@ -40,7 +40,7 @@ export const fetchRecentSelectedCompanies = async userId => {
 };
 
 // 기업 상세
-export const fetchCompanyDetailData = async companyId => {
+export const fetchCompanyDetailData = async (companyId) => {
   try {
     const res = await axios.get(`${apiUrl}/company/${companyId}`);
     return res.data;
@@ -57,7 +57,7 @@ export const fetchCompanyDetailData = async companyId => {
 };
 
 // 기업 투자자 목록
-export const fetchCompanyInvestorsData = async companyId => {
+export const fetchCompanyInvestorsData = async (companyId) => {
   try {
     const res = await axios.get(`${apiUrl}/company/${companyId}/investments`);
     return res.data;
