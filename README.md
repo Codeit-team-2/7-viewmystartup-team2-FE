@@ -15,48 +15,76 @@ VIEW MY STARTUP
 
 Frontend: JavaScript, React.js
 
-Backend:
+Backend: JavaScript, Express
 
-Database:
+Database: PostgreSQL
+
+공통 Tool: Github, Notion, Discord, Render, Netlify 
 
 # 팀원별 구현 기능 상세
 
 김태홍
+- 기업 상세 페이지 구현
 
 이예원
+- 나의 기업 선택 페이지 구현
 
 정남영
+- 나의 기업 비교 결과 페이지 구현
 
 정우진
+- 전체 기업 리스트, 투자 현황, 비교 현황 페이지 구현
 
 # 파일 구조
 
-7-viewmystartup-team2-FE
-- public
-- src
-  - api
-  - assets
-  - components (모든 컴포넌트는 전부 여기로)
-    - hooks
-  - config
-  - pages
-    - 이 안에 개별 페이지 "폴더" 생성, 개별 페이지 폴더 안에 각 페이지 jsx랑 css
-    - HomePage
-      - HomePage.jsx
-      - HomePage.css
-  - App.css (모든 페이지 공통 스타일)
-  - App.jsx
-  - main.jsx
-eslint.config
-index.html
-package.json
-package-lock.json
-README.md
-vite.config
+MainFolder/
+├── public/
+├── src/
+  ├── api/
+  ├── assets/
+  ├── components/
+    ├── animatepopup/
+    ├── CompareButtonSection/
+    ├── CompareCompanySection/
+    ├── Contexts/
+    ├── customButton/
+    ├── DetailCompany/
+    ├── FetchTable/
+    ├── InvestmentForm/
+    ├── LoadingSpinner/
+    ├── LoginInput/
+    ├── Modal/
+    ├── MyCompanySection/
+    ├── Navbar/
+    ├── PageSizeSelector/
+    ├── PagenationBtn/
+    ├── SearchBar/
+    ├── SelectOption/
+    ├── Skeletons/
+    ├── ToastMessage/
+    └── ToolTip/
+  ├── config/
+  ├── hooks/
+  ├── page/
+      ├── CompanyDetailPage/
+      ├── InvestmentOverviewPage/
+      ├── LandingPage/
+      ├── MyCompanyComparePage/
+      ├── MyCompanyResultPage/
+      └── SelectedOverviewPagesrc/
+  └── utils/
+  ├── App.css
+  ├── App.jsx
+  └── main.jsx
+├── index.html
+├── package.json
+├── package-lock.json
+├── README.md
+└── reset.css
 
 # 구현 홈페이지
 
-(개발한 홈페이지에 대한 링크 게시)
+https://superb-sfogliatella-1258c9.netlify.app/ (임시)
 
 # 프로젝트 회고록
 
