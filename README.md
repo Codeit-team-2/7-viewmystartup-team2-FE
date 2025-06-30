@@ -36,7 +36,7 @@ Database: PostgreSQL
 - 전체 기업 리스트, 투자 현황, 비교 현황 페이지 구현
 
 # 파일 구조
-
+```
 MainFolder/
 ├── public/
 ├── src/
@@ -81,7 +81,7 @@ MainFolder/
 ├── package-lock.json
 ├── README.md
 └── reset.css
-
+```
 # 구현 홈페이지
 
 https://superb-sfogliatella-1258c9.netlify.app/ (임시)
