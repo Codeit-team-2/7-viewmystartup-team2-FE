@@ -145,7 +145,8 @@ export default function InvestmentOverviewPage() {
               <div className={styles.tableNav}>
                 <div className={styles.tableNavLeft}>
                   <h2 className={styles.tableTitle}>
-                    {nickname}님의 투자 내역
+                    <span className={styles.tableName}>{nickname}</span> 님의
+                    투자 내역
                   </h2>
                 </div>
                 <div className={styles.tableNavRight}>
