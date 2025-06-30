@@ -8,7 +8,7 @@ import {
   useIsCompareCompany,
   useSetIsCompareCompany,
 } from "./CompareCompanyContext";
-import CompanyCard from "../CompanyCard";
+import CompanyCard from "../CompanyCard/CompanyCard";
 import CompanySelectModal from "../MyCompanySection/CompanySelectModal";
 import React from "react";
 import styles from "./CompareCompanySection.module.css";
@@ -21,7 +21,7 @@ function CompareCompanySection() {
   const myCompany = useMyCompany();
   const compareCompany = useCompareCompany();
 
-  const handleIsModalOpen = (value) => {
+  const handleIsModalOpen = value => {
     setIsModalOpen(value);
   };
 
@@ -59,7 +59,7 @@ function CompareCompanySection() {
 
           {isCompareCompany && (
             <div className={styles.companies}>
-              {compareCompany.map((company) => (
+              {compareCompany.map(company => (
                 <CompanyCard
                   key={company.id}
                   name="compareCompany"
