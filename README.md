@@ -84,7 +84,7 @@ MainFolder/
 ```
 # 구현 홈페이지
 
-https://superb-sfogliatella-1258c9.netlify.app/ (임시)
+https://melodious-yeot-da7d96.netlify.app/
 
 # 프로젝트 회고록
 
