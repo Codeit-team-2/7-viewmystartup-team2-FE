@@ -37,50 +37,78 @@ Database: PostgreSQL
 
 # 파일 구조
 ```
-MainFolder/
-├── public/
-├── src/
-  ├── api/
-  ├── assets/
-  ├── components/
-    ├── animatepopup/
-    ├── CompareButtonSection/
-    ├── CompareCompanySection/
-    ├── Contexts/
-    ├── customButton/
-    ├── DetailCompany/
-    ├── FetchTable/
-    ├── InvestmentForm/
-    ├── LoadingSpinner/
-    ├── LoginInput/
-    ├── Modal/
-    ├── MyCompanySection/
-    ├── Navbar/
-    ├── PageSizeSelector/
-    ├── PagenationBtn/
-    ├── SearchBar/
-    ├── SelectOption/
-    ├── Skeletons/
-    ├── ToastMessage/
-    └── ToolTip/
-  ├── config/
-  ├── hooks/
-  ├── page/
-      ├── CompanyDetailPage/
-      ├── InvestmentOverviewPage/
-      ├── LandingPage/
-      ├── MyCompanyComparePage/
-      ├── MyCompanyResultPage/
-      └── SelectedOverviewPagesrc/
-  └── utils/
-  ├── App.css
-  ├── App.jsx
-  └── main.jsx
+.
+├── eslint.config.js
 ├── index.html
-├── package.json
 ├── package-lock.json
+├── package.json
+├── public
+│   ├── _redirects
+│   └── vite.svg
 ├── README.md
-└── reset.css
+├── reset.css
+├── src
+│   ├── api
+│   │   ├── api.js
+│   │   ├── auth.js
+│   │   ├── company.js
+│   │   └── investment.js
+│   ├── App.css
+│   ├── App.jsx
+│   ├── components
+│   │   ├── animatepopup
+│   │   ├── CompanyCard
+│   │   ├── CompareButtonSection
+│   │   ├── CompareCompanySection
+│   │   ├── Contexts
+│   │   ├── CustomButton
+│   │   ├── DetailCompany
+│   │   ├── FetchTable
+│   │   ├── InvestmentForm
+│   │   ├── LoadingSpinner
+│   │   ├── LoginInput
+│   │   ├── Modal
+│   │   ├── MyCompanySection
+│   │   ├── Navbar
+│   │   ├── PageSizeSelector
+│   │   ├── PaginationBtn
+│   │   ├── SearchBar
+│   │   ├── SelectOption
+│   │   ├── Skeletons
+│   │   ├── ToastMessage
+│   │   └── ToolTip
+│   ├── config
+│   │   ├── columnsConfig.js
+│   │   ├── config.js
+│   │   ├── filterConfig.js
+│   │   ├── investorsListData.js
+│   │   ├── invInitialData_mock_80_with_description.js
+│   │   └── invInitialData_v2.js
+│   ├── hooks
+│   │   ├── useAuth.js
+│   │   ├── useBoolean.js
+│   │   ├── useCompanies.js
+│   │   ├── useCompanyDetail.js
+│   │   ├── useErrorCheck.js
+│   │   ├── useFetchLoading.js
+│   │   ├── usePageSize.js
+│   │   ├── usePagination.js
+│   │   ├── usePasswordCheck.js
+│   │   ├── useSearchFilter.js
+│   │   └── useToast.js
+│   ├── main.jsx
+│   ├── pages
+│   │   ├── CompanyDetailPage
+│   │   ├── InvestmentOverviewPage
+│   │   ├── LandingPage
+│   │   ├── MyCompanyCompare
+│   │   ├── MyCompanyResult
+│   │   └── SelectedOverviewPage
+│   └── utils
+│       ├── formatCompanyData.js
+│       ├── formatCurrency.js
+│       └── getCurrentPageData.js
+└── vite.config.js
 ```
 # 구현 홈페이지
 
