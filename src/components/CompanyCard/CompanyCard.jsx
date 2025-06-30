@@ -4,7 +4,7 @@
 // data 객체에 필요한 프로퍼티: name(회사의 이름. 예시: 코드스테이츠), name2(회사의 분야. 예시: 에듀테크), imgUrl(회사 로고 이미지)
 
 import IcMinus from "../assets/ic_minus.svg";
-import { useSetCompareCompany } from "./CompareCompanySection/CompareCompanyContext";
+import { useSetCompareCompany } from "../CompareCompanySection/CompareCompanyContext";
 import React from "react";
 import styles from "./CompanyCard.module.css";
 
@@ -12,7 +12,7 @@ function CompanyCard({ name, data, button = false }) {
   const setCompareCompany = useSetCompareCompany();
 
   const handleRemoveBtn = () => {
-    setCompareCompany((prev) => prev.filter((item) => item !== data));
+    setCompareCompany(prev => prev.filter(item => item !== data));
   };
 
   return (

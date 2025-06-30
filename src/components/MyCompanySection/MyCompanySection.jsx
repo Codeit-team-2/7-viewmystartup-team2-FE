@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CompanySelectModal from "./CompanySelectModal";
-import CompanyCard from "../CompanyCard";
+import CompanyCard from "../CompanyCard/CompanyCard";
 import BtnPlus from "../../assets/btn_plus.png";
 import {
   useIsMyCompany,
@@ -19,7 +19,7 @@ function MyCompanySection({ name, children }) {
   const myCompany = useMyCompany();
   const setMyCompany = useSetMyCompany();
 
-  const handleIsModalOpen = (value) => {
+  const handleIsModalOpen = value => {
     setIsModalOpen(value);
   };
 
