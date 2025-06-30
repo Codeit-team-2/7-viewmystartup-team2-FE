@@ -40,7 +40,7 @@ export default function MultiKeyMovableRainbowCat() {
     const cellY = Math.floor(y / CELL_SIZE);
     const key = `${cellX},${cellY}`;
 
-    setColoredCellsMap(prev => {
+    setColoredCellsMap((prev) => {
       if (prev.has(key)) return prev;
       const newMap = new Map(prev);
       const color = `hsl(${Math.floor(Math.random() * 360)}, 100%, 70%)`;
@@ -54,7 +54,7 @@ export default function MultiKeyMovableRainbowCat() {
   };
 
   useEffect(() => {
-    const handleKeyDown = e => {
+    const handleKeyDown = (e) => {
       if (
         e.key === "ArrowUp" ||
         e.key === "ArrowDown" ||
@@ -69,7 +69,7 @@ export default function MultiKeyMovableRainbowCat() {
       }
     };
 
-    const handleKeyUp = e => {
+    const handleKeyUp = (e) => {
       if (
         e.key === "ArrowUp" ||
         e.key === "ArrowDown" ||
@@ -130,7 +130,7 @@ export default function MultiKeyMovableRainbowCat() {
         pos.x = nextX;
         pos.y = nextY;
         markCell(pos.x + lottieWidth / 2, pos.y + lottieHeight / 2);
-        setRenderTick(v => v + 1);
+        setRenderTick((v) => v + 1);
       }
 
       animationFrameId = requestAnimationFrame(animate);
@@ -149,7 +149,7 @@ export default function MultiKeyMovableRainbowCat() {
           onClick={() => {
             posRef.current = { x: 0, y: 0 };
             setColoredCellsMap(new Map());
-            setRenderTick(v => v + 1);
+            setRenderTick((v) => v + 1);
           }}
         >
           초기화
@@ -157,7 +157,7 @@ export default function MultiKeyMovableRainbowCat() {
         <button
           className={styles.btn}
           onClick={() => {
-            document.querySelector("._loginBtn_fepkq_81")?.click();
+            document.getElementById("login-button")?.click();
           }}
         >
           슈퍼고양이모드

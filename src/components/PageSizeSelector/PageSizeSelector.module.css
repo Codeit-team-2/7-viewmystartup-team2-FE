@@ -66,3 +66,31 @@
 .divider {
   border-top: 1px solid #ddd;
 }
+
+@media (min-width: 744px) and (max-width: 1199px) {
+  .selectBoxWrapper {
+    width: 50px;
+  }
+  .selected {
+    font-size: 0px;
+    color: transparent;
+  }
+  .optionsList {
+    width: 133px;
+    right: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .selectBoxWrapper {
+    width: 50px;
+  }
+  .selected {
+    font-size: 0px;
+    color: transparent;
+  }
+  .optionsList {
+    width: 133px;
+    right: 0;
+  }
+}

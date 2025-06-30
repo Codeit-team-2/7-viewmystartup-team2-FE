@@ -39,6 +39,7 @@
   }
   .tablebox {
     width: 824px;
+    scale: 0.9;
   }
   .customInput {
     font-size: 15px;
@@ -52,6 +53,9 @@
     min-width: 100px;
   }
   .tableNav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     width: 100%;
     padding: 0 16px;
   }
@@ -64,6 +68,7 @@
   .tablebox {
     width: 100%;
     padding: 0 16px;
+    scale: 0.9;
   }
   .customInput {
     font-size: 15px;

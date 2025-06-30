@@ -67,6 +67,7 @@ export default function Navbar() {
       <div>
         {!isLoggedIn && (
           <button
+            id="login-button"
             className={styles.loginBtn}
             onClick={() => setOpenModal(true)}
           >

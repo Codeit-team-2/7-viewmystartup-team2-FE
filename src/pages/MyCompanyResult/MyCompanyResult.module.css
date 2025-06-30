@@ -95,7 +95,7 @@
     width: 740px;
   }
   .tableContainer {
-    width: 880px;
+    width: 90%;
     height: auto;
   }
 }
@@ -105,12 +105,11 @@
     width: 663px;
   }
   .tableContainer {
-    width: 678px;
+    width: 80%;
     height: auto;
   }
 
   .spaceBetween {
-    justify-content: center;
     gap: 171px;
   }
   .tableSize {
