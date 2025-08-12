@@ -9,7 +9,6 @@ import {
   useSetMyCompany,
 } from "./MyCompanyContext";
 import React from "react";
-import MyCompanyReset from "./MyCompanyReset";
 import styles from "./MyCompanySection.module.css";
 
 function MyCompanySection({ name, children }) {
